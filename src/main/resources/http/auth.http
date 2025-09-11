@@ -1,0 +1,60 @@
+### Registration
+POST http://213.230.99.253:8080/auth/registration
+Content-Type: application/json
+
+{
+  "name": "Avazbek",
+  "surname": "Yuldashev",
+  "username": "telegram.vzlom@gmail.com",
+  "password": "12345"
+}
+
+### Login
+POST http://172.16.254.134:8080/auth/login
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHcmVlZCIsInJvbGUiOiJST0xFX0FETUlOIiwiaWQiOiJkYjdhNjU3OS1jZDJjLTRkNGQtOTY4NS1jYTJmNWM1MTcyMDYiLCJpYXQiOjE3NTcxNjc3MjcsImV4cCI6MTc1NzI1NDEyN30.V3mXoq7mEB1d9E13Q6VeU64TrOPjSYwvuUCVtszOVla05hFgVICK_UHDm_VdIBqPiCTUuiCWeFvOwLRvAuNDhg
+
+{
+  "username": "telegram.vzlom@gmail.com",
+  "password": "12345"
+}
+
+### resend email
+GET http://localhost:8080/auth/registration/email-verification-resend
+Content-Type: application/json
+
+{
+  "phone": "avaz.yuldashev2004@gmail.com"
+}
+
+### Reset Password
+POST http://localhost:8080/auth/reset-password
+Content-Type: application/json
+
+{
+  "username": "998902597891"
+}
+
+### Reset Password
+POST http://localhost:8080/auth/reset-password
+Content-Type: application/json
+
+{
+  "username": "telegram.vzlom@gmail.com"
+}
+
+### Confirm Reset Password
+POST http://localhost:8080/auth/reset-password-confrim
+Content-Type: application/json
+
+{
+  "username": "telegram.vzlom@gmail.com",
+  "password": "11223344",
+  "confirmCode": "79313"
+}
+
+
+
+###
+GET http://172.16.254.134:8080
+    http://172.16.254.134:8080/auth/registration/email-verification/eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0MTQ2MjllMi1iMmYxLTRlNjQtYjMzMC1lNGU1OWEyMDJkMmEiLCJpYXQiOjE3NTcwNjE5NTAsImV4cCI6MTc1NzA2NTU1MH0.ftSmwKnJ6_F3J46-uYAridnT2CapRRwo1HpxO7sTtrV9T2Rzn8eIu345pJZwKqPJVtzwBjWR76AJQ-R4cqHHiQ/UZ
