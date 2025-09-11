@@ -58,6 +58,9 @@ public class ProfileEntity {
     @Column(name = "photo_id")
     private String photoId;
 
+    @Column(name = "in_progress")
+    private Boolean inProgress;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "photo_id", insertable = false, updatable = false)
     private AttachEntity photo;
@@ -77,5 +80,6 @@ public class ProfileEntity {
         this.createdDate = LocalDateTime.now();
         this.updatedDate  = LocalDateTime.now();
         this.isEmployee = Boolean.FALSE;
+        this.inProgress = Boolean.FALSE;
     }
 }
