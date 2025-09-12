@@ -46,7 +46,7 @@ public class CategoryService {
 
     public AppResponse<String> updateDetail(String id, CategoryAdminUpdateDTO dto) {
         findById(id);
-        int effectedRow = categoryRepository.updateDetail(id, dto.getTitle(), dto.getDescription(), LocalDateTime.now());
+        int effectedRow = categoryRepository.updateDetail(id, dto.getTitle(), dto.getDescription(), dto.getDepartmentId(), LocalDateTime.now());
         if (effectedRow > 0) {
             return new AppResponse<>("Category with id " + id + " updated successfully");
         }
