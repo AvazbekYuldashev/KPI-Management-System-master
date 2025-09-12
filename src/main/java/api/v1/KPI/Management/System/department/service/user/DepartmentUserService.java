@@ -13,6 +13,7 @@ public class DepartmentUserService extends DepartmentService {
 
     @Autowired
     private DepartmentMapper departmentMapper;
+
     public DepartmentResponseDTO userGetById(String id) {
         return departmentMapper.toResponseDTO(findById(id));
     }
