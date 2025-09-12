@@ -41,7 +41,8 @@ public class DepartmentAdminController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AppResponse<String>> updateDepartment(@PathVariable String id, @RequestBody DepartmentAdminUpdateDTO dto) {
+    public ResponseEntity<AppResponse<String>> updateDepartment(@PathVariable String id,
+                                                                @RequestBody DepartmentAdminUpdateDTO dto) {
         return ResponseEntity.ok().body(departmentAdminService.adminUpdate(id, dto));
     }
 

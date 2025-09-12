@@ -31,7 +31,7 @@ public class CategoryAdminController {
 
     @GetMapping("/all")
     public ResponseEntity<PageImpl<CategoryResponseDTO>> getAllDepartments(@RequestParam(value = "page", defaultValue = "1") int page,
-                                                                             @RequestParam(value = "size", defaultValue = "15") int size){
+                                                                           @RequestParam(value = "size", defaultValue = "15") int size){
         return ResponseEntity.ok().body(categoryAdminService.adminGetAll(getCurrentPage(page), size));
     }
 
@@ -41,7 +41,8 @@ public class CategoryAdminController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AppResponse<String>> updateDepartment(@PathVariable String id, @RequestBody CategoryAdminUpdateDTO dto) {
+    public ResponseEntity<AppResponse<String>> updateDepartment(@PathVariable String id,
+                                                                @RequestBody CategoryAdminUpdateDTO dto) {
         return ResponseEntity.ok().body(categoryAdminService.adminUpdate(id, dto));
     }
 
