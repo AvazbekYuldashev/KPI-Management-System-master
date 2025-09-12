@@ -1,6 +1,5 @@
 package api.v1.KPI.Management.System.category.controller.user;
 
-
 import api.v1.KPI.Management.System.category.dto.CategoryResponseDTO;
 import api.v1.KPI.Management.System.category.service.user.CategoryUserService;
 import org.springframework.beans.factory.annotation.Autowired;
