@@ -1,19 +1,20 @@
 package api.v1.KPI.Management.System.department.service.user;
 
 import api.v1.KPI.Management.System.department.dto.DepartmentResponseDTO;
-import api.v1.KPI.Management.System.department.entity.DepartmentEntity;
+import api.v1.KPI.Management.System.department.mapper.DepartmentMapper;
 import api.v1.KPI.Management.System.department.service.DepartmentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class DepartmentUserService extends DepartmentService {
 
+    @Autowired
+    private DepartmentMapper departmentMapper;
     public DepartmentResponseDTO userGetById(String id) {
-        return getById(id);
+        return departmentMapper.toResponseDTO(findById(id));
     }
 
     public PageImpl<DepartmentResponseDTO> userGetAll(int page, int size) {
