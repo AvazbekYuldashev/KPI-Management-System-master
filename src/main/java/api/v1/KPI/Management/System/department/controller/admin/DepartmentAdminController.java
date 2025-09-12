@@ -1,5 +1,6 @@
 package api.v1.KPI.Management.System.department.controller.admin;
 
+import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.department.dto.DepartmentResponseDTO;
 import api.v1.KPI.Management.System.department.dto.admin.DepartmentAdminCreateDTO;
 import api.v1.KPI.Management.System.department.service.admin.DepartmentAdminService;
@@ -31,6 +32,11 @@ public class DepartmentAdminController {
     public ResponseEntity<PageImpl<DepartmentResponseDTO>> getAllDepartments(@RequestParam(value = "page", defaultValue = "1") int page,
                                                                              @RequestParam(value = "size", defaultValue = "15") int size){
         return ResponseEntity.ok().body(departmentAdminService.getAll(getCurrentPage(page), size));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<AppResponse<String>> deleteDepartment(@PathVariable String id) {
+        return ResponseEntity.ok().body(departmentAdminService.adminDelete(id));
     }
 
 

@@ -1,5 +1,6 @@
 package api.v1.KPI.Management.System.department.service;
 
+import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.department.dto.admin.DepartmentAdminCreateDTO;
 import api.v1.KPI.Management.System.department.entity.DepartmentEntity;
 import api.v1.KPI.Management.System.department.repository.DepartmentRepository;
@@ -27,6 +28,15 @@ public class DepartmentService {
             throw new ResourceNotFoundException("Department with id " + id + " not found");
         }
         return optional.get();
+    }
+
+    public AppResponse<String> deleteById(String id) {
+        DepartmentEntity entity = findById(id);
+        int effectedRow = departmentRepository.deleteSoft(entity);
+        if (effectedRow > 0) {
+            return new AppResponse<>("Department with id " + id + " deleted successfully");
+        }
+        return new AppResponse<>("Department with id " + id + " not found");
     }
 
 

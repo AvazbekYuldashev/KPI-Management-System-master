@@ -1,5 +1,6 @@
 package api.v1.KPI.Management.System.department.service.admin;
 
+import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.department.dto.DepartmentResponseDTO;
 import api.v1.KPI.Management.System.department.dto.admin.DepartmentAdminCreateDTO;
 import api.v1.KPI.Management.System.department.entity.DepartmentEntity;
@@ -38,5 +39,10 @@ public class DepartmentAdminService extends DepartmentService {
         long total = pageObj.getTotalElements();
         return new PageImpl<>(response, pageable, total);
     }
+
+    public AppResponse<String> adminDelete(String id) {
+        return deleteById(id);
+    }
+
 
 }
