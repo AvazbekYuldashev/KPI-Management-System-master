@@ -3,6 +3,7 @@ package api.v1.KPI.Management.System.department.service.admin;
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.department.dto.DepartmentResponseDTO;
 import api.v1.KPI.Management.System.department.dto.admin.DepartmentAdminCreateDTO;
+import api.v1.KPI.Management.System.department.dto.admin.DepartmentAdminUpdateDTO;
 import api.v1.KPI.Management.System.department.entity.DepartmentEntity;
 import api.v1.KPI.Management.System.department.mapper.DepartmentMapper;
 import api.v1.KPI.Management.System.department.repository.DepartmentRepository;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,4 +47,7 @@ public class DepartmentAdminService extends DepartmentService {
     }
 
 
+    public AppResponse<String> adminUpdate(String id, DepartmentAdminUpdateDTO dto) {
+        return updateDetail(id, dto);
+    }
 }

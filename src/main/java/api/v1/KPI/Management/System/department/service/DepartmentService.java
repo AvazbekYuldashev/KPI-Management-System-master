@@ -2,6 +2,7 @@ package api.v1.KPI.Management.System.department.service;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.department.dto.admin.DepartmentAdminCreateDTO;
+import api.v1.KPI.Management.System.department.dto.admin.DepartmentAdminUpdateDTO;
 import api.v1.KPI.Management.System.department.entity.DepartmentEntity;
 import api.v1.KPI.Management.System.department.repository.DepartmentRepository;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -35,6 +37,15 @@ public class DepartmentService {
         int effectedRow = departmentRepository.deleteSoft(entity);
         if (effectedRow > 0) {
             return new AppResponse<>("Department with id " + id + " deleted successfully");
+        }
+        return new AppResponse<>("Department with id " + id + " not found");
+    }
+
+    public AppResponse<String> updateDetail(String id, DepartmentAdminUpdateDTO dto) {
+        findById(id);
+        int EffectedRow = departmentRepository.updateDetail(id, dto.getTitle(), dto.getDescription(), dto.getChiefId(), LocalDateTime.now());
+        if (EffectedRow > 0) {
+            return new AppResponse<>("Department with id " + id + " updated successfully");
         }
         return new AppResponse<>("Department with id " + id + " not found");
     }

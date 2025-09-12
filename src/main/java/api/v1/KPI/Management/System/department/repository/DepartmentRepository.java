@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Repository
@@ -23,6 +24,21 @@ public interface DepartmentRepository extends JpaRepository<DepartmentEntity, St
 
     @Modifying
     @Transactional
-    @Query("UPDATE DepartmentEntity SET visible = FALSE WHERE id = :idP")
+    @Query("UPDATE DepartmentEntity d SET d.visible = FALSE WHERE d.id = :idP")
     int deleteSoft(DepartmentEntity entity);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE DepartmentEntity d SET " +
+            "d.title = COALESCE(:title, d.title), " +
+            "d.description = COALESCE(:description, d.description), " +
+            "d.chiefId = COALESCE(:chiefId, d.chiefId), " +
+            "d.updatedDate =  :now " +
+            "WHERE d.id = :id")
+    int updateDetail(@Param("id") String id,
+                     @Param("title") String title,
+                     @Param("description") String description,
+                     @Param("chiefId") String chiefId,
+                     @Param("now") LocalDateTime now);
+
 }
