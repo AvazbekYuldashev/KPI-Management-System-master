@@ -1,13 +1,11 @@
-package api.v1.KPI.Management.System.category.service.admin;
+package api.v1.KPI.Management.System.category.dto.admin;
 
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
-public class CategoryAdminUpdateDTO {
+public class CategoryAdminCreateDTO {
     private String title;
     private String description;
     private String departmentId;

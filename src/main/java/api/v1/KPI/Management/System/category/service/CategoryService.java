@@ -5,7 +5,7 @@ import api.v1.KPI.Management.System.category.dto.CategoryResponseDTO;
 import api.v1.KPI.Management.System.category.entity.CategoryEntity;
 import api.v1.KPI.Management.System.category.mapper.CategoryMapper;
 import api.v1.KPI.Management.System.category.repository.CategoryRepository;
-import api.v1.KPI.Management.System.category.service.admin.CategoryAdminUpdateDTO;
+import api.v1.KPI.Management.System.category.dto.admin.CategoryAdminUpdateDTO;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
