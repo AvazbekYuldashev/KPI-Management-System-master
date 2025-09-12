@@ -13,6 +13,10 @@ import org.hibernate.annotations.GenericGenerator;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
+
+// settings uchun accaunt deb
+// role access uchun profile deb nomleman endi new
 @Getter
 @Setter
 @Entity
