@@ -26,13 +26,13 @@ public class DepartmentAdminController {
 
     @GetMapping("/{id}")
     public ResponseEntity<DepartmentResponseDTO> getDepartment(@PathVariable String id) {
-        return ResponseEntity.ok().body(departmentAdminService.getById(id));
+        return ResponseEntity.ok().body(departmentAdminService.adminGetById(id));
     }
 
     @GetMapping("/all")
     public ResponseEntity<PageImpl<DepartmentResponseDTO>> getAllDepartments(@RequestParam(value = "page", defaultValue = "1") int page,
                                                                              @RequestParam(value = "size", defaultValue = "15") int size){
-        return ResponseEntity.ok().body(departmentAdminService.getAll(getCurrentPage(page), size));
+        return ResponseEntity.ok().body(departmentAdminService.adminGetAll(getCurrentPage(page), size));
     }
 
     @DeleteMapping("/{id}")
