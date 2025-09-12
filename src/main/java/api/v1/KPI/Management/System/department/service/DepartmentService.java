@@ -30,7 +30,4 @@ public class DepartmentService {
     }
 
 
-    private Page<DepartmentEntity> findAllPage(PageRequest of) {
-    }
-
 }

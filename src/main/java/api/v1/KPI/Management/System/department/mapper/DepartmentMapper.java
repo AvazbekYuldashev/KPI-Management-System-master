@@ -26,9 +26,8 @@ public class DepartmentMapper {
         responseDTO.setChiefId(entity.getChiefId());
         responseDTO.setCreatedDate(entity.getCreatedDate());
         responseDTO.setUpdatedDate(entity.getUpdatedDate());
+        responseDTO.setVisible(entity.getVisible());
         return responseDTO;
     }
 
-    public Page<DepartmentEntity> findAllPage(PageRequest of) {
-    }
 }

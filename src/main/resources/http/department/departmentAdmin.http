@@ -1,0 +1,20 @@
+### Create
+POST http://localhost:8080/admin/department
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHcmVlZCIsInJvbGUiOiJST0xFX0FETUlOIiwiaWQiOiJkMzMyZWU3My00YzRiLTQ5YWYtYmMwNS04YjYyYzQ2Yjk3MWYiLCJpYXQiOjE3NTc2NjM3MTUsImV4cCI6MTc1Nzc1MDExNX0.ZTa-WEXmkyJDUYvQ91BWQ7VfS8Bp6DPbr3N4pyODcoMJ0zAKJRqFnG8yvQJZSXb_g88eX8JQXhTqPwXiqdc_qw
+
+{
+  "title": "RTTM",
+  "description": "Raqamli Talim Texnalogialar Markazi"
+}
+
+
+### Get All
+GET http://localhost:8080/admin/department/all
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHcmVlZCIsInJvbGUiOiJST0xFX0FETUlOIiwiaWQiOiJkMzMyZWU3My00YzRiLTQ5YWYtYmMwNS04YjYyYzQ2Yjk3MWYiLCJpYXQiOjE3NTc2NjM3MTUsImV4cCI6MTc1Nzc1MDExNX0.ZTa-WEXmkyJDUYvQ91BWQ7VfS8Bp6DPbr3N4pyODcoMJ0zAKJRqFnG8yvQJZSXb_g88eX8JQXhTqPwXiqdc_qw
+
+### Get By Id
+GET http://localhost:8080/admin/department/c023adde-c2c8-4173-95bc-c058acef4f70
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHcmVlZCIsInJvbGUiOiJST0xFX0FETUlOIiwiaWQiOiJkMzMyZWU3My00YzRiLTQ5YWYtYmMwNS04YjYyYzQ2Yjk3MWYiLCJpYXQiOjE3NTc2NjM3MTUsImV4cCI6MTc1Nzc1MDExNX0.ZTa-WEXmkyJDUYvQ91BWQ7VfS8Bp6DPbr3N4pyODcoMJ0zAKJRqFnG8yvQJZSXb_g88eX8JQXhTqPwXiqdc_qw

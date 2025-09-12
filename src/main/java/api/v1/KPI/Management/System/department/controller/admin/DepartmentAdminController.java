@@ -27,11 +27,13 @@ public class DepartmentAdminController {
         return ResponseEntity.ok().body(departmentAdminService.getById(id));
     }
 
-    @GetMapping("")
+    @GetMapping("/all")
     public ResponseEntity<PageImpl<DepartmentResponseDTO>> getAllDepartments(@RequestParam(value = "page", defaultValue = "1") int page,
                                                                              @RequestParam(value = "size", defaultValue = "15") int size){
         return ResponseEntity.ok().body(departmentAdminService.getAll(getCurrentPage(page), size));
     }
+
+
 
     public static int getCurrentPage(Integer page) {
         return page > 0 ? page - 1 : 1;
