@@ -1,9 +1,6 @@
 package api.v1.KPI.Management.System.offering.controller.admin;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
-import api.v1.KPI.Management.System.department.dto.DepartmentResponseDTO;
-import api.v1.KPI.Management.System.department.dto.admin.DepartmentAdminCreateDTO;
-import api.v1.KPI.Management.System.department.dto.admin.DepartmentAdminUpdateDTO;
 import api.v1.KPI.Management.System.offering.dto.OfferingResponseDTO;
 import api.v1.KPI.Management.System.offering.dto.admin.OfferingAdminCreateDTO;
 import api.v1.KPI.Management.System.offering.dto.admin.OfferingAdminUpdateDTO;
