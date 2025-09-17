@@ -61,4 +61,13 @@ public class ApplicationService {
         long total = pageObj.getTotalElements();
         return new PageImpl<>(response, pageable, total);
     }
+
+    public PageImpl<ApplicationResponseDTO> getAllMe(int page, int size, String profileId) {
+        Sort sort = Sort.by("createdDate").descending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Page<ApplicationEntity> pageObj = applicationRepository.findAllByProfileId(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()), profileId);
+        List<ApplicationResponseDTO> response = pageObj.getContent().stream().map(applicationMapper::toResponseDTO).collect(Collectors.toList());
+        long total = pageObj.getTotalElements();
+        return new PageImpl<>(response, pageable, total);
+    }
 }

@@ -21,6 +21,8 @@ public interface ApplicationRepository extends JpaRepository<ApplicationEntity, 
 
     @Query("SELECT a FROM ApplicationEntity a WHERE a.visible = true ORDER BY a.createdDate DESC")
     Page<ApplicationEntity> findAllPage(PageRequest of);
+    @Query("SELECT a FROM ApplicationEntity a WHERE a.sendProfile = :profileId AND a.visible = true ORDER BY a.createdDate DESC")
+    Page<ApplicationEntity> findAllByProfileId(PageRequest of, @Param("profileId") String profileId);
 
     @Modifying
     @Transactional
@@ -46,4 +48,5 @@ public interface ApplicationRepository extends JpaRepository<ApplicationEntity, 
     @Transactional
     @Query("UPDATE ApplicationEntity a SET a.visible = false WHERE a.id = :id ")
     int deleteSoft(@Param("id") String id);
+
 }

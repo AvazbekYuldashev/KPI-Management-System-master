@@ -2,11 +2,13 @@ package api.v1.KPI.Management.System.application.mapper;
 
 import api.v1.KPI.Management.System.application.dto.ApplicationResponseDTO;
 import api.v1.KPI.Management.System.application.dto.admin.ApplicationAdminCreateDTO;
+import api.v1.KPI.Management.System.application.dto.user.ApplicationUserCreateDTO;
 import api.v1.KPI.Management.System.application.entity.ApplicationEntity;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ApplicationMapper {
+
     public ApplicationResponseDTO toResponseDTO(ApplicationEntity entity) {
         ApplicationResponseDTO dto = new ApplicationResponseDTO();
         dto.setId(entity.getId());
@@ -31,4 +33,13 @@ public class ApplicationMapper {
         entity.setBuildingId(dto.getBuildingId());
         return entity;
     }
+
+    public ApplicationEntity toUserCreatedEntity(ApplicationUserCreateDTO dto) {
+        ApplicationEntity entity = new ApplicationEntity();
+        entity.setTitle(dto.getTitle());
+        entity.setDescription(dto.getDescription());
+        entity.setBuildingId(dto.getBuildingId());
+        return entity;
+    }
+
 }

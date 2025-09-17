@@ -19,28 +19,28 @@ public class ApplicationAdminController {
     private ApplicationAdminService applicationAdminService;
 
     @PostMapping("")
-    public ResponseEntity<ApplicationResponseDTO> createDepartment(@RequestBody ApplicationAdminCreateDTO dto) {
+    public ResponseEntity<ApplicationResponseDTO> create(@RequestBody ApplicationAdminCreateDTO dto) {
         return ResponseEntity.ok().body(applicationAdminService.adminCreate(dto));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApplicationResponseDTO> getDepartment(@PathVariable String id) {
+    public ResponseEntity<ApplicationResponseDTO> getById(@PathVariable String id) {
         return ResponseEntity.ok().body(applicationAdminService.adminGetById(id));
     }
 
     @GetMapping("/all")
-    public ResponseEntity<PageImpl<ApplicationResponseDTO>> getAllDepartments(@RequestParam(value = "page", defaultValue = "1") int page,
+    public ResponseEntity<PageImpl<ApplicationResponseDTO>> getAll(@RequestParam(value = "page", defaultValue = "1") int page,
                                                                            @RequestParam(value = "size", defaultValue = "15") int size){
         return ResponseEntity.ok().body(applicationAdminService.adminGetAll(getCurrentPage(page), size));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<AppResponse<String>> deleteDepartment(@PathVariable String id) {
+    public ResponseEntity<AppResponse<String>> deleteSoft(@PathVariable String id) {
         return ResponseEntity.ok().body(applicationAdminService.adminDelete(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AppResponse<String>> updateDepartment(@PathVariable String id,
+    public ResponseEntity<AppResponse<String>> update(@PathVariable String id,
                                                                 @RequestBody ApplicationAdminUpdateDTO dto) {
         return ResponseEntity.ok().body(applicationAdminService.adminUpdate(id, dto));
     }
