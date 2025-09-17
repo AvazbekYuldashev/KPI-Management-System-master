@@ -1,6 +1,7 @@
 package api.v1.KPI.Management.System.application.service.admin;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
+import api.v1.KPI.Management.System.application.dto.ApplicationDTO;
 import api.v1.KPI.Management.System.application.dto.ApplicationResponseDTO;
 import api.v1.KPI.Management.System.application.dto.admin.ApplicationAdminCreateDTO;
 import api.v1.KPI.Management.System.application.dto.admin.ApplicationAdminUpdateDTO;
@@ -32,6 +33,6 @@ public class ApplicationAdminService extends ApplicationService {
     }
 
     public AppResponse<String> adminUpdate(String id, ApplicationAdminUpdateDTO dto) {
-        return updateDetail(id, dto);
+        return updateDetail(id, applicationMapper.adminUpdateToDTO(dto));
     }
 }

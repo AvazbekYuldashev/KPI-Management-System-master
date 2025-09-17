@@ -5,6 +5,7 @@ import api.v1.KPI.Management.System.application.enums.ApplicationStatus;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -20,9 +21,9 @@ public interface ApplicationRepository extends JpaRepository<ApplicationEntity, 
     Optional<ApplicationEntity> findById(@Param("idP") String id);
 
     @Query("SELECT a FROM ApplicationEntity a WHERE a.visible = true ORDER BY a.createdDate DESC")
-    Page<ApplicationEntity> findAllPage(PageRequest of);
+    Page<ApplicationEntity> findAllPage(Pageable of);
     @Query("SELECT a FROM ApplicationEntity a WHERE a.sendProfile = :profileId AND a.visible = true ORDER BY a.createdDate DESC")
-    Page<ApplicationEntity> findAllByProfileId(PageRequest of, @Param("profileId") String profileId);
+    Page<ApplicationEntity> findAllByProfileId(Pageable of, @Param("profileId") String profileId);
 
     @Modifying
     @Transactional

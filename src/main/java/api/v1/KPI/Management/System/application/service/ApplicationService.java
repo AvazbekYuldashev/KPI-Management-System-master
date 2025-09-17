@@ -1,6 +1,7 @@
 package api.v1.KPI.Management.System.application.service;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
+import api.v1.KPI.Management.System.application.dto.ApplicationDTO;
 import api.v1.KPI.Management.System.application.dto.ApplicationResponseDTO;
 import api.v1.KPI.Management.System.application.dto.admin.ApplicationAdminUpdateDTO;
 import api.v1.KPI.Management.System.application.entity.ApplicationEntity;
@@ -44,7 +45,7 @@ public class ApplicationService {
         return new AppResponse<>("Application with id " + id + " not found");
     }
 
-    public AppResponse<String> updateDetail(String id, ApplicationAdminUpdateDTO dto) {
+    public AppResponse<String> updateDetail(String id, ApplicationDTO dto) {
         findById(id);
         int EffectedRow = applicationRepository.updateDetail(id, dto.getTitle(), dto.getDescription(), dto.getStatus(), dto.getSendProfileId(), dto.getAcceptorProfileId(), dto.getBuildingId(), LocalDateTime.now());
         if (EffectedRow > 0) {

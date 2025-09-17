@@ -1,8 +1,11 @@
 package api.v1.KPI.Management.System.application.mapper;
 
+import api.v1.KPI.Management.System.application.dto.ApplicationDTO;
 import api.v1.KPI.Management.System.application.dto.ApplicationResponseDTO;
 import api.v1.KPI.Management.System.application.dto.admin.ApplicationAdminCreateDTO;
+import api.v1.KPI.Management.System.application.dto.admin.ApplicationAdminUpdateDTO;
 import api.v1.KPI.Management.System.application.dto.user.ApplicationUserCreateDTO;
+import api.v1.KPI.Management.System.application.dto.user.ApplicationUserUpdateDTO;
 import api.v1.KPI.Management.System.application.entity.ApplicationEntity;
 import org.springframework.stereotype.Component;
 
@@ -42,4 +45,22 @@ public class ApplicationMapper {
         return entity;
     }
 
+    public ApplicationDTO adminUpdateToDTO(ApplicationAdminUpdateDTO dto) {
+        ApplicationDTO dto1 = new ApplicationDTO();
+        dto1.setTitle(dto.getTitle());
+        dto1.setDescription(dto.getDescription());
+        dto1.setStatus(dto.getStatus());
+        dto1.setSendProfileId(dto.getSendProfileId());
+        dto1.setAcceptorProfileId(dto.getAcceptorProfileId());
+        dto1.setBuildingId(dto.getBuildingId());
+        return dto1;
+    }
+
+    public ApplicationDTO userUpdateToDTO(ApplicationUserUpdateDTO dto) {
+        ApplicationDTO dto1 = new ApplicationDTO();
+        dto1.setTitle(dto.getTitle());
+        dto1.setDescription(dto.getDescription());
+        dto1.setBuildingId(dto.getBuildingId());
+        return dto1;
+    }
 }
