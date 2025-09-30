@@ -53,7 +53,7 @@ public class ProfileService {
 
     public ProfileDTO getMe(AppLanguage lang) {
         String id = SpringSecurityUtil.getCurrentUserId();
-        ProfileEntity profile = getById(id, lang);
+        ProfileEntity profile = findById(id, lang);
         return profileMapper.toInfoDTO(profile);
     }
 
@@ -69,7 +69,7 @@ public class ProfileService {
     /// If the old password is incorrect, an error is returned
     public AppResponse<String> updatePassword(@Valid ProfilePasswordUpdate dto, AppLanguage lang) {
         String id = SpringSecurityUtil.getCurrentUserId();
-        ProfileEntity profile = getById(id, lang);
+        ProfileEntity profile = findById(id, lang);
         if (!bc.matches(dto.getOldPassword(), profile.getPassword())){
             throw new AppBadException(boundleService.getMessage("wrong.password", lang));
         }
@@ -95,7 +95,7 @@ public class ProfileService {
 
     /// Finds the profile by the given ID.
     /// Returns an error if not found.
-    public ProfileEntity getById(String id, AppLanguage lang) {
+    public ProfileEntity findById(String id, AppLanguage lang) {
         Optional<ProfileEntity> optional = profileRepository.findByIdAndVisibleTrue(id);
         if (optional.isEmpty()){
             throw new ResourceNotFoundException(boundleService.getMessage("profile.not.found", lang) + ": " + id);
@@ -105,7 +105,7 @@ public class ProfileService {
 
     /// Confirms username change: checks the code sent for the temporary username, updates the primary username, and returns the updated JWT token.
     public AppResponse<String> updateUsernameConfirm(CodeConfirmDTO dto, AppLanguage lang) {
-        ProfileEntity profile = getById(SpringSecurityUtil.getCurrentUserId(), lang);
+        ProfileEntity profile = findById(SpringSecurityUtil.getCurrentUserId(), lang);
         if (EmailUtil.isEmail(profile.getUsername())){
             emailHistoryService.check(profile.getTempUsername(), dto.getCode(), lang);
         }
@@ -115,7 +115,7 @@ public class ProfileService {
 
 
     public AppResponse<String> updatePhoto(@NotBlank(message = "attach Id required") String photoId, AppLanguage lang) {
-        ProfileEntity profile = getById(SpringSecurityUtil.getCurrentUserId(), lang);
+        ProfileEntity profile = findById(SpringSecurityUtil.getCurrentUserId(), lang);
         if (profile.getPhotoId() != null && !profile.getPhotoId().equals(photoId)){
             attachService.deleteSoft(profile.getPhotoId());
         }
@@ -128,7 +128,7 @@ public class ProfileService {
         if (!SpringSecurityUtil.getCurrentUserId().equals(id) && !SpringSecurityUtil.haseRole().equals(ProfileRole.ROLE_ADMIN)){
             throw new AuthorizationDeniedException("You are not allowed to update this KPI."); // todo exp message
         }
-        ProfileEntity profile = getById(id, lang);
+        ProfileEntity profile = findById(id, lang);
 
         profileRepository.deleteSoftById(profile.getId(), false);
         return new AppResponse<>(boundleService.getMessage("update.successfully.completed",lang));
@@ -137,7 +137,7 @@ public class ProfileService {
 
     /// Finds an active (visible) profile for the given username.
     /// Returns an error if not found.
-    public ProfileEntity getByUsername(String username, AppLanguage lang) {
+    public ProfileEntity findByUsername(String username, AppLanguage lang) {
         Optional<ProfileEntity> optional = profileRepository.findByUsernameAndVisibleTrue(username);
         if (optional.isEmpty()) {
             throw new ResourceNotFoundException(boundleService.getMessage("username.not.found", lang));
@@ -145,8 +145,8 @@ public class ProfileService {
         return optional.get();
     }
 
-    public ProfileDTO findByUsername(String username, AppLanguage lang) {
-        ProfileEntity entity =  getByUsername(username, lang);
+    public ProfileDTO getByUsername(String username, AppLanguage lang) {
+        ProfileEntity entity =  findByUsername(username, lang);
         return profileMapper.toInfoDTO(entity);
     }
 
