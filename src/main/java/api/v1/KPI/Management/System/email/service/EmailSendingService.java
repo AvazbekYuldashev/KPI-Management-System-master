@@ -24,6 +24,8 @@ public class EmailSendingService {
     private String fromAccaunt;
     @Value("${server.domain}")
     private String serverDomain;
+    @Value("${server.port}")
+    private String serverPort;
 
     @Autowired
     private JavaMailSender mailSender;
@@ -71,7 +73,7 @@ public class EmailSendingService {
                 "\n" +
                 "</body>\n" +
                 "</html>";
-        body = String.format(body, boundleService.getMessage("registration.email.confirm.send", lang), "http://" + serverDomain + ":8080", JwtUtil.encodeVer(profileId), lang.name());
+        body = String.format(body, boundleService.getMessage("registration.email.confirm.send", lang), serverDomain + serverPort, JwtUtil.encodeVer(profileId), lang.name());
         sendMimeEmail(email, subject, body);
         return boundleService.getMessage("registration.email.confirm.send", lang);
     }

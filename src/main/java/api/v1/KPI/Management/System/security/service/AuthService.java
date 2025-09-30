@@ -76,7 +76,7 @@ public class AuthService {
     public String registrationEmailVerification(String token, AppLanguage lang) {
         try {
             String id = JwtUtil.decodeRegVerToken(token);
-            ProfileEntity profile = profileService.getById(id, lang);
+            ProfileEntity profile = profileService.findById(id, lang);
             if (profile.getStatus().equals(GeneralStatus.IN_REGISTRATION)) {
                 profileRepository.changeStatus(profile.getId(), GeneralStatus.ACTIVE); // ACTIVE
                 return boundleService.getMessage("successfully.registered", lang);
@@ -88,7 +88,7 @@ public class AuthService {
 
     /// Logs in the user: checks the username and password, returns a login response if the status is ACTIVE, otherwise returns an error.
     public ProfileDTO login(AuthDTO dto, AppLanguage lang) {
-        ProfileEntity profile = profileService.getByUsername(dto.getUsername(), lang);
+        ProfileEntity profile = profileService.findByUsername(dto.getUsername(), lang);
 
         if (!bc.matches(dto.getPassword(), profile.getPassword())) {
             throw new ResourceNotFoundException(boundleService.getMessage("username.not.found", lang));
@@ -116,7 +116,7 @@ public class AuthService {
     /// Resends an email confirmation link to the user during the registration process.
     /// If the user is already registered, an error will be thrown.
     public String registrationEmailVerificationResend(EmailResendDTO dto, AppLanguage lang) {
-        ProfileEntity profile = profileService.getByUsername(dto.getUsername(), lang);
+        ProfileEntity profile = profileService.findByUsername(dto.getUsername(), lang);
         if (!profile.getStatus().equals(GeneralStatus.IN_REGISTRATION)) {
             throw new ResourceConflictException(boundleService.getMessage("you.have.previously.confirmed.your.registration", lang));
         }
@@ -126,7 +126,7 @@ public class AuthService {
     /// Checks the user's status to reset the password.
     /// If the status is ACTIVE, a confirmation message is sent via phone or email.
     public String resetPassword(ResetPasswordDTO dto, AppLanguage lang) {
-        ProfileEntity profile = profileService.getByUsername(dto.getUsername(), lang);
+        ProfileEntity profile = profileService.findByUsername(dto.getUsername(), lang);
         // check
         if (!profile.getStatus().equals(GeneralStatus.ACTIVE)) {throw new ProfileStatusException(boundleService.getMessage("wrong.status", lang));}
         // email or phoneNumber send confirm message

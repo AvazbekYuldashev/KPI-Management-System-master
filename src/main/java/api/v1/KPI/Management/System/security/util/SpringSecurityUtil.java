@@ -1,7 +1,6 @@
 package api.v1.KPI.Management.System.security.util;
 
 
-import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
 import api.v1.KPI.Management.System.profile.enums.ProfileRole;
 import api.v1.KPI.Management.System.security.config.CustomUserDetails;
 import org.springframework.security.core.Authentication;

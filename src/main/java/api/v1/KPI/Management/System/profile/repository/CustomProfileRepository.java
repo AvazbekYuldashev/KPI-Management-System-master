@@ -2,7 +2,7 @@ package api.v1.KPI.Management.System.profile.repository;
 
 
 import api.v1.KPI.Management.System.app.dto.FilterResultDTO;
-import api.v1.KPI.Management.System.profile.dto.admin.ProfileFilterDTO;
+import api.v1.KPI.Management.System.profile.dto.owner.ProfileFilterDTO;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
