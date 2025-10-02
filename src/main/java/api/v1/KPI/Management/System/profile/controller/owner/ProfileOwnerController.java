@@ -3,9 +3,9 @@ package api.v1.KPI.Management.System.profile.controller.owner;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
-import api.v1.KPI.Management.System.profile.dto.ProfileResponseDTO;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfileResponseDTO;
 import api.v1.KPI.Management.System.profile.dto.owner.*;
-import api.v1.KPI.Management.System.profile.dto.user.ProfilePhotoUpdate;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfilePhotoUpdate;
 import api.v1.KPI.Management.System.profile.service.owner.ProfileOwnerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +28,10 @@ public class    ProfileOwnerController {
         return ResponseEntity.ok().body(profileOwnerService.getAll(getCurrentPage(page), size));
     }
 
-
     @PutMapping("/photo")
-    public ResponseEntity<AppResponse<String>> updatePhoto(@Valid @RequestBody ProfilePhotoUpdate dto,
+    public ResponseEntity<AppResponse<String>> updatePhoto(@Valid @RequestBody ProfileOwnerUpdatePhotoDTO dto,
                                                            @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
-        return ResponseEntity.ok().body(profileOwnerService.updatePhoto(dto.getPhotoId(), lang));
+        return ResponseEntity.ok().body(profileOwnerService.photo(dto, lang));
     }
 
     @PatchMapping("/status")
@@ -60,16 +59,12 @@ public class    ProfileOwnerController {
         return ResponseEntity.ok().body(profileOwnerService.deletebyId(id, lang));
     }
 
-
     @PostMapping("/filter")
-    public ResponseEntity<Page<ProfileResponseDTO>> filter(@RequestBody ProfileFilterDTO dto,
+    public ResponseEntity<Page<ProfileResponseDTO>> filter(@RequestBody ProfileOwnerFilterDTO dto,
                                                            @RequestParam(value = "page", defaultValue = "1") Integer page,
                                                            @RequestParam(value = "size", defaultValue = "10") Integer size){
         return ResponseEntity.ok().body(profileOwnerService.filter(dto, getCurrentPage(page), size));
     }
-
-
-
 
     public static int getCurrentPage(Integer page) {
         return page > 0 ? page - 1 : 1;

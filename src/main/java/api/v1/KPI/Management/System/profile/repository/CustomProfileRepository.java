@@ -2,7 +2,7 @@ package api.v1.KPI.Management.System.profile.repository;
 
 
 import api.v1.KPI.Management.System.app.dto.FilterResultDTO;
-import api.v1.KPI.Management.System.profile.dto.owner.ProfileFilterDTO;
+import api.v1.KPI.Management.System.profile.dto.owner.ProfileOwnerFilterDTO;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -18,7 +18,7 @@ public class CustomProfileRepository {
     @Autowired
     private EntityManager entityManager;
 
-    public FilterResultDTO<ProfileEntity> filter(ProfileFilterDTO dto, Integer page, Integer size) {
+    public FilterResultDTO<ProfileEntity> filter(ProfileOwnerFilterDTO dto, Integer page, Integer size) {
         StringBuilder queryBuilder = new StringBuilder(" WHERE p.visible = true ");
         Map<String, Object> params = new HashMap<>();
 

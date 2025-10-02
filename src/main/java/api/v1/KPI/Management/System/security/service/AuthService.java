@@ -13,7 +13,7 @@ import api.v1.KPI.Management.System.exception.exps.ProfileStatusException;
 import api.v1.KPI.Management.System.exception.exps.ResourceConflictException;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
 import api.v1.KPI.Management.System.jwt.util.JwtUtil;
-import api.v1.KPI.Management.System.profile.dto.ProfileDTO;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfileDTO;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
 import api.v1.KPI.Management.System.profile.enums.ProfileRole;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;

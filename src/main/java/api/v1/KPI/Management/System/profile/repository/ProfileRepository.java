@@ -68,7 +68,7 @@ public interface ProfileRepository extends JpaRepository<ProfileEntity,String> {
     @Modifying
     @Transactional
     @Query("UPDATE ProfileEntity SET role = :roleP WHERE id = :idP")
-    void changeRole(@Param("idP") String id, @Param("roleP") ProfileRole role);
+    int changeRole(@Param("idP") String id, @Param("roleP") ProfileRole role);
 
     @Modifying
     @Transactional
@@ -77,5 +77,6 @@ public interface ProfileRepository extends JpaRepository<ProfileEntity,String> {
 
 
     @Query("SELECT p FROM ProfileEntity p WHERE p.role = :role AND p.visible = true ORDER BY p.createdDate DESC")
-    List<ProfileEntity> findAllByRoleManager(ProfileRole role);
+    List<ProfileEntity> findAllByRole(ProfileRole role);
+
 }

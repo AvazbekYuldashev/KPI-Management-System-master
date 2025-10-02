@@ -5,8 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ProfileOwnerFilterDTO {
-    private String name;
-    private String surname;
-    private String username;
+public class ProfileOwnerUpdatePhotoDTO {
+    private String profileId;
+    private String photoId;
 }
