@@ -1,15 +1,12 @@
-package api.v1.KPI.Management.System.profile.dto.owner;
+package api.v1.KPI.Management.System.profile.dto.admin;
 
 import api.v1.KPI.Management.System.security.enums.GeneralStatus;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ProfileOwnerChangeStatusDTO {
-    @NotNull
+public class ProfileAdminChangeStatusDTO {
     private String profileId;
-    @NotNull
     private GeneralStatus status;
 }

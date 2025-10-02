@@ -23,17 +23,17 @@ public class CustomProfileRepository {
         Map<String, Object> params = new HashMap<>();
 
         if (dto.getName() != null) {
-            queryBuilder.append(" AND lower(p.name) like :query ");
-            params.put("query", "%" + dto.getName().toLowerCase() + "% ");
+            queryBuilder.append(" AND lower(p.name) like :nameQuery ");
+            params.put("nameQuery", "%" + dto.getName().toLowerCase() + "% ");
         }
 
         if (dto.getSurname() != null) {
-            queryBuilder.append(" AND lower(p.surname) like :query ");
-            params.put("query", "%" + dto.getSurname().toLowerCase() + "% ");
+            queryBuilder.append(" AND lower(p.surname) like :surnameQuery ");
+            params.put("surnameQuery", "%" + dto.getSurname().toLowerCase() + "% ");
         }
         if (dto.getUsername() != null) {
-            queryBuilder.append(" AND lower(p.username) like :query ");
-            params.put("query", "%" + dto.getUsername().toLowerCase() + "% ");
+            queryBuilder.append(" AND lower(p.username) like :usernameQuery ");
+            params.put("usernameQuery", "%" + dto.getUsername().toLowerCase() + "% ");
         }
 
 

@@ -17,6 +17,7 @@ import api.v1.KPI.Management.System.profile.enums.ProfileRole;
 import api.v1.KPI.Management.System.profile.mapper.ProfileMapper;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
 import api.v1.KPI.Management.System.security.dto.CodeConfirmDTO;
+import api.v1.KPI.Management.System.security.enums.GeneralStatus;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -154,7 +155,7 @@ public class ProfileCoreService {
 
     ///  private Service method
     public AppResponse<String> updateRole(String id, ProfileRole role, AppLanguage lang) {
-        Integer effectedRow = profileRepository.changeRole(id, role);
+        int effectedRow = profileRepository.changeRole(id, role);
         if (effectedRow > 0){
             return new AppResponse<>(boundleService.getMessage("update.successfully.completed", lang));
         }
@@ -170,5 +171,15 @@ public class ProfileCoreService {
     public List<ProfileResponseDTO> findByRole(AppLanguage lang) {
         return profileRepository.findAllByRole(ProfileRole.ROLE_MANAGER).
                 stream().map(profileMapper::toallResponseDTO).toList();
+    }
+
+    public AppResponse<String> updateStatus(@NotBlank String id, @NotBlank GeneralStatus status, AppLanguage lang) {
+        int effectedRow = profileRepository.changeStatus(id, status);
+        if (effectedRow > 0){
+            return new AppResponse<>(boundleService.getMessage("update.successfully.completed", lang));
+        }
+        else {
+            throw new AppBadException(boundleService.getMessage("update.failed", lang));
+        }
     }
 }

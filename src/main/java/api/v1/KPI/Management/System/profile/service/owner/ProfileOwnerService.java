@@ -16,8 +16,10 @@ import api.v1.KPI.Management.System.profile.repository.CustomProfileRepository;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
 import api.v1.KPI.Management.System.profile.service.core.ProfileCoreService;
 import api.v1.KPI.Management.System.profile.service.profile.ProfileService;
+import api.v1.KPI.Management.System.security.enums.GeneralStatus;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -64,9 +66,9 @@ public class ProfileOwnerService extends ProfileCoreService {
 
     /// Updates the status for the given user ID.
     public AppResponse<String> changeStatus(ProfileOwnerChangeStatusDTO dto, AppLanguage lang) {
-        profileRepository.changeStatus(dto.getId(), dto.getStatus());
-        return new AppResponse<>(boundleService.getMessage("update.successfully.completed", lang));
+        return updateStatus(dto.getProfileId(), dto.getStatus(), lang);
     }
+
 
     public Page<ProfileResponseDTO> filter(ProfileOwnerFilterDTO dto, int page, int size) {
         FilterResultDTO<ProfileEntity> resultDTO = customProfileRepository.filter(dto, page, size);
