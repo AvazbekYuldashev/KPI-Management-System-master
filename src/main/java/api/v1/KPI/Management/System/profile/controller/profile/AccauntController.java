@@ -3,13 +3,14 @@ package api.v1.KPI.Management.System.profile.controller.profile;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
-import api.v1.KPI.Management.System.profile.dto.ProfileDTO;
-import api.v1.KPI.Management.System.profile.dto.user.ProfileDetailUpdateDTO;
-import api.v1.KPI.Management.System.profile.dto.user.ProfilePasswordUpdate;
-import api.v1.KPI.Management.System.profile.dto.user.ProfilePhotoUpdate;
-import api.v1.KPI.Management.System.profile.dto.user.ProfileUsernameUpdateDTO;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfileDTO;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfileDetailUpdateDTO;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfilePasswordUpdate;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfilePhotoUpdate;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfileUsernameUpdateDTO;
 import api.v1.KPI.Management.System.profile.service.profile.ProfileService;
 import api.v1.KPI.Management.System.security.dto.CodeConfirmDTO;
+import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/profile")
 
-public class ProfileController {
+public class AccauntController {
     @Autowired
     private ProfileService profileService;
 
@@ -58,14 +59,7 @@ public class ProfileController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<AppResponse<String>> delete(@PathVariable("id") String id,
-                                                       @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang ) {
-
-        return ResponseEntity.ok().body(profileService.deletebyId(id, lang));
+    public ResponseEntity<AppResponse<String>> delete(@RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang ) {
+        return ResponseEntity.ok().body(profileService.deletebyId(SpringSecurityUtil.getCurrentUserId(), lang));
     }
-
-    public static int getCurrentPage(Integer page) {
-        return page > 0 ? page - 1 : 1;
-    }
-
 }

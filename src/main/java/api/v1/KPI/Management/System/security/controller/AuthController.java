@@ -3,7 +3,7 @@ package api.v1.KPI.Management.System.security.controller;
 
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.email.dto.EmailResendDTO;
-import api.v1.KPI.Management.System.profile.dto.ProfileDTO;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfileDTO;
 import api.v1.KPI.Management.System.security.dto.AuthDTO;
 import api.v1.KPI.Management.System.security.dto.RegistrationDTO;
 import api.v1.KPI.Management.System.security.dto.ResetPasswordConfirmDTO;

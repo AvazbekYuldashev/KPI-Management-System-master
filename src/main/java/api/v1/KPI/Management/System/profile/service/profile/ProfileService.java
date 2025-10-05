@@ -11,15 +11,16 @@ import api.v1.KPI.Management.System.exception.exps.AppBadException;
 import api.v1.KPI.Management.System.exception.exps.ResourceConflictException;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
 import api.v1.KPI.Management.System.jwt.util.JwtUtil;
-import api.v1.KPI.Management.System.profile.dto.ProfileDTO;
-import api.v1.KPI.Management.System.profile.dto.ProfileResponseDTO;
-import api.v1.KPI.Management.System.profile.dto.user.ProfileDetailUpdateDTO;
-import api.v1.KPI.Management.System.profile.dto.user.ProfilePasswordUpdate;
-import api.v1.KPI.Management.System.profile.dto.user.ProfileUsernameUpdateDTO;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfileDTO;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfileResponseDTO;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfileDetailUpdateDTO;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfilePasswordUpdate;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfileUsernameUpdateDTO;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
 import api.v1.KPI.Management.System.profile.enums.ProfileRole;
 import api.v1.KPI.Management.System.profile.mapper.ProfileMapper;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
+import api.v1.KPI.Management.System.profile.service.core.ProfileCoreService;
 import api.v1.KPI.Management.System.security.dto.CodeConfirmDTO;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
 import jakarta.validation.Valid;
@@ -35,7 +36,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ProfileService {
+public class ProfileService extends ProfileCoreService {
     @Autowired
     private ProfileRepository profileRepository;
     @Autowired
@@ -46,16 +47,6 @@ public class ProfileService {
     private EmailSendingService emailSendingService;
     @Autowired
     private EmailHistoryService emailHistoryService;
-    @Autowired
-    private AttachService attachService;
-    @Autowired
-    private ProfileMapper profileMapper;
-
-    public ProfileDTO getMe(AppLanguage lang) {
-        String id = SpringSecurityUtil.getCurrentUserId();
-        ProfileEntity profile = findById(id, lang);
-        return profileMapper.toInfoDTO(profile);
-    }
 
     /// Updates the current user's first and last name.
     /// If successful, returns a message stating that the update was successful.
@@ -93,16 +84,6 @@ public class ProfileService {
         return new AppResponse<>(boundleService.getMessage("send.change.username.confirm.code", lang));
     }
 
-    /// Finds the profile by the given ID.
-    /// Returns an error if not found.
-    public ProfileEntity findById(String id, AppLanguage lang) {
-        Optional<ProfileEntity> optional = profileRepository.findByIdAndVisibleTrue(id);
-        if (optional.isEmpty()){
-            throw new ResourceNotFoundException(boundleService.getMessage("profile.not.found", lang) + ": " + id);
-        }
-        return optional.get();
-    }
-
     /// Confirms username change: checks the code sent for the temporary username, updates the primary username, and returns the updated JWT token.
     public AppResponse<String> updateUsernameConfirm(CodeConfirmDTO dto, AppLanguage lang) {
         ProfileEntity profile = findById(SpringSecurityUtil.getCurrentUserId(), lang);
@@ -111,57 +92,5 @@ public class ProfileService {
         }
         profileRepository.updateUsername(SpringSecurityUtil.getCurrentUserId(), profile.getTempUsername());
         return new AppResponse<>(JwtUtil.encode(profile.getTempUsername(), profile.getId(), profile.getRole()));
-    }
-
-
-    public AppResponse<String> updatePhoto(@NotBlank(message = "attach Id required") String photoId, AppLanguage lang) {
-        ProfileEntity profile = findById(SpringSecurityUtil.getCurrentUserId(), lang);
-        if (profile.getPhotoId() != null && !profile.getPhotoId().equals(photoId)){
-            attachService.deleteSoft(profile.getPhotoId());
-        }
-        profileRepository.updatePhoto(profile.getId(), photoId);
-
-        return new AppResponse<>(boundleService.getMessage("update.successfully.completed",lang));
-    }
-
-    public AppResponse<String> deletebyId(String id, AppLanguage lang) {
-        if (!SpringSecurityUtil.getCurrentUserId().equals(id) && !SpringSecurityUtil.haseRole().equals(ProfileRole.ROLE_ADMIN)){
-            throw new AuthorizationDeniedException("You are not allowed to update this KPI."); // todo exp message
-        }
-        ProfileEntity profile = findById(id, lang);
-
-        profileRepository.deleteSoftById(profile.getId(), false);
-        return new AppResponse<>(boundleService.getMessage("update.successfully.completed",lang));
-    }
-
-
-    /// Finds an active (visible) profile for the given username.
-    /// Returns an error if not found.
-    public ProfileEntity findByUsername(String username, AppLanguage lang) {
-        Optional<ProfileEntity> optional = profileRepository.findByUsernameAndVisibleTrue(username);
-        if (optional.isEmpty()) {
-            throw new ResourceNotFoundException(boundleService.getMessage("username.not.found", lang));
-        }
-        return optional.get();
-    }
-
-    public ProfileDTO getByUsername(String username, AppLanguage lang) {
-        ProfileEntity entity =  findByUsername(username, lang);
-        return profileMapper.toInfoDTO(entity);
-    }
-
-
-    public PageImpl<ProfileResponseDTO> getAll(int page, int size) {
-        Sort sort = Sort.by("createdDate").descending();
-        Pageable pageable = PageRequest.of(page, size, sort);
-        Page<ProfileEntity> pageObj = profileRepository.findAllPage(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()));
-        List<ProfileResponseDTO> response = pageObj.getContent().stream().map(profileMapper::toallResponseDTO).collect(Collectors.toList());
-        long total = pageObj.getTotalElements();
-        return new PageImpl<>(response, pageable, total);
-    }
-
-    public List<ProfileResponseDTO> getAllManager(AppLanguage lang) {
-        List<ProfileEntity> list = profileRepository.findAllByRoleManager(ProfileRole.ROLE_MANAGER);
-        return list.stream().map(profileMapper::toallResponseDTO).collect(Collectors.toList());
     }
 }

@@ -13,10 +13,11 @@ import api.v1.KPI.Management.System.exception.exps.ProfileStatusException;
 import api.v1.KPI.Management.System.exception.exps.ResourceConflictException;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
 import api.v1.KPI.Management.System.jwt.util.JwtUtil;
-import api.v1.KPI.Management.System.profile.dto.ProfileDTO;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfileDTO;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
 import api.v1.KPI.Management.System.profile.enums.ProfileRole;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
+import api.v1.KPI.Management.System.profile.service.core.ProfileCoreService;
 import api.v1.KPI.Management.System.profile.service.profile.ProfileService;
 import api.v1.KPI.Management.System.security.dto.AuthDTO;
 import api.v1.KPI.Management.System.security.dto.RegistrationDTO;
@@ -38,7 +39,7 @@ public class AuthService {
     @Autowired
     private EmailSendingService emailSendingService;
     @Autowired
-    private ProfileService profileService;
+    private ProfileCoreService profileService;
     @Autowired
     private ResourceBoundleService boundleService;
     @Autowired
@@ -84,7 +85,6 @@ public class AuthService {
         } catch (JwtException e){}
         throw new AppBadException(boundleService.getMessage("verification.failed", lang));
     }
-
 
     /// Logs in the user: checks the username and password, returns a login response if the status is ACTIVE, otherwise returns an error.
     public ProfileDTO login(AuthDTO dto, AppLanguage lang) {

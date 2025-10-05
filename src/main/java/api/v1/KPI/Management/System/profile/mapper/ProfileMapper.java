@@ -1,8 +1,8 @@
 package api.v1.KPI.Management.System.profile.mapper;
 
 import api.v1.KPI.Management.System.attach.service.AttachService;
-import api.v1.KPI.Management.System.profile.dto.ProfileDTO;
-import api.v1.KPI.Management.System.profile.dto.ProfileResponseDTO;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfileDTO;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfileResponseDTO;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

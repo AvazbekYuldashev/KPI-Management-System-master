@@ -28,7 +28,7 @@ public interface ProfileRepository extends JpaRepository<ProfileEntity,String> {
     @Modifying
     @Transactional
     @Query("UPDATE ProfileEntity SET status = :status WHERE id = :id")
-    void changeStatus(@Param("id") String id, @Param("status") GeneralStatus status);
+    int changeStatus(@Param("id") String id, @Param("status") GeneralStatus status);
 
     @Modifying
     @Transactional
@@ -68,7 +68,7 @@ public interface ProfileRepository extends JpaRepository<ProfileEntity,String> {
     @Modifying
     @Transactional
     @Query("UPDATE ProfileEntity SET role = :roleP WHERE id = :idP")
-    void changeRole(@Param("idP") String id, @Param("roleP") ProfileRole role);
+    int changeRole(@Param("idP") String id, @Param("roleP") ProfileRole role);
 
     @Modifying
     @Transactional

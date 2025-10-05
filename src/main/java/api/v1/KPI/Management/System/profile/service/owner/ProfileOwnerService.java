@@ -6,9 +6,9 @@ import api.v1.KPI.Management.System.app.dto.FilterResultDTO;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.service.ResourceBoundleService;
 import api.v1.KPI.Management.System.attach.service.AttachService;
-import api.v1.KPI.Management.System.profile.dto.ProfileResponseDTO;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfileResponseDTO;
 import api.v1.KPI.Management.System.profile.dto.owner.*;
-import api.v1.KPI.Management.System.profile.dto.user.ProfileDetailUpdateDTO;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfileDetailUpdateDTO;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
 import api.v1.KPI.Management.System.profile.mapper.ProfileMapper;
 import api.v1.KPI.Management.System.profile.repository.CustomProfileRepository;
@@ -39,34 +39,7 @@ public class ProfileOwnerService extends ProfileService {
     private CustomProfileRepository customProfileRepository;
     @Autowired
     private ProfileMapper profileMapper;
-    @Autowired
-    private AttachService attachService;
 
-    /// Updates the current user's first and last name.
-    /// If successful, returns a message stating that the update was successful.
-    public AppResponse<String> updateDetail(ProfileDetailUpdateDTO dto, AppLanguage lang) {
-        String id = SpringSecurityUtil.getCurrentUserId();
-        profileRepository.updateDetail(id, dto.getName(), dto.getSurname());
-        return new AppResponse<>(boundleService.getMessage("update.successfully.completed", lang));
-    }
-
-    /// The user checks the old password and updates the new password.
-    /// If the old password is incorrect, an error is returned
-    public AppResponse<String> updatePassword(ProfileOwnerUpdatePassword dto, AppLanguage lang) {
-        ProfileEntity profile = getById(dto.getId(), lang);
-        profileRepository.updatePassword(profile.getId(), bc.encode(dto.getPassword()));
-        return new AppResponse<>(boundleService.getMessage("send.change.password.confirm.code", lang)); //todo message     // chhange confirm possword todo
-    }
-
-    /// Finds the profile by the given ID.
-    /// Returns an error if not found.
-    public ProfileEntity getById(String id, AppLanguage lang) {
-        Optional<ProfileEntity> optional = profileRepository.findByIdAndVisibleTrue(id);
-        if (optional.isEmpty()){
-            throw new ResourceNotFoundException(boundleService.getMessage("profile.not.found", lang) + ": " + id);
-        }
-        return optional.get();
-    }
 
     /// Updates the status for the given user ID.
     public AppResponse<String> changeStatus(ProfileOwnerChangeStatusDTO dto, AppLanguage lang) {
@@ -74,7 +47,7 @@ public class ProfileOwnerService extends ProfileService {
         return new AppResponse<>(boundleService.getMessage("update.successfully.completed", lang));
     }
 
-    public Page<ProfileResponseDTO> filter(ProfileFilterDTO dto, int page, int size) {
+    public Page<ProfileResponseDTO> filter(ProfileOwnerFilterDTO dto, int page, int size) {
         FilterResultDTO<ProfileEntity> resultDTO = customProfileRepository.filter(dto, page, size);
         List<ProfileResponseDTO> dtoList = resultDTO.getList().stream()
                 .map(profileMapper::toallResponseDTO).toList();
@@ -91,4 +64,5 @@ public class ProfileOwnerService extends ProfileService {
         profileRepository.changePassword(dto.getId(), dto.getPassword());
         return new AppResponse<>(boundleService.getMessage("update.successfully.completed", lang));
     }
+
 }

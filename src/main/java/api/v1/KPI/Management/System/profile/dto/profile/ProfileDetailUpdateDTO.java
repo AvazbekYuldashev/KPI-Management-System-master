@@ -1,4 +1,4 @@
-package api.v1.KPI.Management.System.profile.dto.user;
+package api.v1.KPI.Management.System.profile.dto.profile;
 
 import lombok.Getter;
 import lombok.Setter;

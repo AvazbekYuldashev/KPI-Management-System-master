@@ -1,12 +1,11 @@
-package api.v1.KPI.Management.System.profile.controller.owner;
-
+package api.v1.KPI.Management.System.profile.controller.admin;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
-import api.v1.KPI.Management.System.profile.dto.profile.ProfileResponseDTO;
 import api.v1.KPI.Management.System.profile.dto.owner.*;
 import api.v1.KPI.Management.System.profile.dto.profile.ProfilePhotoUpdate;
-import api.v1.KPI.Management.System.profile.service.owner.ProfileOwnerService;
+import api.v1.KPI.Management.System.profile.dto.profile.ProfileResponseDTO;
+import api.v1.KPI.Management.System.profile.service.admin.ProfileAdminService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,55 +15,48 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/owner/profile")
-@PreAuthorize("hasRole('OWNER')")
-public class    ProfileOwnerController {
+@RequestMapping("/admin/profile")
+@PreAuthorize("hasRole('ADMIN')")
+public class ProfileAdminController {
+
     @Autowired
-    private ProfileOwnerService profileOwnerService;
+    private ProfileAdminService profileAdminService;
 
     @GetMapping("/all")
     public ResponseEntity<PageImpl<ProfileResponseDTO>> getAll(@RequestParam(value = "page", defaultValue = "1") int page,
-                                                                @RequestParam(value = "size", defaultValue = "15") int size) {
-        return ResponseEntity.ok().body(profileOwnerService.getAll(getCurrentPage(page), size));
+                                                               @RequestParam(value = "size", defaultValue = "15") int size) {
+        return ResponseEntity.ok().body(profileAdminService.getAll(getCurrentPage(page), size));
     }
 
     @PutMapping("/photo")
     public ResponseEntity<AppResponse<String>> updatePhoto(@Valid @RequestBody ProfilePhotoUpdate dto,
                                                            @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
-        return ResponseEntity.ok().body(profileOwnerService.updatePhoto(dto.getPhotoId(), lang));
+        return ResponseEntity.ok().body(profileAdminService.updatePhoto(dto.getPhotoId(), lang));
     }
 
+    @PatchMapping("/role")
+    public ResponseEntity<AppResponse<String>> updateRole(@Valid @RequestBody ProfileUpdateRoleDTO dto,
+                                                          @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
+        return ResponseEntity.ok().body(profileAdminService.changeRole(dto, lang));
+    }
 
     @PatchMapping("/status")
     public ResponseEntity<AppResponse<String>> changeStatus(@Valid @RequestBody ProfileOwnerChangeStatusDTO dto,
                                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
-        return ResponseEntity.ok().body(profileOwnerService.changeStatus(dto, lang));
-    }
-
-    @PatchMapping("/role")
-    public ResponseEntity<AppResponse<String>> changeRole(@Valid @RequestBody ProfileOwnerChangeRoleDTO dto,
-                                                          @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
-        return ResponseEntity.ok().body(profileOwnerService.changeRole(dto, lang));
-    }
-
-    @PatchMapping("/password")
-    public ResponseEntity<AppResponse<String>> updatePassword(@Valid @RequestBody ProfileOwnerUpdatePassword dto,
-                                                              @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
-        return ResponseEntity.ok().body(profileOwnerService.changePassword(dto, lang));
+        return ResponseEntity.ok().body(profileAdminService.changeStatus(dto, lang));
     }
 
     @DeleteMapping("/{id}")
     private ResponseEntity<AppResponse<String>> delete(@PathVariable("id") String id,
                                                        @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang ) {
-
-        return ResponseEntity.ok().body(profileOwnerService.deletebyId(id, lang));
+        return ResponseEntity.ok().body(profileAdminService.deleteById(id, lang));
     }
 
     @PostMapping("/filter")
     public ResponseEntity<Page<ProfileResponseDTO>> filter(@RequestBody ProfileOwnerFilterDTO dto,
                                                            @RequestParam(value = "page", defaultValue = "1") Integer page,
                                                            @RequestParam(value = "size", defaultValue = "10") Integer size){
-        return ResponseEntity.ok().body(profileOwnerService.filter(dto, getCurrentPage(page), size));
+        return ResponseEntity.ok().body(profileAdminService.filter(dto, getCurrentPage(page), size));
     }
 
     public static int getCurrentPage(Integer page) {
