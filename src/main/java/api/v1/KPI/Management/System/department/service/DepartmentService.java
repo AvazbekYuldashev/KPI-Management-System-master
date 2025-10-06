@@ -2,7 +2,8 @@ package api.v1.KPI.Management.System.department.service;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.department.dto.DepartmentResponseDTO;
-import api.v1.KPI.Management.System.department.dto.owner.DepartmentOwnerUpdateDTO;
+import api.v1.KPI.Management.System.department.dto.admin.DepartmentAdminCreateDTO;
+import api.v1.KPI.Management.System.department.dto.admin.DepartmentAdminUpdateDTO;
 import api.v1.KPI.Management.System.department.entity.DepartmentEntity;
 import api.v1.KPI.Management.System.department.mapper.DepartmentMapper;
 import api.v1.KPI.Management.System.department.repository.DepartmentRepository;
@@ -28,6 +29,10 @@ public class DepartmentService {
         return departmentRepository.save(entity);
     }
 
+    public DepartmentResponseDTO getById(String id){
+        return departmentMapper.toResponseDTO(findById(id));
+    }
+
     public DepartmentEntity findById(String id) {
         Optional<DepartmentEntity> optional = departmentRepository.findById(id);
         if (optional.isEmpty()) {
@@ -45,7 +50,7 @@ public class DepartmentService {
         return new AppResponse<>("Department with id " + id + " not found");
     }
 
-    public AppResponse<String> updateDetail(String id, DepartmentOwnerUpdateDTO dto) {
+    public AppResponse<String> updateDetail(String id, DepartmentAdminUpdateDTO dto) {
         findById(id);
         int EffectedRow = departmentRepository.updateDetail(id, dto.getTitle(), dto.getDescription(), dto.getChiefId(), LocalDateTime.now());
         if (EffectedRow > 0) {
@@ -62,6 +67,5 @@ public class DepartmentService {
         long total = pageObj.getTotalElements();
         return new PageImpl<>(response, pageable, total);
     }
-
 
 }
