@@ -48,6 +48,9 @@ public class ProfileCoreService {
         return profileMapper.toInfoDTO(profile);
     }
 
+    public ProfileDTO getById(String id, AppLanguage lang) {
+        return profileMapper.toInfoDTO(findById(id, lang));
+    }
     /// Finds the profile by the given ID.
     /// Returns an error if not found.
     public ProfileEntity findById(String id, AppLanguage lang) {
