@@ -42,7 +42,7 @@ public class AuthController {
     @Operation(summary = "verification by link", description = "API used for verification")
     @GetMapping("/registration/email-verification/{token}/{lang}")
     public ResponseEntity<String> emailRegVerification(@PathVariable("token") String token,
-                                                  @PathVariable("lang") AppLanguage lang) {
+                                                        @PathVariable("lang") AppLanguage lang) {
         return ResponseEntity.ok().body(authService.registrationEmailVerification(token, lang));
     }
 

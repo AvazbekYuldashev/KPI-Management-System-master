@@ -46,7 +46,7 @@ public class ProfileAdminService extends ProfileCoreService {
     }
 
     public Page<ProfileResponseDTO> filter(ProfileOwnerFilterDTO dto, int currentPage, Integer size) {
-
+        return null;
     }
 
     public AppResponse<String> deleteById(String id, AppLanguage lang) {

@@ -17,7 +17,7 @@ public class DepartmentOwnerService extends DepartmentService {
     private DepartmentMapper departmentMapper;
 
     public DepartmentResponseDTO ownerCreate(DepartmentOwnerCreateDTO dto) {
-        return departmentMapper.toResponseDTO(create(departmentMapper.toAdminCreateEntity(dto)));
+        return departmentMapper.toResponseDTO(create(departmentMapper.toOwnerCreateEntity(dto)));
     }
 
     public DepartmentResponseDTO ownerGetById(String id) {
@@ -33,6 +33,6 @@ public class DepartmentOwnerService extends DepartmentService {
     }
 
     public AppResponse<String> ownerUpdate(String id, DepartmentOwnerUpdateDTO dto) {
-        return updateDetail(id, dto);
+        return null; //updateDetail(id, dto);
     }
 }
