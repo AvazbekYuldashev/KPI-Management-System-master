@@ -28,7 +28,7 @@ public class CustomUserDetails implements UserDetails {
     private ProfileRole role;
     private Collection<? extends GrantedAuthority> authorities;
     private Boolean visible;
-
+    private String departmentId;
     private String attachId;
 
 
@@ -41,6 +41,7 @@ public class CustomUserDetails implements UserDetails {
         this.status = profile.getStatus();
         this.role = profile.getRole();
         this.authorities = List.of(new SimpleGrantedAuthority(profile.getRole().name()));
+        this.departmentId = profile.getDepartmentId();
         this.visible = profile.getVisible();
     }
     @Override

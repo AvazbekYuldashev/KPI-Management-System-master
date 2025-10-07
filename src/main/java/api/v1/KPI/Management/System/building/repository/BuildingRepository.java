@@ -42,4 +42,10 @@ public interface BuildingRepository extends JpaRepository<BuildingEntity, String
                      @Param("chiefId") String chiefId,
                      @Param("departmentId") String departmentId,
                      @Param("now") LocalDateTime now);
+
+    @Query("SELECT b FROM BuildingEntity b WHERE b.departmentId = :departmentIdP AND b.visible = true ORDER BY b.createdDate DESC")
+    Page<BuildingEntity> findAllByDepartmentId(@Param("departmentIdP") String id, PageRequest of);
+
+
+
 }

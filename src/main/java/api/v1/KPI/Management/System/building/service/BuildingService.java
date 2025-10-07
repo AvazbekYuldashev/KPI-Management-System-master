@@ -1,6 +1,7 @@
 package api.v1.KPI.Management.System.building.service;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
+import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.building.dto.BuildingResponseDTO;
 import api.v1.KPI.Management.System.building.dto.admin.BuildingAdminUpdateDTO;
 import api.v1.KPI.Management.System.building.entity.BuildingEntity;
@@ -25,6 +26,10 @@ public class BuildingService {
 
     public BuildingEntity create(BuildingEntity entity) {
         return buildingRepository.save(entity);
+    }
+
+    public BuildingResponseDTO getById(String id) {
+        return buildingMapper.toResponseDTO(findById(id));
     }
 
     public BuildingEntity findById(String id) {
@@ -62,4 +67,12 @@ public class BuildingService {
         return new PageImpl<>(response, pageable, total);
     }
 
+    public PageImpl<BuildingResponseDTO> getByDepartmentId(int page, int size, String id, AppLanguage lang) {
+        Sort sort = Sort.by("createdDate").descending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+        Page<BuildingEntity> pageObj = buildingRepository.findAllByDepartmentId(id, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()));
+        List<BuildingResponseDTO> response = pageObj.getContent().stream().map(buildingMapper::toResponseDTO).collect(Collectors.toList());
+        long total = pageObj.getTotalElements();
+        return new PageImpl<>(response, pageable, total);
+    }
 }
