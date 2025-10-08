@@ -1,8 +1,6 @@
 package api.v1.KPI.Management.System.building.controller.core;
 
-import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.building.dto.BuildingResponseDTO;
-import api.v1.KPI.Management.System.building.service.BuildingService;
 import api.v1.KPI.Management.System.building.service.core.BuildingCoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;

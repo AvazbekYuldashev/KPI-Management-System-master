@@ -1,6 +1,7 @@
 package api.v1.KPI.Management.System.building.controller.owner;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
+import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.building.dto.BuildingResponseDTO;
 import api.v1.KPI.Management.System.building.dto.owner.BuildingOwnerCreateDTO;
 import api.v1.KPI.Management.System.building.dto.owner.BuildingOwnerUpdateDTO;
@@ -23,20 +24,15 @@ public class BuildingOwnerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<AppResponse<String>> delete(@PathVariable String id) {
-        return ResponseEntity.ok().body(buildingOwnerService.ownerDelete(id));
+    public ResponseEntity<AppResponse<String>> delete(@PathVariable String id,
+                                                      @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
+        return ResponseEntity.ok().body(buildingOwnerService.ownerDelete(id, lang));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<AppResponse<String>> update(@PathVariable String id,
                                                       @RequestBody BuildingOwnerUpdateDTO dto) {
         return ResponseEntity.ok().body(buildingOwnerService.ownerUpdate(id, dto));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<AppResponse<String >> deleteById(@PathVariable("id") String id,
-                                                           @RequestHeader(value = "Accept-Language", defaultValue = "UZ") String lang){
-        return ResponseEntity.ok().body(buildingOwnerService.deleteById(id), lang);
     }
 
 }

@@ -22,7 +22,7 @@ public class BuildingOwnerService extends BuildingService {
         return buildingMapper.toResponseDTO(create(entity));
     }
 
-    public AppResponse<String> ownerDelete(String id) {
+    public AppResponse<String> ownerDelete(String id, AppLanguage lang) {
         BuildingEntity entity = findById(id);
         return deleteById(id);
     }
@@ -32,8 +32,4 @@ public class BuildingOwnerService extends BuildingService {
         return updateDetail(id, buildingMapper.toEntity(dto));
     }
 
-    public AppResponse<String> deleteById(String id, AppLanguage lang){
-        BuildingEntity entity = findById(id);
-        return deleteById(id);
-    }
 }

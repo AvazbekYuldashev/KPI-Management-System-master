@@ -58,7 +58,7 @@ public class BuildingService {
         return new AppResponse<>("Building with id " + id + " not found");
     }
 
-    public PageImpl<BuildingResponseDTO> getAll(int page, int size) {
+    public PageImpl<BuildingResponseDTO> findAll(int page, int size) {
         Sort sort = Sort.by("createdDate").descending();
         Pageable pageable = PageRequest.of(page, size, sort);
         Page<BuildingEntity> pageObj = buildingRepository.findAllPage(PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()));
@@ -67,7 +67,7 @@ public class BuildingService {
         return new PageImpl<>(response, pageable, total);
     }
 
-    public PageImpl<BuildingResponseDTO> getByDepartmentId(int page, int size, String id) {
+    public PageImpl<BuildingResponseDTO> findByDepartmentId(int page, int size, String id) {
         Sort sort = Sort.by("createdDate").descending();
         Pageable pageable = PageRequest.of(page, size, sort);
         Page<BuildingEntity> pageObj = buildingRepository.findAllByDepartmentId(id, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()));

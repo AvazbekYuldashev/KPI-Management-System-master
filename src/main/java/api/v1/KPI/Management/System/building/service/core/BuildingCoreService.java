@@ -15,7 +15,11 @@ public class BuildingCoreService extends BuildingService {
         return buildingMapper.toResponseDTO(findById(id));
     }
 
-    public PageImpl<BuildingResponseDTO> userGetAll(int page, int size) {
-        return getAll(page, size);
+    public PageImpl<BuildingResponseDTO> getAll(int page, int size) {
+        return findAll(page, size);
+    }
+
+    public PageImpl<BuildingResponseDTO> getByDepartmentId(int page, int size, String id) {
+        return findByDepartmentId(page, size, id);
     }
 }
