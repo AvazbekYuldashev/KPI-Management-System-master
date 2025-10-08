@@ -44,7 +44,7 @@ public class BuildingAdminService extends BuildingService {
         if (!entity.getDepartmentId().equals(SpringSecurityUtil.getCurrentUserDepartmentId())) {
             throw new ResourceNotFoundException("Building not found");
         }
-        return updateDetail(id, dto);
+        return updateDetail(id, buildingMapper.toEntity(dto));
     }
 
     //

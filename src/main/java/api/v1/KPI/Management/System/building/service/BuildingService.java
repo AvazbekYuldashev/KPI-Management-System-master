@@ -49,9 +49,9 @@ public class BuildingService {
         return new AppResponse<>("Building with id " + id + " not found");
     }
 
-    public AppResponse<String> updateDetail(String id, BuildingAdminUpdateDTO dto) {
+    public AppResponse<String> updateDetail(String id, BuildingEntity entity) {
         findById(id);
-        int effectedRow = buildingRepository.updateDetail(id, dto.getTitle(), dto.getDescription(), dto.getChiefId(), dto.getDepartmentId(), LocalDateTime.now());
+        int effectedRow = buildingRepository.updateDetail(id, entity.getTitle(), entity.getDescription(), entity.getChiefId(), entity.getDepartmentId(), LocalDateTime.now());
         if (effectedRow > 0) {
             return new AppResponse<>("Building with id " + id + " updated successfully");
         }
