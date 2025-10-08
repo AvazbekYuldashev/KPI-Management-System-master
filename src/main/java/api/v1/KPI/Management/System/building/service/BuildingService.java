@@ -67,7 +67,7 @@ public class BuildingService {
         return new PageImpl<>(response, pageable, total);
     }
 
-    public PageImpl<BuildingResponseDTO> getByDepartmentId(int page, int size, String id, AppLanguage lang) {
+    public PageImpl<BuildingResponseDTO> getByDepartmentId(int page, int size, String id) {
         Sort sort = Sort.by("createdDate").descending();
         Pageable pageable = PageRequest.of(page, size, sort);
         Page<BuildingEntity> pageObj = buildingRepository.findAllByDepartmentId(id, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()));

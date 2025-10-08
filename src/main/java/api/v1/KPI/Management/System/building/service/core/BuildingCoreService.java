@@ -1,4 +1,4 @@
-package api.v1.KPI.Management.System.building.service.user;
+package api.v1.KPI.Management.System.building.service.core;
 
 import api.v1.KPI.Management.System.building.dto.BuildingResponseDTO;
 import api.v1.KPI.Management.System.building.mapper.BuildingMapper;
@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BuildingUserService extends BuildingService {
+public class BuildingCoreService extends BuildingService {
     @Autowired
     private BuildingMapper buildingMapper;
     public BuildingResponseDTO userGetById(String id) {

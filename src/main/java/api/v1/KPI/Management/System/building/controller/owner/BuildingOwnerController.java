@@ -2,8 +2,6 @@ package api.v1.KPI.Management.System.building.controller.owner;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.building.dto.BuildingResponseDTO;
-import api.v1.KPI.Management.System.building.dto.admin.BuildingAdminCreateDTO;
-import api.v1.KPI.Management.System.building.dto.admin.BuildingAdminUpdateDTO;
 import api.v1.KPI.Management.System.building.dto.owner.BuildingOwnerCreateDTO;
 import api.v1.KPI.Management.System.building.dto.owner.BuildingOwnerUpdateDTO;
 import api.v1.KPI.Management.System.building.service.owner.BuildingOwnerService;
@@ -34,4 +32,11 @@ public class BuildingOwnerController {
                                                       @RequestBody BuildingOwnerUpdateDTO dto) {
         return ResponseEntity.ok().body(buildingOwnerService.ownerUpdate(id, dto));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<AppResponse<String >> deleteById(@PathVariable("id") String id,
+                                                           @RequestHeader(value = "Accept-Language", defaultValue = "UZ") String lang){
+        return ResponseEntity.ok().body(buildingOwnerService.deleteById(id), lang);
+    }
+
 }

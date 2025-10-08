@@ -27,10 +27,6 @@ public class BuildingAdminService extends BuildingService {
         return buildingMapper.toResponseDTO(create(entity));
     }
 
-    public PageImpl<BuildingResponseDTO> adminGetAll(int page, int size) {
-        return getAll(page, size);
-    }
-
     public AppResponse<String> adminDelete(String id) {
         BuildingEntity entity = findById(id);
         if (!entity.getDepartmentId().equals(SpringSecurityUtil.getCurrentUserDepartmentId())) {
@@ -47,5 +43,4 @@ public class BuildingAdminService extends BuildingService {
         return updateDetail(id, buildingMapper.toEntity(dto));
     }
 
-    //
 }

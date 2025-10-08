@@ -1,6 +1,7 @@
 package api.v1.KPI.Management.System.building.service.owner;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
+import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.building.dto.BuildingResponseDTO;
 import api.v1.KPI.Management.System.building.dto.owner.BuildingOwnerCreateDTO;
 import api.v1.KPI.Management.System.building.dto.owner.BuildingOwnerUpdateDTO;
@@ -28,7 +29,11 @@ public class BuildingOwnerService extends BuildingService {
 
     public AppResponse<String> ownerUpdate(String id, BuildingOwnerUpdateDTO dto) {
         BuildingEntity entity = findById(id);
-
         return updateDetail(id, buildingMapper.toEntity(dto));
+    }
+
+    public AppResponse<String> deleteById(String id, AppLanguage lang){
+        BuildingEntity entity = findById(id);
+        return deleteById(id);
     }
 }
