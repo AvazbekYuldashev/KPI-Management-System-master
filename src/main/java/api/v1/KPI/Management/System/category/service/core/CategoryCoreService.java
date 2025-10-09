@@ -1,4 +1,4 @@
-package api.v1.KPI.Management.System.category.service.user;
+package api.v1.KPI.Management.System.category.service.core;
 
 import api.v1.KPI.Management.System.category.dto.CategoryResponseDTO;
 import api.v1.KPI.Management.System.category.mapper.CategoryMapper;
@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CategoryUserService extends CategoryService {
+public class CategoryCoreService extends CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
