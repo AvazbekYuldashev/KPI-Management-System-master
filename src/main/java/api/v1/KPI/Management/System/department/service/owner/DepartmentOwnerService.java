@@ -20,10 +20,6 @@ public class DepartmentOwnerService extends DepartmentService {
         return departmentMapper.toResponseDTO(create(departmentMapper.toOwnerCreateEntity(dto)));
     }
 
-    public DepartmentResponseDTO ownerGetById(String id) {
-        return departmentMapper.toResponseDTO(findById(id));
-    }
-
     public PageImpl<DepartmentResponseDTO> ownerGetAll(int page, int size) {
         return getAll(page, size);
     }

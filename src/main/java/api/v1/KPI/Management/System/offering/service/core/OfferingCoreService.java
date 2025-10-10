@@ -1,4 +1,4 @@
-package api.v1.KPI.Management.System.offering.service.user;
+package api.v1.KPI.Management.System.offering.service.core;
 
 import api.v1.KPI.Management.System.offering.dto.OfferingResponseDTO;
 import api.v1.KPI.Management.System.offering.mapper.OfferingMapper;
@@ -8,7 +8,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OfferingUserService extends OfferingService {
+public class OfferingCoreService extends OfferingService {
     @Autowired
     private OfferingMapper offeringMapper;
 

@@ -24,11 +24,6 @@ public class DepartmentOwnerController {
         return ResponseEntity.ok().body(departmentOwnerService.ownerCreate(dto));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<DepartmentResponseDTO> getDepartment(@PathVariable String id) {
-        return ResponseEntity.ok().body(departmentOwnerService.ownerGetById(id));
-    }
-
     @GetMapping("/all")
     public ResponseEntity<PageImpl<DepartmentResponseDTO>> getAllDepartments(@RequestParam(value = "page", defaultValue = "1") int page,
                                                                              @RequestParam(value = "size", defaultValue = "15") int size){

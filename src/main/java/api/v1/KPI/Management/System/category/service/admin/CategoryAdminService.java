@@ -20,10 +20,6 @@ public class CategoryAdminService extends CategoryService{
         return categoryMapper.toResponseDTO(create(categoryMapper.toAdminCreateEntity(dto)));
     }
 
-    public CategoryResponseDTO adminGetById(String id) {
-        return categoryMapper.toResponseDTO(findById(id));
-    }
-
     public PageImpl<CategoryResponseDTO> adminGetAll(int page, int size) {
         return getAll(page, size);
     }
