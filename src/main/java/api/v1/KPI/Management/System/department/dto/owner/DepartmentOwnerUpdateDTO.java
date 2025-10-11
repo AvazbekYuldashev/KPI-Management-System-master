@@ -6,7 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DepartmentOwnerUpdateDTO {
-    private String title;               /// Name
-    private String description;         /// Description
-    private String chiefId;             /// Department head ID
+    private String id;
+    private String title;
+    private String description;
+    private String chiefId;
 }
