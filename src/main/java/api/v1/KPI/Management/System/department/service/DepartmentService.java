@@ -6,8 +6,7 @@ import api.v1.KPI.Management.System.department.dto.core.DepartmentResponseDTO;
 import api.v1.KPI.Management.System.department.entity.DepartmentEntity;
 import api.v1.KPI.Management.System.department.mapper.DepartmentMapper;
 import api.v1.KPI.Management.System.department.repository.DepartmentRepository;
-import api.v1.KPI.Management.System.profile.dto.profile.ProfileResponseDTO;
-import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
+import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -30,7 +29,7 @@ public class DepartmentService {
     public DepartmentEntity findById(String id){
         Optional<DepartmentEntity> optional = departmentRepository.findByIdAndVisibleTrue(id);
         if (optional.isEmpty()){
-            throw new RuntimeException("Department with id " + id + " not found");
+            throw new ResourceNotFoundException("Department with id " + id + " not found");
         }
         return optional.get();
     }
