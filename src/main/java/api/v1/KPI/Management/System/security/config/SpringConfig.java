@@ -31,6 +31,8 @@ public class SpringConfig {
 
     public static final String[] AUTH_WHITELIST = {
             "/auth/**",
+            "172.16.254.134:8080",
+            "172.16.254.134",
             "/api/v1/auth/**",
             "/swagger-ui/**",
             "/v3/api-docs/**",
