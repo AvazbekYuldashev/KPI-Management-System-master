@@ -7,64 +7,35 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
-import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.List;
-
 @Configuration
-public class
-
-SwaggerConfig {
+public class SwaggerConfig {
 
     @Bean
     public OpenAPI customOpenAPI() {
-        // general info
         Info info = new Info()
-                .title("Ovoz berish tizimi API-lar")
+                .title("KPI Management System API")
                 .version("1.0.0")
-                .description("Quyida Ovoz berish tizimi loyihasi uchun API hujjatlar tagdim qilingan.")
+                .description("KPI tizimi uchun API hujjatlari.")
                 .contact(new Contact()
-                        .name("Avazbek")
+                        .name("Avazbek Yuldashev")
                         .email("bigmangcom@gmail.com")
-                        .url("https://t.me/Greed_Coder")
-                )
-                .license(new License()
-                        .name("Avazbek")
-                        .url("https://t.me/Greed_Coder")
-                )
-                .termsOfService("Savol javob uchun: https://t.me/Greed_Coder");
+                        .url("https://t.me/Greed_Coder"))
+                .license(new License().name("Avazbek").url("https://t.me/Greed_Coder"));
 
-        // servers (ishlatiladigan serverlar)
-        Server server1 = new Server()
-                .description("Local")
-                .url("http://localhost:8080");
+        SecurityRequirement securityRequirement = new SecurityRequirement().addList("bearerAuth");
+        SecurityScheme securityScheme = new SecurityScheme()
+                .name("bearerAuth")
+                .type(SecurityScheme.Type.HTTP)
+                .scheme("bearer")
+                .bearerFormat("JWT")
+                .in(SecurityScheme.In.HEADER);
 
-
-        // security type (bizning holatda JWT)
-        SecurityRequirement securityRequirement = new SecurityRequirement();
-        securityRequirement.addList("bearerAuth");
-
-        SecurityScheme securityScheme = new SecurityScheme();
-        securityScheme.setName("bearerAuth");
-        securityScheme.setType(SecurityScheme.Type.HTTP);
-        securityScheme.bearerFormat("JWT");
-        securityScheme.setIn(SecurityScheme.In.HEADER);
-        securityScheme.setScheme("bearer");
-
-        Components components = new Components();
-        components.addSecuritySchemes("bearerAuth", securityScheme);
-
-        // collect all together
-        OpenAPI openAPI = new OpenAPI();
-        openAPI.setInfo(info);
-        openAPI.setServers(List.of(server1));
-        openAPI.setSecurity(List.of(securityRequirement));
-        openAPI.components(components);
-
-        // return-xe
-        return openAPI;
+        return new OpenAPI()
+                .info(info)
+                .addSecurityItem(securityRequirement)
+                .components(new Components().addSecuritySchemes("bearerAuth", securityScheme));
     }
 }
-
