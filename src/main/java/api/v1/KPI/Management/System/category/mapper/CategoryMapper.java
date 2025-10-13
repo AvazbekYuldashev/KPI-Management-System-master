@@ -5,10 +5,13 @@ import api.v1.KPI.Management.System.category.dto.core.CategoryResponseDTO;
 import api.v1.KPI.Management.System.category.dto.owner.CategoryOwnerCreateDTO;
 import api.v1.KPI.Management.System.category.dto.owner.CategoryOwnerUpdateDTO;
 import api.v1.KPI.Management.System.category.entity.CategoryEntity;
+import api.v1.KPI.Management.System.offering.dto.core.OfferingResponseDTO;
+import api.v1.KPI.Management.System.offering.entity.OfferingEntity;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CategoryMapper {
+
     public CategoryResponseDTO toResponseDTO(CategoryEntity entity) {
         CategoryResponseDTO dto = new CategoryResponseDTO();
         dto.setId(entity.getId());
