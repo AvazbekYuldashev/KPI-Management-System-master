@@ -31,6 +31,9 @@ public class OfferingEntity {
     @Column(name = "category_id")
     private String categoryId;
 
+    @Column(name = "department_id")
+    private String departmentId;
+
     @Column(name = "visible")
     private Boolean visible;
 
@@ -43,6 +46,10 @@ public class OfferingEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", insertable = false, updatable = false)
     private CategoryEntity category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", insertable = false, updatable = false)
+    private DepartmentEntity department;
 
 
     @PrePersist

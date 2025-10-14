@@ -10,4 +10,5 @@ public class OfferingOwnerUpdateDTO {
     private String description;
     private Float kpiBall;
     private String categoryId;
+    private String departmentId;
 }

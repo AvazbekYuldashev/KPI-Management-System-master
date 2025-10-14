@@ -17,9 +17,9 @@ public class OfferingAdminService extends OfferingService {
 
     public AppResponse<String> update(OfferingAdminUpdateDTO dto, String lang) {
         OfferingEntity entity = findById(dto.getId());
-//        if (!entity.getDepartmentId().equals(SpringSecurityUtil.getCurrentUserDepartmentId())){
-//            throw new AuthorizationDeniedException("Access denied");
-//        }
+        if (!entity.getDepartmentId().equals(SpringSecurityUtil.getCurrentUserDepartmentId())){
+            throw new AuthorizationDeniedException("Access denied");
+        }
         return changeDetail(offeringMapper.toUpdatedEntity(dto));
     }
 

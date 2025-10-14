@@ -16,6 +16,7 @@ public class OfferingMapper {
         dto.setDescription(entity.getDescription());
         dto.setKpiBall(entity.getKpiBall());
         dto.setCategoryId(entity.getCategoryId());
+        dto.setDepartmentId(entity.getDepartmentId());
         dto.setCreatedDate(entity.getCreatedDate());
         dto.setUpdatedDate(entity.getUpdatedDate());
         dto.setVisible(entity.getVisible());
@@ -29,6 +30,7 @@ public class OfferingMapper {
         entity.setDescription(dto.getDescription());
         entity.setKpiBall(dto.getKpiBall());
         entity.setCategoryId(dto.getCategoryId());
+        entity.setDepartmentId(dto.getDepartmentId());
         return entity;
     }
 
@@ -38,6 +40,7 @@ public class OfferingMapper {
         entity.setDescription(dto.getDescription());
         entity.setKpiBall(dto.getKpiBall());
         entity.setCategoryId(dto.getCategoryId());
+        entity.setDepartmentId(dto.getDepartmentId());
         return entity;
     }
 
@@ -48,6 +51,7 @@ public class OfferingMapper {
         entity.setDescription(dto.getDescription());
         entity.setKpiBall(dto.getKpiBall());
         entity.setCategoryId(dto.getCategoryId());
+
         return entity;
     }
 }

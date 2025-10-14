@@ -1,10 +1,6 @@
 package api.v1.KPI.Management.System.offering.controller.owner;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
-import api.v1.KPI.Management.System.category.dto.core.CategoryResponseDTO;
-import api.v1.KPI.Management.System.category.dto.owner.CategoryOwnerCreateDTO;
-import api.v1.KPI.Management.System.category.dto.owner.CategoryOwnerUpdateDTO;
-import api.v1.KPI.Management.System.category.service.owner.CategoryOwnerService;
 import api.v1.KPI.Management.System.offering.dto.core.OfferingResponseDTO;
 import api.v1.KPI.Management.System.offering.dto.owner.OfferingOwnerCreateDTO;
 import api.v1.KPI.Management.System.offering.dto.owner.OfferingOwnerUpdateDTO;
