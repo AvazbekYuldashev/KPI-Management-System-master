@@ -13,4 +13,6 @@ public class OfferingOwnerCreateDTO {
     private Float kpiBall;
     private String categoryId;
     private String departmentId;
+    private Long deadline;
+
 }

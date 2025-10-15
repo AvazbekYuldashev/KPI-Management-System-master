@@ -31,6 +31,7 @@ public class OfferingMapper {
         entity.setKpiBall(dto.getKpiBall());
         entity.setCategoryId(dto.getCategoryId());
         entity.setDepartmentId(dto.getDepartmentId());
+        entity.setDeadline(dto.getDeadline());
         return entity;
     }
 

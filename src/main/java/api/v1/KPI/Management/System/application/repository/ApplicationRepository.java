@@ -4,6 +4,7 @@ import api.v1.KPI.Management.System.application.entity.ApplicationEntity;
 import api.v1.KPI.Management.System.application.enums.ApplicationStatus;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -21,6 +22,11 @@ public interface ApplicationRepository extends JpaRepository<ApplicationEntity, 
 
     @Query("SELECT a FROM ApplicationEntity a WHERE a.visible = true ORDER BY a.createdDate DESC")
     Page<ApplicationEntity> findAllPage(Pageable of);
+
+    @Query("SELECT a FROM ApplicationEntity a WHERE a.status = :applicationStatus AND a.visible = true ORDER BY a.createdDate DESC")
+    Page<ApplicationEntity> findAllPageByStatus(@Param("applicationStatus") ApplicationStatus applicationStatus, PageRequest of);
+
+
     @Query("SELECT a FROM ApplicationEntity a WHERE a.sendProfile = :profileId AND a.visible = true ORDER BY a.createdDate DESC")
     Page<ApplicationEntity> findAllByProfileId(Pageable of, @Param("profileId") String profileId);
 
@@ -49,4 +55,29 @@ public interface ApplicationRepository extends JpaRepository<ApplicationEntity, 
     @Query("UPDATE ApplicationEntity a SET a.visible = false WHERE a.id = :id ")
     int deleteSoft(@Param("id") String id);
 
+    @Modifying
+    @Transactional
+    @Query("UPDATE ApplicationEntity a SET a.status = :status WHERE a.id = :id")
+    int updateStatus(String id, ApplicationStatus status);
+
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ApplicationEntity a SET a.status = :status, a.adminCheckedDate = :now WHERE a.id = :id")
+    int adminChecked(@Param("id") String id,@Param("status") ApplicationStatus status, @Param("now") LocalDateTime now);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ApplicationEntity a SET a.status = :status, a.employeeApprovedDate = :now, a.limitDate = :deadline WHERE a.id = :id")
+    int employeeApproved(@Param("id") String id,@Param("status") ApplicationStatus status, @Param("now") LocalDateTime now, @Param("deadline") LocalDateTime dedline);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ApplicationEntity a SET a.status = :status, a.employeeEndDate = :now WHERE a.id = :id")
+    int employeeEnd(@Param("id")String id, @Param("status") ApplicationStatus status, @Param("now") LocalDateTime now);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ApplicationEntity a SET a.status = :status, a.kpiBall = :kpi, a.updatedDate = :now WHERE a.id = :id")
+    int updatedKPI(@Param("id")String id, @Param("status") ApplicationStatus status, @Param("now") LocalDateTime now, @Param("kpi") float kpi);
 }

@@ -28,6 +28,9 @@ public class OfferingEntity {
     @Column(name = "kpi_ball")
     private Float kpiBall;
 
+    @Column(name = "deadline")
+    private Long deadline;
+
     @Column(name = "category_id")
     private String categoryId;
 
@@ -50,6 +53,8 @@ public class OfferingEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", insertable = false, updatable = false)
     private DepartmentEntity department;
+
+
 
 
     @PrePersist
