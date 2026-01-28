@@ -5,16 +5,13 @@ import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.dto.FilterResultDTO;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.service.ResourceBoundleService;
-import api.v1.KPI.Management.System.attach.service.AttachService;
 import api.v1.KPI.Management.System.profile.dto.profile.ProfileResponseDTO;
 import api.v1.KPI.Management.System.profile.dto.owner.*;
-import api.v1.KPI.Management.System.profile.dto.profile.ProfileDetailUpdateDTO;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
 import api.v1.KPI.Management.System.profile.mapper.ProfileMapper;
 import api.v1.KPI.Management.System.profile.repository.CustomProfileRepository;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
-import api.v1.KPI.Management.System.profile.service.profile.ProfileService;
-import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
+import api.v1.KPI.Management.System.profile.service.profile.AccauntService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,13 +19,11 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class ProfileOwnerService extends ProfileService {
+public class ProfileOwnerService extends AccauntService {
     @Autowired
     private ProfileRepository profileRepository;
     @Autowired

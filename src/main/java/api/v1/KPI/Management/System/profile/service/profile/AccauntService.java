@@ -3,40 +3,29 @@ package api.v1.KPI.Management.System.profile.service.profile;
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.service.ResourceBoundleService;
-import api.v1.KPI.Management.System.attach.service.AttachService;
 import api.v1.KPI.Management.System.email.service.EmailHistoryService;
 import api.v1.KPI.Management.System.email.service.EmailSendingService;
 import api.v1.KPI.Management.System.email.util.EmailUtil;
 import api.v1.KPI.Management.System.exception.exps.AppBadException;
 import api.v1.KPI.Management.System.exception.exps.ResourceConflictException;
-import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
 import api.v1.KPI.Management.System.jwt.util.JwtUtil;
-import api.v1.KPI.Management.System.profile.dto.profile.ProfileDTO;
-import api.v1.KPI.Management.System.profile.dto.profile.ProfileResponseDTO;
 import api.v1.KPI.Management.System.profile.dto.profile.ProfileDetailUpdateDTO;
 import api.v1.KPI.Management.System.profile.dto.profile.ProfilePasswordUpdate;
 import api.v1.KPI.Management.System.profile.dto.profile.ProfileUsernameUpdateDTO;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
-import api.v1.KPI.Management.System.profile.enums.ProfileRole;
-import api.v1.KPI.Management.System.profile.mapper.ProfileMapper;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
 import api.v1.KPI.Management.System.profile.service.core.ProfileCoreService;
 import api.v1.KPI.Management.System.security.dto.CodeConfirmDTO;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.*;
-import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
-public class ProfileService extends ProfileCoreService {
+public class AccauntService extends ProfileCoreService {
     @Autowired
     private ProfileRepository profileRepository;
     @Autowired
