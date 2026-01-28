@@ -23,7 +23,6 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-
     @Operation(summary = "Create User", description = "Api used for creating new User")
     @PostMapping("/registration")
     public ResponseEntity<String> registration(@Valid @RequestBody RegistrationDTO dto,
@@ -40,7 +39,7 @@ public class AuthController {
     }
 
     @Operation(summary = "verification by link", description = "API used for verification")
-    @GetMapping("/registration/email-verification/{token}/{lang}")
+    @PostMapping("/registration/email-verification/{token}/{lang}")
     public ResponseEntity<String> emailRegVerification(@PathVariable("token") String token,
                                                         @PathVariable("lang") AppLanguage lang) {
         return ResponseEntity.ok().body(authService.registrationEmailVerification(token, lang));
@@ -48,7 +47,7 @@ public class AuthController {
 
 
     @Operation(summary = "verification by link", description = "API used for verification")
-    @GetMapping("/registration/email-verification-resend")
+    @PostMapping("/registration/email-verification-resend")
     public ResponseEntity<String> emailVerificationResend(@RequestBody EmailResendDTO dto,
                                                         @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
         return ResponseEntity.ok().body(authService.registrationEmailVerificationResend(dto, lang));
