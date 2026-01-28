@@ -66,19 +66,41 @@ public class SpringConfig {
         return http.build();
     }
 
+//    @Bean
+//    public UrlBasedCorsConfigurationSource corsConfigurationSource() {
+//        CorsConfiguration configuration = new CorsConfiguration();
+//        configuration.setAllowedOrigins(Arrays.asList(
+//                "http://localhost:5173", // Swagger
+//                "http://localhost:3000",  // Frontend
+//                "/**"
+//        ));
+//        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+//        configuration.setAllowedHeaders(Arrays.asList("*"));
+//        configuration.setAllowCredentials(true);
+//
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", configuration);
+//        return source;
+//    }
+
     @Bean
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(
-                "http://localhost:5173", // Swagger
-                "http://localhost:3000"  // Frontend
-        ));
+
+        // Har qanday origin ruxsat beriladi
+        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+
+        // Ruxsat berilgan HTTP metodlar
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+
+        // Ruxsat berilgan headerlar
         configuration.setAllowedHeaders(Arrays.asList("*"));
+
+        // Cookie va credentials ishlatish ruxsati
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/**", configuration); // barcha endpointlarga
         return source;
     }
 }
