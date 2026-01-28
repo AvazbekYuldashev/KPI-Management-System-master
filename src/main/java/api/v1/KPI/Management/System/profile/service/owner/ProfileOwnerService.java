@@ -11,7 +11,8 @@ import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
 import api.v1.KPI.Management.System.profile.mapper.ProfileMapper;
 import api.v1.KPI.Management.System.profile.repository.CustomProfileRepository;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
-import api.v1.KPI.Management.System.profile.service.profile.AccauntService;
+import api.v1.KPI.Management.System.profile.service.accaunt.AccauntService;
+import api.v1.KPI.Management.System.profile.service.core.ProfileService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,7 +24,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProfileOwnerService extends AccauntService {
+public class ProfileOwnerService extends ProfileService {
     @Autowired
     private ProfileRepository profileRepository;
     @Autowired

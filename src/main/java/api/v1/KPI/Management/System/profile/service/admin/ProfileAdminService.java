@@ -9,7 +9,7 @@ import api.v1.KPI.Management.System.profile.dto.profile.ProfileResponseDTO;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
 import api.v1.KPI.Management.System.profile.enums.ProfileRole;
 import api.v1.KPI.Management.System.profile.mapper.ProfileMapper;
-import api.v1.KPI.Management.System.profile.service.core.ProfileCoreService;
+import api.v1.KPI.Management.System.profile.service.core.ProfileService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class ProfileAdminService extends ProfileCoreService {
+public class ProfileAdminService extends ProfileService {
 
     @Autowired
     private ProfileMapper profileMapper;

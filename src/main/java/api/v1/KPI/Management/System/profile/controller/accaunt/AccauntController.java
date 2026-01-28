@@ -8,7 +8,7 @@ import api.v1.KPI.Management.System.profile.dto.profile.ProfileDetailUpdateDTO;
 import api.v1.KPI.Management.System.profile.dto.profile.ProfilePasswordUpdate;
 import api.v1.KPI.Management.System.profile.dto.profile.ProfilePhotoUpdate;
 import api.v1.KPI.Management.System.profile.dto.profile.ProfileUsernameUpdateDTO;
-import api.v1.KPI.Management.System.profile.service.profile.AccauntService;
+import api.v1.KPI.Management.System.profile.service.accaunt.AccauntService;
 import api.v1.KPI.Management.System.security.dto.CodeConfirmDTO;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
 import jakarta.validation.Valid;

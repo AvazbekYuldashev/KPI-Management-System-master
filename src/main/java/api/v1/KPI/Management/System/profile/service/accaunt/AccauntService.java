@@ -1,4 +1,4 @@
-package api.v1.KPI.Management.System.profile.service.profile;
+package api.v1.KPI.Management.System.profile.service.accaunt;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
@@ -14,7 +14,7 @@ import api.v1.KPI.Management.System.profile.dto.profile.ProfilePasswordUpdate;
 import api.v1.KPI.Management.System.profile.dto.profile.ProfileUsernameUpdateDTO;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
-import api.v1.KPI.Management.System.profile.service.core.ProfileCoreService;
+import api.v1.KPI.Management.System.profile.service.core.ProfileService;
 import api.v1.KPI.Management.System.security.dto.CodeConfirmDTO;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
 import jakarta.validation.Valid;
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class AccauntService extends ProfileCoreService {
+public class AccauntService extends ProfileService {
     @Autowired
     private ProfileRepository profileRepository;
     @Autowired

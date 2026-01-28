@@ -17,7 +17,7 @@ import api.v1.KPI.Management.System.profile.dto.profile.ProfileDTO;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
 import api.v1.KPI.Management.System.profile.enums.ProfileRole;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
-import api.v1.KPI.Management.System.profile.service.core.ProfileCoreService;
+import api.v1.KPI.Management.System.profile.service.core.ProfileService;
 import api.v1.KPI.Management.System.security.dto.AuthDTO;
 import api.v1.KPI.Management.System.security.dto.RegistrationDTO;
 import api.v1.KPI.Management.System.security.dto.ResetPasswordConfirmDTO;
@@ -38,7 +38,7 @@ public class AuthService {
     @Autowired
     private EmailSendingService emailSendingService;
     @Autowired
-    private ProfileCoreService profileService;
+    private ProfileService profileService;
     @Autowired
     private ResourceBoundleService boundleService;
     @Autowired
