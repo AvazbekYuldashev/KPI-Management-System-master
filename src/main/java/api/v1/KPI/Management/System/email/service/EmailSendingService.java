@@ -68,7 +68,7 @@ public class EmailSendingService {
                 "    %s\n" +
                 "    <a class=\"buttin-link\"\n" +
                 "\n" +
-                "        href=\"%s/auth/registration/email-verification/%s/%s\" target=\"_blank\">Click there</a>\n" +
+                "        href=\"%s/api/v1/auth/registration/email-verification/%s/%s\" target=\"_blank\">Click there</a>\n" +
                 "</p>\n" +
                 "\n" +
                 "</body>\n" +
