@@ -18,20 +18,20 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
     @Autowired
     private AuthService authService;
 
     @Operation(summary = "Create User", description = "Api used for creating new User")
-    @PostMapping("/api/v1/registration")
+    @PostMapping("/registration")
     public ResponseEntity<String> registration(@Valid @RequestBody RegistrationDTO dto,
                                                @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
         return ResponseEntity.ok().body(authService.registration(dto, lang));
     }
 
     @Operation(summary = "login by username and password", description = "API used for Login")
-    @PostMapping("/api/v1/login")
+    @PostMapping("/login")
     public ResponseEntity<ProfileDTO> login(@Valid @RequestBody AuthDTO dto,
                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
         log.info("Login: " + dto.getUsername());
@@ -39,7 +39,7 @@ public class AuthController {
     }
 
     @Operation(summary = "verification by link", description = "API used for verification")
-    @PostMapping("/api/v1/registration/email-verification/{token}/{lang}")
+    @PostMapping("/registration/email-verification/{token}/{lang}")
     public ResponseEntity<String> emailRegVerification(@PathVariable("token") String token,
                                                         @PathVariable("lang") AppLanguage lang) {
         return ResponseEntity.ok().body(authService.registrationEmailVerification(token, lang));
@@ -47,14 +47,14 @@ public class AuthController {
 
 
     @Operation(summary = "verification by link", description = "API used for verification")
-    @PostMapping("/api/v1/registration/email-verification-resend")
+    @PostMapping("/registration/email-verification-resend")
     public ResponseEntity<String> emailVerificationResend(@RequestBody EmailResendDTO dto,
                                                         @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
         return ResponseEntity.ok().body(authService.registrationEmailVerificationResend(dto, lang));
     }
 
     @Operation(summary = "login by username and password", description = "API used for Login")
-    @PostMapping("/api/v1/reset-password")
+    @PostMapping("/reset-password")
     public ResponseEntity<String> resetPassword(@Valid @RequestBody ResetPasswordDTO dto,
                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
         return ResponseEntity.ok().body(authService.resetPassword(dto, lang));
