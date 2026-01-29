@@ -62,7 +62,7 @@ public class AuthController {
 
 
     @Operation(summary = "login by username and password", description = "API used for Login")
-    @PostMapping("/api/v1/reset-password-confirm")
+    @PostMapping("/reset-password-confirm")
     public ResponseEntity<String> resetPasswordConfirm(@Valid @RequestBody ResetPasswordConfirmDTO dto,
                                                 @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
         return ResponseEntity.ok().body(authService.resetPasswordConfrim(dto, lang));
