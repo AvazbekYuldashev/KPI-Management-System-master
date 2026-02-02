@@ -32,7 +32,7 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, String
             c.title = COALESCE(:#{#entity.title}, c.title),
             c.description = COALESCE(:#{#entity.description}, c.description),
             c.departmentId = COALESCE(:#{#entity.departmentId}, c.departmentId),
-            c.buildingId = coalesce(:#{#entity.buildingId}, c.buildingId), 
+            c.buildingId = COALESCE(:#{#entity.buildingId}, c.buildingId), 
             c.visible = COALESCE(:#{#entity.visible}, c.visible),
             c.updatedDate = CURRENT_TIMESTAMP
         WHERE c.id = :#{#entity.id}
