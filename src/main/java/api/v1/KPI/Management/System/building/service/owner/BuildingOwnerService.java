@@ -3,7 +3,7 @@ package api.v1.KPI.Management.System.building.service.owner;
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.util.AppResponseUtil;
-import api.v1.KPI.Management.System.building.dto.core.BuildingCreatedDTO;
+import api.v1.KPI.Management.System.building.dto.core.BuildingCreateDTO;
 import api.v1.KPI.Management.System.building.dto.core.BuildingResponseDTO;
 import api.v1.KPI.Management.System.building.dto.core.BuildingUpdateDTO;
 import api.v1.KPI.Management.System.building.entity.BuildingEntity;
@@ -17,7 +17,7 @@ public class BuildingOwnerService extends BuildingService {
     @Autowired
     private BuildingMapper buildingMapper;
 
-    public BuildingResponseDTO ownerCreate(BuildingCreatedDTO dto, AppLanguage lang){
+    public BuildingResponseDTO ownerCreate(BuildingCreateDTO dto, AppLanguage lang){
         BuildingEntity entity = buildingMapper.toCreatedEntity(dto);
         return buildingMapper.toResponseDTO(create(entity));
     }

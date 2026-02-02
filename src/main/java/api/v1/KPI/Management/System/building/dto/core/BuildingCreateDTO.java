@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class BuildingCreatedDTO {
+public class BuildingCreateDTO {
     private String title;
     private String description;
     private String chiefId;

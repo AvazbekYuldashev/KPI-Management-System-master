@@ -12,6 +12,7 @@ public class CategoryResponseDTO {
     private String title;
     private String description;
     private String departmentId;
+    private String buildingId;
     private Boolean visible;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;

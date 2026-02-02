@@ -1,6 +1,6 @@
 package api.v1.KPI.Management.System.building.mapper;
 
-import api.v1.KPI.Management.System.building.dto.core.BuildingCreatedDTO;
+import api.v1.KPI.Management.System.building.dto.core.BuildingCreateDTO;
 import api.v1.KPI.Management.System.building.dto.core.BuildingResponseDTO;
 import api.v1.KPI.Management.System.building.dto.core.BuildingUpdateDTO;
 import api.v1.KPI.Management.System.building.entity.BuildingEntity;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class BuildingMapper {
-    public BuildingEntity toCreatedEntity(BuildingCreatedDTO dto){
+    public BuildingEntity toCreatedEntity(BuildingCreateDTO dto){
         BuildingEntity entity = new BuildingEntity();
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());

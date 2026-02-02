@@ -1,6 +1,6 @@
 package api.v1.KPI.Management.System.department.mapper;
 
-import api.v1.KPI.Management.System.department.dto.core.DepartmentCreatedDTO;
+import api.v1.KPI.Management.System.department.dto.core.DepartmentCreateDTO;
 import api.v1.KPI.Management.System.department.dto.core.DepartmentUpdateDTO;
 import api.v1.KPI.Management.System.department.dto.core.DepartmentResponseDTO;
 import api.v1.KPI.Management.System.department.entity.DepartmentEntity;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DepartmentMapper {
-    public DepartmentEntity toCreatedEntity(DepartmentCreatedDTO dto){
+    public DepartmentEntity toCreatedEntity(DepartmentCreateDTO dto){
         DepartmentEntity entity = new DepartmentEntity();
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());

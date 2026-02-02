@@ -2,7 +2,7 @@ package api.v1.KPI.Management.System.department.controller.owner;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
-import api.v1.KPI.Management.System.department.dto.core.DepartmentCreatedDTO;
+import api.v1.KPI.Management.System.department.dto.core.DepartmentCreateDTO;
 import api.v1.KPI.Management.System.department.dto.core.DepartmentUpdateDTO;
 import api.v1.KPI.Management.System.department.dto.core.DepartmentResponseDTO;
 import api.v1.KPI.Management.System.department.service.owner.DepartmentOwnerService;
@@ -17,7 +17,7 @@ public class DepartmentOwnerController {
     private DepartmentOwnerService departmentOwnerService;
 
     @PostMapping("/create")
-    public ResponseEntity<DepartmentResponseDTO> create(@RequestBody DepartmentCreatedDTO dto,
+    public ResponseEntity<DepartmentResponseDTO> create(@RequestBody DepartmentCreateDTO dto,
                                                         @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(departmentOwnerService.ownerCreate(dto,lang));
     }

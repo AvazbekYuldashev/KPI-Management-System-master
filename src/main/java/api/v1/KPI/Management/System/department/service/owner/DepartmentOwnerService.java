@@ -3,7 +3,7 @@ package api.v1.KPI.Management.System.department.service.owner;
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.util.AppResponseUtil;
-import api.v1.KPI.Management.System.department.dto.core.DepartmentCreatedDTO;
+import api.v1.KPI.Management.System.department.dto.core.DepartmentCreateDTO;
 import api.v1.KPI.Management.System.department.dto.core.DepartmentUpdateDTO;
 import api.v1.KPI.Management.System.department.dto.core.DepartmentResponseDTO;
 import api.v1.KPI.Management.System.department.entity.DepartmentEntity;
@@ -17,7 +17,7 @@ public class DepartmentOwnerService extends DepartmentService {
     @Autowired
     private DepartmentMapper departmentMapper;
 
-    public DepartmentResponseDTO ownerCreate(DepartmentCreatedDTO dto, AppLanguage lang){
+    public DepartmentResponseDTO ownerCreate(DepartmentCreateDTO dto, AppLanguage lang){
         DepartmentEntity entity = departmentMapper.toCreatedEntity(dto);
         return departmentMapper.toResponseDTO(create(entity));
     }

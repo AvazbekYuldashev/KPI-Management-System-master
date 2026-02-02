@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class DepartmentCreatedDTO {
+public class DepartmentCreateDTO {
     /**
      * Name/title of the department
      */

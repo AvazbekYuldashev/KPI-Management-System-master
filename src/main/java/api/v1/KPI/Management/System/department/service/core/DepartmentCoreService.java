@@ -17,13 +17,13 @@ public class DepartmentCoreService extends DepartmentService {
     public DepartmentResponseDTO getById(String id, AppLanguage lang){
         DepartmentEntity entity = findById(id);
         if (entity != null) return departmentMapper.toResponseDTO(entity);
-        throw new ResourceNotFoundException("Department Not Found");
+        throw new ResourceNotFoundException("Category Not Found");
     }
 
     public DepartmentResponseDTO getByTitle(String title, AppLanguage lang) {
         DepartmentEntity entity = findByTitle(title);
         if (entity != null) return departmentMapper.toResponseDTO(entity);
-        throw new ResourceNotFoundException("Department Not Found");
+        throw new ResourceNotFoundException("Category Not Found");
     }
 
 }

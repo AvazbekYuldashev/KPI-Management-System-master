@@ -1,5 +1,6 @@
 package api.v1.KPI.Management.System.category.entity;
 
+import api.v1.KPI.Management.System.building.entity.BuildingEntity;
 import api.v1.KPI.Management.System.department.entity.DepartmentEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -27,6 +28,9 @@ public class CategoryEntity {
     @Column(name = "department_id")
     private String departmentId;
 
+    @Column(name = "building_id")
+    private String buildingId;
+
     @Column(name = "visible")
     private Boolean visible;
 
@@ -40,6 +44,9 @@ public class CategoryEntity {
     @JoinColumn(name = "department_id", insertable = false, updatable = false)
     private DepartmentEntity department;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "building_id", insertable = false, updatable = false)
+    private BuildingEntity building;
 
 
 }

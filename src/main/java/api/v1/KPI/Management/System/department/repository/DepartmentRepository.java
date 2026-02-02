@@ -29,4 +29,5 @@ public interface DepartmentRepository extends JpaRepository<DepartmentEntity, St
             d.updatedDate = CURRENT_TIMESTAMP
         WHERE d.id = :#{#entity.id}
     """)
-    int update(@Param("entity") DepartmentEntity entity);}
+    int update(@Param("entity") DepartmentEntity entity);
+}
