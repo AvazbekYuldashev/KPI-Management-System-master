@@ -26,4 +26,5 @@ public class BuildingOwnerController {
                                                       @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(buildingOwnerService.ownerUpdate(dto, lang));
     }
+
 }

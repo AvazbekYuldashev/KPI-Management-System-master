@@ -20,7 +20,7 @@ public class BuildingCoreController {
     }
     @GetMapping("/by-title/{title}")
     public ResponseEntity<BuildingResponseDTO> findByTitle(@PathVariable String title,
-                                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
+                                                           @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(buildingCoreService.getByTitle(title, lang));
     }
 }

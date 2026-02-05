@@ -5,6 +5,7 @@ import api.v1.KPI.Management.System.jwt.config.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -31,18 +32,11 @@ public class SpringConfig {
 
     public static final String[] AUTH_WHITELIST = {
             "/auth/**",
-            "172.16.254.134:8080",
-            "172.16.254.134",
             "/api/v1/auth/**",
             "/swagger-ui/**",
             "/v3/api-docs/**",
             "/api/v1/attach/open/*"
     };
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Bean
     public AuthenticationProvider authenticationProvider(BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -58,6 +52,7 @@ public class SpringConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers(AUTH_WHITELIST).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -66,41 +61,33 @@ public class SpringConfig {
         return http.build();
     }
 
-//    @Bean
-//    public UrlBasedCorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(Arrays.asList(
-//                "http://localhost:5173", // Swagger
-//                "http://localhost:3000",  // Frontend
-//                "/**"
-//        ));
-//        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-//        configuration.setAllowedHeaders(Arrays.asList("*"));
-//        configuration.setAllowCredentials(true);
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
-
     @Bean
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-
-        // Har qanday origin ruxsat beriladi
+//        configuration.setAllowedOrigins(Arrays.asList(
+//                "http://localhost:5173",
+//                "http://202.181.188.35:5173"
+//        ));
         configuration.setAllowedOriginPatterns(Arrays.asList("*"));
-
-        // Ruxsat berilgan HTTP metodlar
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-
-        // Ruxsat berilgan headerlar
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-
-        // Cookie va credentials ishlatish ruxsati
-        configuration.setAllowCredentials(true);
+        configuration.setAllowedHeaders(Arrays.asList(
+                "Authorization",
+                "Content-Type",
+                "Accept"
+        ));
+        configuration.setAllowCredentials(false); // cookie yoki token yuborishga ruxsat
+        //configuration.setAllowCredentials(true); // cookie yoki token yuborishga ruxsat
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // barcha endpointlarga
+        source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+
 }

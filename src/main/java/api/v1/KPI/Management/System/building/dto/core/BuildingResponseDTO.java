@@ -16,4 +16,6 @@ public class BuildingResponseDTO {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
     private Boolean visible;
+
+
 }
