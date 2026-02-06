@@ -18,7 +18,7 @@ public interface DepartmentRepository extends JpaRepository<DepartmentEntity, St
     @Query("SELECT d FROM DepartmentEntity d WHERE d.title = :title AND d.visible = TRUE ")
     Optional<DepartmentEntity> findByTitleAndVisibleTrue(String title);
 
-    @Modifying
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Transactional
     @Query("""
         UPDATE DepartmentEntity d SET

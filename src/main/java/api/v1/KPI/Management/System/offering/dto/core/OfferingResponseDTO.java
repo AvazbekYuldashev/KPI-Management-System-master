@@ -12,6 +12,7 @@ public class OfferingResponseDTO {
     private String title;
     private String description;
     private Float kpiBall;
+    private Long deadline;
     private String categoryId;
     private String departmentId;
     private Boolean visible;

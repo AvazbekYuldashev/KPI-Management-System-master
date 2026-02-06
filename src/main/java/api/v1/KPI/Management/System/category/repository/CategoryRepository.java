@@ -25,7 +25,7 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, String
     Optional<CategoryEntity> findByTitleAndVisibleTrue(String title);
 
     // Update qilish (null qiymatlarni saqlash)
-    @Modifying
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Transactional
     @Query("""
         UPDATE CategoryEntity c SET

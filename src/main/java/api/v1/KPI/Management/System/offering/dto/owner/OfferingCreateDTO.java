@@ -5,10 +5,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class OfferingOwnerUpdateDTO {
+public class OfferingCreateDTO {
     private String title;
     private String description;
     private Float kpiBall;
+    private Long deadline;
     private String categoryId;
     private String departmentId;
 }

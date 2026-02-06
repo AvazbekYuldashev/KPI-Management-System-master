@@ -18,7 +18,7 @@ public interface BuildingRepository extends JpaRepository<BuildingEntity, String
     @Query("SELECT b FROM BuildingEntity b WHERE b.title = :title AND b.visible = TRUE")
     Optional<BuildingEntity> findByTitleAndVisibleTrue(@Param("title") String title);
 
-    @Modifying
+    @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Transactional
     @Query("""
         UPDATE BuildingEntity b SET

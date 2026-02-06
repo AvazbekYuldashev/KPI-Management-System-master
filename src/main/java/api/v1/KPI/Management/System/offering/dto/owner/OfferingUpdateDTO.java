@@ -3,16 +3,14 @@ package api.v1.KPI.Management.System.offering.dto.owner;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
-public class OfferingOwnerCreateDTO {
+public class OfferingUpdateDTO {
+    private String id;
     private String title;
     private String description;
     private Float kpiBall;
+    private Long deadline;
     private String categoryId;
     private String departmentId;
-    private Long deadline;
-
 }
