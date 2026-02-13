@@ -2,6 +2,8 @@ package api.v1.KPI.Management.System.building.repoisotry;
 
 import api.v1.KPI.Management.System.building.entity.BuildingEntity;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -29,4 +31,12 @@ public interface BuildingRepository extends JpaRepository<BuildingEntity, String
             b.updatedDate = CURRENT_TIMESTAMP
         WHERE b.id = :#{#entity.id}
     """)
-    int update(@Param("entity") BuildingEntity entity);}
+    int update(@Param("entity") BuildingEntity entity);
+
+
+    @Query("SELECT b FROM BuildingEntity b WHERE b.visible = TRUE ORDER BY  b.createdDate DESC")
+    Page<BuildingEntity> findAllPageAndVisibleTrue(Pageable pageable);
+
+    @Query("SELECT b FROM BuildingEntity b ORDER BY b.createdDate DESC ")
+    Page<BuildingEntity> findAllPage(Pageable pageable);
+}

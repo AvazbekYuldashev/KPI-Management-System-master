@@ -3,19 +3,19 @@ POST http://localhost:8080/api/v1/auth/registration
 Content-Type: application/json
 
 {
-  "name": "",
-  "surname": "",
-  "username": "",
+  "name": "ss",
+  "surname": "ss",
+  "username": "telegram.vzlom@gmail.com",
   "password": "12345"
 }
 
 ### Login
-POST http://172.16.254.134:8080/api/v1/auth/login
+POST http://localhost:8080/api/v1/auth/login
 Content-Type: application/json
 
 {
-  "username": "",
-  "password": ""
+  "username": "telegram.vzlom@gmail.com",
+  "password": "12345"
 }
 
 ### resend email

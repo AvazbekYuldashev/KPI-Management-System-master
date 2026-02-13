@@ -19,7 +19,7 @@ import java.util.Optional;
 @Repository
 public interface ProfileRepository extends JpaRepository<ProfileEntity,String> {
 
-    @Query("SELECT p FROM ProfileEntity p WHERE p.username = :username")
+    @Query("SELECT p FROM ProfileEntity p WHERE p.username = :username AND  p.visible = TRUE ")
     Optional<ProfileEntity> findByUsernameAndVisibleTrue(@Param("username") String username);
 
     @Query("SELECT p FROM ProfileEntity p WHERE p.id = :id AND p.visible = true ")

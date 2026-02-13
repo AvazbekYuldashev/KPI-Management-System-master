@@ -4,12 +4,14 @@ package api.v1.KPI.Management.System.jwt.util;
 import api.v1.KPI.Management.System.jwt.dto.JwtDTO;
 import api.v1.KPI.Management.System.profile.enums.ProfileRole;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -52,28 +54,41 @@ public class JwtUtil {
         return new JwtDTO(id, username, roleList);
     }
 
+    // Token yaratish
     public static String encodeVer(String id) {
-
-        return Jwts
-                .builder()
-                .subject(String.valueOf(id))
+        return Jwts.builder()
+                .subject(id)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + tokenLiveTimeOneHour))
                 .signWith(getSignInKey())
                 .compact();
     }
+
+    // Token decode qilish
     public static String decodeRegVerToken(String token) {
-        Claims claims = Jwts
-                .parser()
-                .verifyWith(getSignInKey())
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
-        return claims.getSubject();
+        try {
+            Claims claims = Jwts.parser()
+                    .verifyWith(getSignInKey())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+
+            return claims.getSubject(); // profil ID
+        } catch (JwtException e) {
+            throw new RuntimeException("JWT token invalid or expired", e);
+        }
     }
 
+
+
     private static SecretKey getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        byte[] keyBytes;
+        try {
+            keyBytes = Decoders.BASE64.decode(secretKey);
+        } catch (IllegalArgumentException e) {
+            // Fallback for plain-text secrets that are not Base64 encoded.
+            keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
+        }
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

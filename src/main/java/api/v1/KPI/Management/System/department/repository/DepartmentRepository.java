@@ -2,6 +2,8 @@ package api.v1.KPI.Management.System.department.repository;
 
 import api.v1.KPI.Management.System.department.entity.DepartmentEntity;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -30,4 +32,7 @@ public interface DepartmentRepository extends JpaRepository<DepartmentEntity, St
         WHERE d.id = :#{#entity.id}
     """)
     int update(@Param("entity") DepartmentEntity entity);
+
+    @Query("SELECT d FROM DepartmentEntity d ORDER BY d.createdDate desc ")
+    Page<DepartmentEntity> findAllPage(Pageable pageable);
 }

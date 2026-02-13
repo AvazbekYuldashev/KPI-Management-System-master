@@ -24,6 +24,7 @@ import api.v1.KPI.Management.System.security.dto.ResetPasswordConfirmDTO;
 import api.v1.KPI.Management.System.security.dto.ResetPasswordDTO;
 import api.v1.KPI.Management.System.security.enums.GeneralStatus;
 import io.jsonwebtoken.JwtException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,7 @@ public class AuthService {
 
     /// Registers the user or continues the previous registration process and sends a confirmation email.
     /// The new user is assigned the admin role.
+    @Transactional
     public String registration(RegistrationDTO dto, AppLanguage lang) {
         Optional<ProfileEntity> optional = profileRepository.findByUsernameAndVisibleTrue(dto.getUsername());
         if (optional.isPresent()) {

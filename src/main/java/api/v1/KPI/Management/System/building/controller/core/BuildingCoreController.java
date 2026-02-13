@@ -4,6 +4,7 @@ import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.building.dto.core.BuildingResponseDTO;
 import api.v1.KPI.Management.System.building.service.core.BuildingCoreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,5 +23,16 @@ public class BuildingCoreController {
     public ResponseEntity<BuildingResponseDTO> findByTitle(@PathVariable String title,
                                                            @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(buildingCoreService.getByTitle(title, lang));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<Page<BuildingResponseDTO>> findAll(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                                             @RequestParam(value = "size", defaultValue = "10") Integer size,
+                                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
+        return ResponseEntity.ok().body(buildingCoreService.getAllPage(getCurrentPage(page), size, lang));
+    }
+
+    public static int getCurrentPage(Integer page) {
+        return (page != null && page > 0) ? page - 1 : 0;
     }
 }

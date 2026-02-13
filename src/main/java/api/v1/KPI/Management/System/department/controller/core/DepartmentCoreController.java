@@ -23,4 +23,8 @@ public class DepartmentCoreController {
                                                           @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(departmentCoreService.getByTitle(title, lang));
     }
+
+    public static int getCurrentPage(Integer page) {
+        return (page != null && page > 0) ? page - 1 : 0;
+    }
 }

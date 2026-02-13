@@ -13,10 +13,6 @@ public class ProfileMapper {
     private AttachService attachService;
 
 
-    public ProfileEntity toEntity(ProfileDTO dto) {
-        return null;
-    }
-
     public ProfileDTO toInfoDTO(ProfileEntity entity) {
         ProfileDTO dto = new ProfileDTO();
         dto.setId(entity.getId());

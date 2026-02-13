@@ -2,6 +2,8 @@ package api.v1.KPI.Management.System.offering.repository;
 
 import api.v1.KPI.Management.System.offering.entity.OfferingEntity;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -33,4 +35,12 @@ public interface OfferingRepository extends JpaRepository<OfferingEntity, String
             o.updatedDate = CURRENT_TIMESTAMP
         WHERE o.id = :#{#entity.id}
     """)
-    int update(@Param("entity") OfferingEntity entity);}
+    int update(@Param("entity") OfferingEntity entity);
+
+    @Query("SELECT o FROM OfferingEntity o WHERE o.visible = TRUE ")
+    Page<OfferingEntity> findAllPage(Pageable pageable);
+
+    @Query("SELECT o FROM OfferingEntity o WHERE o.categoryId = :id AND o.visible = TRUE ")
+    Page<OfferingEntity> findAllPageByCategoryId(@Param("id") String id, Pageable pageable);
+
+}

@@ -56,7 +56,6 @@ public class OfferingEntity {
 
 
 
-
     @PrePersist
     protected void onCreate() {
         this.visible = Boolean.TRUE;

@@ -48,4 +48,10 @@ public class BuildingEntity {
     @Column(name = "updated_date")
     private LocalDateTime updatedDate;
 
+    @PrePersist
+    protected void onCreate() {
+        this.visible = Boolean.TRUE;
+        this.createdDate = LocalDateTime.now();
+        this.updatedDate  = LocalDateTime.now();
+    }
 }

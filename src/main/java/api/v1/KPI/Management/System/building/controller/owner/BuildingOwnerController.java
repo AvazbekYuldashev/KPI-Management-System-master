@@ -7,6 +7,7 @@ import api.v1.KPI.Management.System.building.dto.core.BuildingResponseDTO;
 import api.v1.KPI.Management.System.building.dto.core.BuildingUpdateDTO;
 import api.v1.KPI.Management.System.building.service.owner.BuildingOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,5 +27,15 @@ public class BuildingOwnerController {
                                                       @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(buildingOwnerService.ownerUpdate(dto, lang));
     }
+    @GetMapping("/all")
+    public ResponseEntity<Page<BuildingResponseDTO>> findAll(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                                             @RequestParam(value = "size", defaultValue = "10") Integer size,
+                                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
+        return ResponseEntity.ok().body(buildingOwnerService.getAllPage(getCurrentPage(page), size, lang));
+    }
+    public static int getCurrentPage(Integer page) {
+        return (page != null && page > 0) ? page - 1 : 0;
+    }
+
 
 }

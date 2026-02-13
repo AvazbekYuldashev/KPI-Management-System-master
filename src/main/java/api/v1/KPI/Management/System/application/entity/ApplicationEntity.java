@@ -38,7 +38,6 @@ public class ApplicationEntity {
     private Boolean visible;                 // ariza korinishi (delete soft)
 
 
-
     @Column(name = "send_profile_id")
     private String sendProfileId;            // yuboruvchi ID
     @Column(name = "acceptor_profile_id")

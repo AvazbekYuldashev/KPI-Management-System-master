@@ -48,5 +48,10 @@ public class CategoryEntity {
     @JoinColumn(name = "building_id", insertable = false, updatable = false)
     private BuildingEntity building;
 
-
+    @PrePersist
+    protected void onCreate() {
+        this.visible = Boolean.TRUE;
+        this.createdDate = LocalDateTime.now();
+        this.updatedDate  = LocalDateTime.now();
+    }
 }

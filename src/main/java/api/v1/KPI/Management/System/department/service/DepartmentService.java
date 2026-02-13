@@ -5,6 +5,8 @@ import api.v1.KPI.Management.System.department.entity.DepartmentEntity;
 import api.v1.KPI.Management.System.department.repository.DepartmentRepository;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -29,5 +31,9 @@ public class DepartmentService {
         DepartmentEntity department = findById(entity.getId());
         if (department == null) throw new ResourceNotFoundException("Department Not Found");
         return departmentRepository.update(entity) > 0;
+    }
+
+    public Page<DepartmentEntity> findAllPage(Pageable pageable) {
+        return departmentRepository.findAllPage(pageable);
     }
 }

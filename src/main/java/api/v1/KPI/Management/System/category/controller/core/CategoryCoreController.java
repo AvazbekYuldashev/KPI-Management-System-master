@@ -44,6 +44,5 @@ public class CategoryCoreController {
     }
 
     public static int getCurrentPage(Integer page) {
-        return page > 0 ? page - 1 : 1;
-    }
-}
+        return (page != null && page > 0) ? page - 1 : 0;
+    }}

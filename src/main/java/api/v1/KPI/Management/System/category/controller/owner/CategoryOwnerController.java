@@ -26,4 +26,5 @@ public class CategoryOwnerController {
                                                       @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(categoryOwnerService.ownerUpdate(dto, lang));
     }
+
 }

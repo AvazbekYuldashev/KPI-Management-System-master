@@ -5,6 +5,9 @@ import api.v1.KPI.Management.System.building.entity.BuildingEntity;
 import api.v1.KPI.Management.System.building.repoisotry.BuildingRepository;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -31,5 +34,13 @@ public class BuildingService {
         if (department == null) throw new ResourceNotFoundException("Department Not Found");
         int effectedRow = buildingRepository.update(entity);
         return effectedRow > 0;
+    }
+
+    public Page<BuildingEntity> findAllPageAndVisibleTrue(Pageable pageable) {
+        return buildingRepository.findAllPageAndVisibleTrue(pageable);
+    }
+
+    public Page<BuildingEntity> findAllPage(Pageable pageable) {
+        return buildingRepository.findAllPage(pageable);
     }
 }
