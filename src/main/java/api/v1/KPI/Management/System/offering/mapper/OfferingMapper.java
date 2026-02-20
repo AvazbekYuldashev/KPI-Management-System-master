@@ -16,6 +16,7 @@ public class OfferingMapper {
         entity.setDeadline(dto.getDeadline());
         entity.setCategoryId(dto.getCategoryId());
         entity.setDepartmentId(dto.getDepartmentId());
+        entity.setBuildingId(dto.getBuildingId());
         return entity;
     }
 
@@ -30,6 +31,7 @@ public class OfferingMapper {
         dto.setDepartmentId(entity.getDepartmentId());
         dto.setCreatedDate(entity.getCreatedDate());
         dto.setUpdatedDate(entity.getUpdatedDate());
+        dto.setBuildingId(entity.getBuildingId());
         dto.setVisible(entity.getVisible());
         return dto;
     }
@@ -43,6 +45,7 @@ public class OfferingMapper {
         entity.setDeadline(dto.getDeadline());
         entity.setCategoryId(dto.getCategoryId());
         entity.setDepartmentId(dto.getDepartmentId());
+        entity.setBuildingId(dto.getBuildingId());
         return entity;
     }
 }

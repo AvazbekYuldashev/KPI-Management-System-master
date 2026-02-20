@@ -46,11 +46,11 @@ public class ProfileAdminService extends ProfileService {
         return null;
     }
 
-    public AppResponse<String> deleteById(String id, AppLanguage lang) {
+    public AppResponse<String> delete(String id, AppLanguage lang) {
         ProfileEntity profile = findById(id, lang);
         if (profile.getStatus().equals(ProfileRole.ROLE_OWNER)){
             throw new ProfileStatusException("asd");
         }
-        return deletebyId(id, lang);
+        return deleteById(id, lang);
     }
 }

@@ -9,6 +9,8 @@ import api.v1.KPI.Management.System.building.dto.core.BuildingUpdateDTO;
 import api.v1.KPI.Management.System.building.entity.BuildingEntity;
 import api.v1.KPI.Management.System.building.mapper.BuildingMapper;
 import api.v1.KPI.Management.System.building.service.BuildingService;
+import api.v1.KPI.Management.System.profile.service.core.ProfileService;
+import api.v1.KPI.Management.System.profile.service.owner.ProfileOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -22,14 +24,24 @@ import java.util.List;
 public class BuildingOwnerService extends BuildingService {
     @Autowired
     private BuildingMapper buildingMapper;
+    @Autowired
+    private ProfileOwnerService profileService;
 
     public BuildingResponseDTO ownerCreate(BuildingCreateDTO dto, AppLanguage lang){
         BuildingEntity entity = buildingMapper.toCreatedEntity(dto);
+        if (dto.getChiefId() != null) {
+            entity.setChiefId(dto.getChiefId());
+            profileService.updateEmployee(dto.getChiefId());
+        }
         return buildingMapper.toResponseDTO(create(entity));
     }
 
     public AppResponse<String> ownerUpdate(BuildingUpdateDTO dto, AppLanguage lang){
         BuildingEntity entity = buildingMapper.toUpdatedEntity(dto);
+        if (dto.getChiefId() != null) {
+            entity.setChiefId(dto.getChiefId());
+            profileService.updateEmployee(dto.getChiefId());
+        }
         return AppResponseUtil.chek(update(entity, lang));
     }
 

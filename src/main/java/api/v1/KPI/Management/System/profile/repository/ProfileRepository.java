@@ -7,6 +7,7 @@ import api.v1.KPI.Management.System.security.enums.GeneralStatus;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -62,7 +63,7 @@ public interface ProfileRepository extends JpaRepository<ProfileEntity,String> {
     @Query("UPDATE ProfileEntity SET visible = :visible WHERE id = :id")
     void deleteSoftById(@Param("id") String id, @Param("visible") Boolean visible);
 
-    @Query("SELECT p FROM ProfileEntity p WHERE p.visible = true ORDER BY p.createdDate DESC")
+    @Query("SELECT p FROM ProfileEntity p ORDER BY p.createdDate DESC")
     Page<ProfileEntity> findAllPage(PageRequest of);
 
     @Modifying
@@ -78,4 +79,17 @@ public interface ProfileRepository extends JpaRepository<ProfileEntity,String> {
 
     @Query("SELECT p FROM ProfileEntity p WHERE p.role = :role AND p.visible = true ORDER BY p.createdDate DESC")
     List<ProfileEntity> findAllByRoleManager(ProfileRole role);
+
+    @Query("SELECT p FROM ProfileEntity p WHERE p.departmentId =:id AND p.visible = TRUE order by p.createdDate DESC ")
+    Page<ProfileEntity> findAllByDepartmentIdAndVisibleTrue(@Param("id") String id, Pageable pageable);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ProfileEntity SET isEmployee = :b WHERE id = :id ")
+    int changeEmployee(@Param("id") String id, @Param("b") Boolean b);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ProfileEntity SET isEmployee = TRUE, departmentId = :departmentId WHERE id = :id")
+    int changeDepartment(@Param("id") String id,@Param("departmentId") String departmentId);
 }

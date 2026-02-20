@@ -7,7 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProfilePhotoUpdate {
+    @NotBlank(message = "Profile Id required")
+    private String id;
     @NotBlank(message = "Photo Id required")
     private String photoId;
-
 }

@@ -5,6 +5,7 @@ import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.service.ResourceBoundleService;
 import api.v1.KPI.Management.System.attach.service.AttachService;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
+import api.v1.KPI.Management.System.profile.dto.owner.ProfileOwnerChangeDepartmentDTO;
 import api.v1.KPI.Management.System.profile.dto.profile.*;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
 import api.v1.KPI.Management.System.profile.enums.ProfileRole;
@@ -12,6 +13,7 @@ import api.v1.KPI.Management.System.profile.mapper.ProfileMapper;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
 import api.v1.KPI.Management.System.security.enums.GeneralStatus;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -50,17 +52,16 @@ public class ProfileService {
         return optional.get();
     }
 
-    public AppResponse<String> updatePhoto(String photoId, AppLanguage lang) {
+    public AppResponse<String> changePhoto(String id, String photoId, AppLanguage lang) {
         ProfileEntity profile = findById(SpringSecurityUtil.getCurrentUserId(), lang);
         if (profile.getPhotoId() != null && !profile.getPhotoId().equals(photoId)){
             attachService.deleteSoft(profile.getPhotoId());
         }
-        profileRepository.updatePhoto(profile.getId(), photoId);
-
+        profileRepository.updatePhoto(id, photoId);
         return new AppResponse<>(boundleService.getMessage("update.successfully.completed",lang));
     }
 
-    public AppResponse<String> deletebyId(String id, AppLanguage lang) {
+    public AppResponse<String> deleteById(String id, AppLanguage lang) {
         ProfileEntity profile = findById(id, lang);
         profileRepository.deleteSoftById(profile.getId(), false);
         return new AppResponse<>(boundleService.getMessage("update.successfully.completed",lang));
@@ -72,6 +73,10 @@ public class ProfileService {
             throw new ResourceNotFoundException(boundleService.getMessage("username.not.found", lang));
         }
         return optional.get();
+    }
+    public AppResponse<String> changeDepartment(@Valid ProfileOwnerChangeDepartmentDTO dto, AppLanguage lang) {
+        profileRepository.changeDepartment(dto.getId(), dto.getDepartmentId());
+        return new AppResponse<>(boundleService.getMessage("update.successfully.completed",lang));
     }
 
     public PageImpl<ProfileResponseDTO> getAll(int page, int size) {
@@ -89,5 +94,13 @@ public class ProfileService {
 
     public boolean updateStatus(String id, GeneralStatus status){
         return profileRepository.changeStatus(id, status) > 0;
+    }
+
+    public ProfileEntity save(ProfileEntity entity) {
+        return profileRepository.save(entity);
+    }
+
+    public int employeeUpdate(String id, Boolean b) {
+        return profileRepository.changeEmployee(id, b);
     }
 }

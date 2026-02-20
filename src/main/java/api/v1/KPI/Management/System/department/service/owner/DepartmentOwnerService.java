@@ -3,14 +3,14 @@ package api.v1.KPI.Management.System.department.service.owner;
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.util.AppResponseUtil;
-import api.v1.KPI.Management.System.building.dto.core.BuildingResponseDTO;
-import api.v1.KPI.Management.System.building.entity.BuildingEntity;
 import api.v1.KPI.Management.System.department.dto.core.DepartmentCreateDTO;
 import api.v1.KPI.Management.System.department.dto.core.DepartmentUpdateDTO;
 import api.v1.KPI.Management.System.department.dto.core.DepartmentResponseDTO;
 import api.v1.KPI.Management.System.department.entity.DepartmentEntity;
 import api.v1.KPI.Management.System.department.mapper.DepartmentMapper;
 import api.v1.KPI.Management.System.department.service.DepartmentService;
+import api.v1.KPI.Management.System.profile.service.core.ProfileService;
+import api.v1.KPI.Management.System.profile.service.owner.ProfileOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,14 +24,24 @@ import java.util.List;
 public class DepartmentOwnerService extends DepartmentService {
     @Autowired
     private DepartmentMapper departmentMapper;
+    @Autowired
+    private ProfileOwnerService profileService;
 
     public DepartmentResponseDTO ownerCreate(DepartmentCreateDTO dto, AppLanguage lang){
         DepartmentEntity entity = departmentMapper.toCreatedEntity(dto);
-        return departmentMapper.toResponseDTO(create(entity));
+        DepartmentEntity save = create(entity);
+        if (dto.getChiefId() != null) {
+            profileService.updateEmployee(dto.getChiefId());
+        }
+        return departmentMapper.toResponseDTO(save);
     }
 
-    public AppResponse<String> ownerUpdate(DepartmentUpdateDTO dto, AppLanguage lang){
+    public AppResponse<String> ownerUpdate(String id, DepartmentUpdateDTO dto, AppLanguage lang){
         DepartmentEntity entity = departmentMapper.toUpdatedEntity(dto);
+        entity.setId(id);
+        if (dto.getChiefId() != null) {
+            profileService.updateEmployee(dto.getChiefId());
+        }
         return AppResponseUtil.chek(update(entity, lang));
     }
 

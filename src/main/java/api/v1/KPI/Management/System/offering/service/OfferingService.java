@@ -34,10 +34,13 @@ public class OfferingService {
         if (offering == null) throw new ResourceNotFoundException("Offering Not Found");
         return offeringRepository.update(entity) > 0;
     }
-    public Page<OfferingEntity> findAllPage(Pageable pageable) {
-        return offeringRepository.findAllPage(pageable);
+    public Page<OfferingEntity> findAllPageAndVisibleTrue(Pageable pageable) {
+        return offeringRepository.findAllPageAndVisibleTrue(pageable);
     }
     public Page<OfferingEntity> findAllPageByCategoryId(String id, Pageable pageable) {
         return offeringRepository.findAllPageByCategoryId(id, pageable);
+    }
+    public Page<OfferingEntity> findAllPage(Pageable pageable) {
+        return offeringRepository.findAllPage(pageable);
     }
 }

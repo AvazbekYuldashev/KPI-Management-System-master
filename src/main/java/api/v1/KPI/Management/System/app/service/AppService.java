@@ -48,17 +48,17 @@ public class AppService {
             throw new AppBadException("Error");
         }
         ProfileEntity entity = new ProfileEntity();
-        entity.setName(username);
-        entity.setSurname(username);
-        entity.setUsername(username);
-        entity.setPassword(bc.encode(username+"159951"));
+        entity.setName("Avazbek");
+        entity.setSurname("Yuldashev");
+        entity.setUsername("telegram.vzlom@gmail.com");
+        entity.setPassword(bc.encode("12345"));
         entity.setLanguage(AppLanguage.UZ);
         entity.setVisible(true);
-        entity.setRole(ProfileRole.ROLE_ADMIN);
+        entity.setRole(ProfileRole.ROLE_OWNER);
         entity.setStatus(GeneralStatus.ACTIVE);
         ProfileEntity profile = profileRepository.save(entity);
-        createDepartment(profile.getId());
-        createAdmin();
+//        createDepartment(profile.getId());
+//        createAdmin();
         return new AppResponse("DONE");
     }
 

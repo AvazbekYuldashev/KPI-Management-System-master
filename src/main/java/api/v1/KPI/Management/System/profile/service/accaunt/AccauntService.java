@@ -3,6 +3,7 @@ package api.v1.KPI.Management.System.profile.service.accaunt;
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.service.ResourceBoundleService;
+import api.v1.KPI.Management.System.attach.service.AttachService;
 import api.v1.KPI.Management.System.email.service.EmailHistoryService;
 import api.v1.KPI.Management.System.email.service.EmailSendingService;
 import api.v1.KPI.Management.System.email.util.EmailUtil;
@@ -32,6 +33,8 @@ public class AccauntService extends ProfileService {
     private ResourceBoundleService boundleService;
     @Autowired
     private BCryptPasswordEncoder bc;
+    @Autowired
+    private AttachService attachService;
     @Autowired
     private EmailSendingService emailSendingService;
     @Autowired
@@ -81,5 +84,9 @@ public class AccauntService extends ProfileService {
         }
         profileRepository.updateUsername(SpringSecurityUtil.getCurrentUserId(), profile.getTempUsername());
         return new AppResponse<>(JwtUtil.encode(profile.getTempUsername(), profile.getId(), profile.getRole()));
+    }
+
+    public AppResponse<String> updatePhoto(String photoId, AppLanguage lang) {
+        return changePhoto(SpringSecurityUtil.getCurrentUserId(), photoId, lang);
     }
 }

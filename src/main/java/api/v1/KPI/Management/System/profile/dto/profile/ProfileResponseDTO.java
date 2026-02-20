@@ -16,7 +16,10 @@ public class ProfileResponseDTO {
     private String username;
     private String photoId;
     private GeneralStatus status;
+    private String buildingId;
+    private String departmentId;
 
     private ProfileRole role;
     private LocalDateTime createdDate;
+    private Boolean isEmployee;
 }

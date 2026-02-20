@@ -13,13 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/department-admin")
+@RequestMapping("/api/v1/department-owner")
 public class DepartmentOwnerController {
     @Autowired
     private DepartmentOwnerService departmentOwnerService;
 
     @GetMapping("/all")
-
     public ResponseEntity<Page<DepartmentResponseDTO>> findAll(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                                              @RequestParam(value = "size", defaultValue = "10") Integer size,
                                                              @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
@@ -31,10 +30,10 @@ public class DepartmentOwnerController {
                                                         @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(departmentOwnerService.ownerCreate(dto,lang));
     }
-    @PutMapping("/update")
-    public ResponseEntity<AppResponse<String>> update(@RequestBody DepartmentUpdateDTO dto,
+    @PutMapping("/update/{id}")
+    public ResponseEntity<AppResponse<String>> update(@PathVariable String id, @RequestBody DepartmentUpdateDTO dto,
                                                       @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
-        return ResponseEntity.ok().body(departmentOwnerService.ownerUpdate(dto, lang));
+        return ResponseEntity.ok().body(departmentOwnerService.ownerUpdate(id, dto, lang));
     }
 
     public static int getCurrentPage(Integer page) {

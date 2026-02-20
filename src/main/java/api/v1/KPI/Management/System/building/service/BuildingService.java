@@ -4,6 +4,8 @@ import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.building.entity.BuildingEntity;
 import api.v1.KPI.Management.System.building.repoisotry.BuildingRepository;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
+import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
+import api.v1.KPI.Management.System.profile.service.core.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

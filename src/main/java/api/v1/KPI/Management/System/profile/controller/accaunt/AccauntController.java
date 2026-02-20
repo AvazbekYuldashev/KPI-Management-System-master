@@ -34,10 +34,10 @@ public class AccauntController {
         return ResponseEntity.ok().body(accauntService.updateDetail(dto, lang));
     }
 
-    @PutMapping("/photo")
-    public ResponseEntity<AppResponse<String>> updatePhoto(@Valid @RequestBody ProfilePhotoUpdate dto,
+    @PutMapping("/photo/{photoId}")
+    public ResponseEntity<AppResponse<String>> updatePhoto(@Valid @PathVariable("photoId") String photoId,
                                                       @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
-        return ResponseEntity.ok().body(accauntService.updatePhoto(dto.getPhotoId(), lang));
+        return ResponseEntity.ok().body(accauntService.updatePhoto(photoId, lang));
     }
 
     @PutMapping("/password")
@@ -58,8 +58,8 @@ public class AccauntController {
         return ResponseEntity.ok().body(accauntService.updateUsernameConfirm(dto, lang));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<AppResponse<String>> delete(@RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang ) {
-        return ResponseEntity.ok().body(accauntService.deletebyId(SpringSecurityUtil.getCurrentUserId(), lang));
-    }
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<AppResponse<String>> delete(@RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang ) {
+//        return ResponseEntity.ok().body(accauntService.deletebyId(SpringSecurityUtil.getCurrentUserId(), lang));
+//    }
 }

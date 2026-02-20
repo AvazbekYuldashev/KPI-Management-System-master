@@ -1,6 +1,7 @@
 package api.v1.KPI.Management.System.category.service;
 
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
+import api.v1.KPI.Management.System.building.entity.BuildingEntity;
 import api.v1.KPI.Management.System.category.entity.CategoryEntity;
 import api.v1.KPI.Management.System.category.repository.CategoryRepository;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
@@ -42,5 +43,9 @@ public class CategoryService {
     public Page<CategoryEntity> findByBuildingId(int page, int size, String buildingId) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
         return categoryRepository.findAllByBuildingId(buildingId, pageable);
+    }
+
+    public Page<CategoryEntity> findAllPage(Pageable pageable) {
+        return categoryRepository.findAllPage(pageable);
     }
 }

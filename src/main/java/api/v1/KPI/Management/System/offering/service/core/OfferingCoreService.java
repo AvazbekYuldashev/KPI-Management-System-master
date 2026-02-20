@@ -38,7 +38,7 @@ public class OfferingCoreService extends OfferingService {
         Pageable pageable = PageRequest.of(page, size);
 
         // Bazadan sahifa bo‘yicha ma'lumotlarni olish
-        Page<OfferingEntity> entitiesPage = findAllPage(pageable);
+        Page<OfferingEntity> entitiesPage = findAllPageAndVisibleTrue(pageable);
 
         // Entity → DTO map qilish
         List<OfferingResponseDTO> dtoList = entitiesPage.getContent().stream()

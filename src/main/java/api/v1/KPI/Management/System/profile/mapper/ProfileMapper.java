@@ -1,6 +1,8 @@
 package api.v1.KPI.Management.System.profile.mapper;
 
+import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.attach.service.AttachService;
+import api.v1.KPI.Management.System.profile.dto.owner.ProfileOwnerCreateDTO;
 import api.v1.KPI.Management.System.profile.dto.profile.ProfileDTO;
 import api.v1.KPI.Management.System.profile.dto.profile.ProfileResponseDTO;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
@@ -23,6 +25,8 @@ public class ProfileMapper {
         dto.setCreatedDate(entity.getCreatedDate());
         dto.setStatus(entity.getStatus());
         dto.setRole(entity.getRole());
+        dto.setIsEmployee(entity.getIsEmployee());
+
         return dto;
     }
 
@@ -37,7 +41,22 @@ public class ProfileMapper {
         dto.setCreatedDate(entity.getCreatedDate());
         dto.setStatus(entity.getStatus());
         dto.setRole(entity.getRole());
+        dto.setDepartmentId(entity.getDepartmentId());
+        dto.setBuildingId(entity.getBuildingId());
+        dto.setIsEmployee(entity.getIsEmployee());
         return dto;
 
     }
+
+    public ProfileEntity toCreateEntity(ProfileOwnerCreateDTO dto, AppLanguage lang) {
+        ProfileEntity entity = new ProfileEntity();
+        entity.setName(dto.getName());
+        entity.setSurname(dto.getSurname());
+        entity.setUsername(dto.getUsername());
+        entity.setPhotoId(dto.getPhotoId());
+        entity.setStatus(dto.getStatus());
+        entity.setRole(dto.getRole());
+        return entity;
+    }
+
 }

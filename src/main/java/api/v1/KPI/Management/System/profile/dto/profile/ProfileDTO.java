@@ -23,4 +23,6 @@ public class ProfileDTO {
     private ProfileRole role;
     private String jwt;
     private LocalDateTime createdDate;
+
+    private Boolean isEmployee;
 }

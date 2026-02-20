@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DepartmentUpdateDTO {
-    private String id;
     /**
      * Name/title of the department
      */

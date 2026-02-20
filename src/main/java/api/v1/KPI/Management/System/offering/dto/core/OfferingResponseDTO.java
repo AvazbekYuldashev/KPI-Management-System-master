@@ -15,6 +15,7 @@ public class OfferingResponseDTO {
     private Long deadline;
     private String categoryId;
     private String departmentId;
+    private String buildingId;
     private Boolean visible;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;

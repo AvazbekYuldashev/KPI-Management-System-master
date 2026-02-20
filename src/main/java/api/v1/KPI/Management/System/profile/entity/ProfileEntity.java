@@ -3,6 +3,7 @@ package api.v1.KPI.Management.System.profile.entity;
 
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.attach.entity.AttachEntity;
+import api.v1.KPI.Management.System.building.entity.BuildingEntity;
 import api.v1.KPI.Management.System.department.entity.DepartmentEntity;
 import api.v1.KPI.Management.System.profile.enums.ProfileRole;
 import api.v1.KPI.Management.System.security.enums.GeneralStatus;
@@ -65,6 +66,9 @@ public class ProfileEntity {
     @Column(name = "department_id")
     private String departmentId;
 
+    @Column(name = "building_id")
+    private String buildingId;
+
     @Column(name = "in_progress")
     private Boolean inProgress;
 
@@ -76,6 +80,10 @@ public class ProfileEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", insertable = false, updatable = false)
     private DepartmentEntity department;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "building_id", insertable = false, updatable = false)
+    private BuildingEntity building;
 
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
