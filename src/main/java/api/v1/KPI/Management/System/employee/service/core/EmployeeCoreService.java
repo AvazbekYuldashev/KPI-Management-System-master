@@ -27,7 +27,7 @@ public class EmployeeCoreService extends EmployeeService {
         Pageable pageable = PageRequest.of(page, size);
 
         // Bazadan sahifa bo‘yicha ma'lumotlarni olish
-        Page<ProfileEntity> entitiesPage = findAllPageAndVisibleTrue(id, pageable);
+        Page<ProfileEntity> entitiesPage = findAllPageByDepartmentIdAndVisibleTrue(id, pageable);
 
         // Entity → DTO map qilish
         List<EmployeeResponseDTO> dtoList = entitiesPage.getContent().stream()
@@ -36,5 +36,6 @@ public class EmployeeCoreService extends EmployeeService {
         // PageImpl orqali sahifa va pagination ma’lumotlarini saqlab DTO qaytarish
         return new PageImpl<>(dtoList, pageable, entitiesPage.getTotalElements());
     }
+
 
 }

@@ -1,13 +1,12 @@
-package api.v1.KPI.Management.System.building.dto.core;
+package api.v1.KPI.Management.System.building.dto.manager;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class BuildingCreateDTO {
+public class BuildingManagerCreateDTO {
     private String title;
     private String description;
     private String chiefId;
-    private String departmentId;
 }

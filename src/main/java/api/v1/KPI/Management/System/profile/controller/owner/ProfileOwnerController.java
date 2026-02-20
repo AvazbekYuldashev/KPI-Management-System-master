@@ -41,7 +41,7 @@ public class ProfileOwnerController {
     @PatchMapping("/department")
     public ResponseEntity<AppResponse<String>> updateDepartment(@Valid @RequestBody ProfileOwnerChangeDepartmentDTO dto,
                                                                 @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
-        return ResponseEntity.ok().body(profileOwnerService.updateDepartment(dto, lang));
+        return ResponseEntity.ok().body(profileOwnerService.updateDepartment(dto.getId(), dto.getDepartmentId(), lang));
     }
 
     @PutMapping("/photo")
@@ -73,7 +73,7 @@ public class ProfileOwnerController {
     public ResponseEntity<AppResponse<String>> delete(@PathVariable("id") String id,
                                                        @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang ) {
 
-        return ResponseEntity.ok().body(profileOwnerService.deleteByIdAS(id, lang));
+        return ResponseEntity.ok().body(profileOwnerService.delete(id, lang));
     }
 
     @PostMapping("/filter")

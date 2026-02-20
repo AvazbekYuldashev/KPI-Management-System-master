@@ -39,4 +39,7 @@ public interface BuildingRepository extends JpaRepository<BuildingEntity, String
 
     @Query("SELECT b FROM BuildingEntity b ORDER BY b.createdDate DESC ")
     Page<BuildingEntity> findAllPage(Pageable pageable);
+
+    @Query("SELECT b FROM BuildingEntity b WHERE b.departmentId =:id AND b.visible = TRUE ORDER BY b.createdDate DESC ")
+    Page<BuildingEntity> findAllPageByDepartmentId(@Param("id") String id, Pageable pageable);
 }

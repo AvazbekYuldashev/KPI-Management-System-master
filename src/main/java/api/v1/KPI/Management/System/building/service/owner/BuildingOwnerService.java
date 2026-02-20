@@ -3,13 +3,12 @@ package api.v1.KPI.Management.System.building.service.owner;
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.util.AppResponseUtil;
-import api.v1.KPI.Management.System.building.dto.core.BuildingCreateDTO;
+import api.v1.KPI.Management.System.building.dto.owner.BuildingOwnerCreateDTO;
 import api.v1.KPI.Management.System.building.dto.core.BuildingResponseDTO;
-import api.v1.KPI.Management.System.building.dto.core.BuildingUpdateDTO;
+import api.v1.KPI.Management.System.building.dto.owner.BuildingOwnerUpdateDTO;
 import api.v1.KPI.Management.System.building.entity.BuildingEntity;
 import api.v1.KPI.Management.System.building.mapper.BuildingMapper;
 import api.v1.KPI.Management.System.building.service.BuildingService;
-import api.v1.KPI.Management.System.profile.service.core.ProfileService;
 import api.v1.KPI.Management.System.profile.service.owner.ProfileOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,20 +26,20 @@ public class BuildingOwnerService extends BuildingService {
     @Autowired
     private ProfileOwnerService profileService;
 
-    public BuildingResponseDTO ownerCreate(BuildingCreateDTO dto, AppLanguage lang){
-        BuildingEntity entity = buildingMapper.toCreatedEntity(dto);
+    public BuildingResponseDTO ownerCreate(BuildingOwnerCreateDTO dto, AppLanguage lang){
+        BuildingEntity entity = buildingMapper.toCreatedOwnerEntity(dto);
         if (dto.getChiefId() != null) {
             entity.setChiefId(dto.getChiefId());
-            profileService.updateEmployee(dto.getChiefId());
+            profileService.updateEmployee(dto.getChiefId(), entity.getDepartmentId(), lang);
         }
         return buildingMapper.toResponseDTO(create(entity));
     }
 
-    public AppResponse<String> ownerUpdate(BuildingUpdateDTO dto, AppLanguage lang){
-        BuildingEntity entity = buildingMapper.toUpdatedEntity(dto);
+    public AppResponse<String> ownerUpdate(BuildingOwnerUpdateDTO dto, AppLanguage lang){
+        BuildingEntity entity = buildingMapper.toUpdatedOwnerEntity(dto);
         if (dto.getChiefId() != null) {
             entity.setChiefId(dto.getChiefId());
-            profileService.updateEmployee(dto.getChiefId());
+            profileService.updateEmployee(dto.getChiefId(), findById(dto.getId()).getDepartmentId(), lang);
         }
         return AppResponseUtil.chek(update(entity, lang));
     }

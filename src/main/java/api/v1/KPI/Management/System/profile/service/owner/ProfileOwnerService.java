@@ -76,7 +76,7 @@ public class ProfileOwnerService extends ProfileService {
         return new AppResponse<>(boundleService.getMessage("update.successfully.completed", lang));
     }
 
-    public AppResponse<String> deleteByIdAS(String id, AppLanguage lang) {
+    public AppResponse<String> delete(String id, AppLanguage lang) {
         ProfileEntity profile = findById(id, lang);
         if (profile.getStatus().equals(ProfileRole.ROLE_OWNER)){
             throw new ProfileStatusException("asd");
@@ -84,22 +84,20 @@ public class ProfileOwnerService extends ProfileService {
         return deleteById(id, lang);
     }
 
-    public void updateEmployee(String id) {
+    // update qlish kerak
+    public void updateEmployee(String id, String departmentId, AppLanguage lang) {
         findById(id, AppLanguage.UZ);
-        employeeUpdate(id, Boolean.TRUE);
+        employeeUpdate(id, departmentId,   Boolean.TRUE);
     }
 
-    public AppResponse<String> updateDepartment(ProfileOwnerChangeDepartmentDTO dto, AppLanguage lang) {
-        ProfileEntity profile = findById(dto.getId(), lang);
-        DepartmentEntity department = departmentManagerService.findById(dto.getDepartmentId());
-
-        return changeDepartment(dto, lang);
+    public AppResponse<String> updateDepartment(String id, String departmentId, AppLanguage lang) {
+        ProfileEntity profile = findById(id, lang);
+        DepartmentEntity department = departmentManagerService.findById(departmentId);
+        return changeDepartment(id, departmentId, lang);
     }
 
     public AppResponse<String> updatePhoto(ProfilePhotoUpdate dto, AppLanguage lang) {
         return changePhoto(dto.getId(), dto.getPhotoId(), lang);
     }
-
-
 
 }

@@ -89,4 +89,8 @@ public class AccauntService extends ProfileService {
     public AppResponse<String> updatePhoto(String photoId, AppLanguage lang) {
         return changePhoto(SpringSecurityUtil.getCurrentUserId(), photoId, lang);
     }
+
+    public AppResponse<String> delete(AppLanguage lang) {
+        return deleteById(SpringSecurityUtil.getCurrentUserId(), lang);
+    }
 }

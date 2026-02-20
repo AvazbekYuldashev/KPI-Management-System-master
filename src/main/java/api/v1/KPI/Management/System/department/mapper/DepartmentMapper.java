@@ -32,6 +32,7 @@ public class DepartmentMapper {
 
     public DepartmentEntity toUpdatedEntity(DepartmentUpdateDTO dto) {
         DepartmentEntity entity = new DepartmentEntity();
+        entity.setId(dto.getId());
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());
         entity.setChiefId(dto.getChiefId());

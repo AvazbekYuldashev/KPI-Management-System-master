@@ -58,8 +58,8 @@ public class AccauntController {
         return ResponseEntity.ok().body(accauntService.updateUsernameConfirm(dto, lang));
     }
 
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<AppResponse<String>> delete(@RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang ) {
-//        return ResponseEntity.ok().body(accauntService.deletebyId(SpringSecurityUtil.getCurrentUserId(), lang));
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<AppResponse<String>> delete(@RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang ) {
+        return ResponseEntity.ok().body(accauntService.delete(lang));
+    }
 }

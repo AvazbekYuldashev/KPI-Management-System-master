@@ -5,7 +5,6 @@ import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.service.ResourceBoundleService;
 import api.v1.KPI.Management.System.attach.service.AttachService;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
-import api.v1.KPI.Management.System.profile.dto.owner.ProfileOwnerChangeDepartmentDTO;
 import api.v1.KPI.Management.System.profile.dto.profile.*;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
 import api.v1.KPI.Management.System.profile.enums.ProfileRole;
@@ -13,7 +12,6 @@ import api.v1.KPI.Management.System.profile.mapper.ProfileMapper;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
 import api.v1.KPI.Management.System.security.enums.GeneralStatus;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -74,8 +72,8 @@ public class ProfileService {
         }
         return optional.get();
     }
-    public AppResponse<String> changeDepartment(@Valid ProfileOwnerChangeDepartmentDTO dto, AppLanguage lang) {
-        profileRepository.changeDepartment(dto.getId(), dto.getDepartmentId());
+    public AppResponse<String> changeDepartment(String id, String departmentID, AppLanguage lang) {
+        profileRepository.changeDepartment(id, departmentID);
         return new AppResponse<>(boundleService.getMessage("update.successfully.completed",lang));
     }
 
@@ -100,7 +98,8 @@ public class ProfileService {
         return profileRepository.save(entity);
     }
 
-    public int employeeUpdate(String id, Boolean b) {
-        return profileRepository.changeEmployee(id, b);
+    public int employeeUpdate(String id, String departmentId, Boolean b) {
+        return profileRepository.changeDepartment(id, departmentId);
     }
+
 }

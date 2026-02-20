@@ -45,4 +45,8 @@ public class BuildingService {
     public Page<BuildingEntity> findAllPage(Pageable pageable) {
         return buildingRepository.findAllPage(pageable);
     }
+
+    public Page<BuildingEntity> findAllPageByDepartmentId(String id, Pageable pageable) {
+        return buildingRepository.findAllPageByDepartmentId(id, pageable);
+    }
 }

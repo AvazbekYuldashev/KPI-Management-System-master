@@ -3,11 +3,11 @@ GET http://localhost:8080/auth/7d7a11c1364abd11509f29bcd158ec8b
 Content-Type: application/json
 
 ### Login
-POST http://213.230.99.253:8080/auth/login
+POST http://localhost:8080/api/v1/auth/login
 Content-Type: application/json
 
 {
-  "username": "avazbek2@gmail.com",
+  "username": "FarhodbekHakimov@gmail.com",
   "password": "12345"
 }
 

@@ -31,16 +31,16 @@ public class DepartmentOwnerService extends DepartmentService {
         DepartmentEntity entity = departmentMapper.toCreatedEntity(dto);
         DepartmentEntity save = create(entity);
         if (dto.getChiefId() != null) {
-            profileService.updateEmployee(dto.getChiefId());
+            profileService.updateDepartment(dto.getChiefId(), entity.getId(), lang);
         }
         return departmentMapper.toResponseDTO(save);
     }
 
-    public AppResponse<String> ownerUpdate(String id, DepartmentUpdateDTO dto, AppLanguage lang){
+    public AppResponse<String> ownerUpdate(DepartmentUpdateDTO dto, AppLanguage lang){
         DepartmentEntity entity = departmentMapper.toUpdatedEntity(dto);
-        entity.setId(id);
+
         if (dto.getChiefId() != null) {
-            profileService.updateEmployee(dto.getChiefId());
+            profileService.updateEmployee(dto.getChiefId(), dto.getId(), lang);
         }
         return AppResponseUtil.chek(update(entity, lang));
     }
