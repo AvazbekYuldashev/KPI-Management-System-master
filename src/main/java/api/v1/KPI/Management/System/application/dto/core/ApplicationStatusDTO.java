@@ -1,4 +1,4 @@
-package api.v1.KPI.Management.System.application.controller.core;
+package api.v1.KPI.Management.System.application.dto.core;
 
 import api.v1.KPI.Management.System.application.enums.ApplicationStatus;
 import lombok.Getter;

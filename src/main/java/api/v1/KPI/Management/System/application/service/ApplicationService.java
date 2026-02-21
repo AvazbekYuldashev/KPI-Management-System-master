@@ -3,7 +3,7 @@ package api.v1.KPI.Management.System.application.service;
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.util.AppResponseUtil;
-import api.v1.KPI.Management.System.application.controller.core.ApplicationStatusDTO;
+import api.v1.KPI.Management.System.application.dto.core.ApplicationStatusDTO;
 import api.v1.KPI.Management.System.application.dto.core.ApplicationResponseDTO;
 import api.v1.KPI.Management.System.application.dto.manager.ApplicationFilterDTO;
 import api.v1.KPI.Management.System.application.entity.ApplicationEntity;

@@ -49,4 +49,7 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, String
 
     @Query("SELECT c FROM CategoryEntity c ORDER BY c.createdDate DESC ")
     Page<CategoryEntity> findAllPage(Pageable pageable);
+
+    @Query("SELECT c FROM CategoryEntity c WHERE c.departmentId = :id ORDER BY c.createdDate DESC ")
+    Page<CategoryEntity> findAllPageByDepartmentID(@Param("id") String id, Pageable pageable);
 }

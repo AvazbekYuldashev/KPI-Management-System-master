@@ -25,6 +25,11 @@ public class SpringSecurityUtil {
         return user.getDepartmentId();
     }
 
+    public static String getCurrentUserBuildingId(){
+        CustomUserDetails user = getCurrentProfile();
+        return user.getBuildingId();
+    }
+
     public static ProfileRole haseRole() {
         CustomUserDetails user = getCurrentProfile();
         return user.getRole();

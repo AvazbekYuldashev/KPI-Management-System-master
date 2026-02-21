@@ -1,6 +1,6 @@
 package api.v1.KPI.Management.System.application.repository;
 
-import api.v1.KPI.Management.System.application.controller.core.ApplicationStatusDTO;
+import api.v1.KPI.Management.System.application.dto.core.ApplicationStatusDTO;
 import api.v1.KPI.Management.System.application.entity.ApplicationEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;

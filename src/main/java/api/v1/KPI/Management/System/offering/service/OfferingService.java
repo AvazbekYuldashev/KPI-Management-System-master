@@ -43,4 +43,9 @@ public class OfferingService {
     public Page<OfferingEntity> findAllPage(Pageable pageable) {
         return offeringRepository.findAllPage(pageable);
     }
+
+
+    public Page<OfferingEntity> findAllPageByDepartmentIdAndVisibleTrue(String departmentId, Pageable pageable) {
+        return offeringRepository.findAllPageByDepartmentIdAndVisibleTrue(departmentId, pageable);
+    }
 }

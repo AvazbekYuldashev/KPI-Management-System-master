@@ -26,10 +26,13 @@ public class EmployeeService {
     }
 
 
-
-
     public Page<ProfileEntity> findAllPageByDepartmentIdAndVisibleTrue(String id, Pageable pageable) {
         return profileRepository.findAllByDepartmentIdAndVisibleTrue(id, pageable);
+    }
+
+    public Page<ProfileEntity> findAllPageByBuildingIdAndVisibleTrue(String id, Pageable pageable) {
+        return profileRepository.findAllPageByBuildingIdAndVisibleTrue(id, pageable);
+
     }
 
 }

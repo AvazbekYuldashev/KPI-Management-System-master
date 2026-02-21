@@ -48,4 +48,9 @@ public class CategoryService {
     public Page<CategoryEntity> findAllPage(Pageable pageable) {
         return categoryRepository.findAllPage(pageable);
     }
+
+    public Page<CategoryEntity> findAllPageByDepartmentID(String id, Pageable pageable) {
+        return categoryRepository.findAllPageByDepartmentID(id, pageable);
+
+    }
 }

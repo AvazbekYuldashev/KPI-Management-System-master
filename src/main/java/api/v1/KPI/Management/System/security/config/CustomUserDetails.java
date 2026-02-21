@@ -30,6 +30,7 @@ public class CustomUserDetails implements UserDetails {
     private Boolean visible;
     private String departmentId;
     private String attachId;
+    private String buildingId;
 
 
     public CustomUserDetails(ProfileEntity profile) {
@@ -42,6 +43,7 @@ public class CustomUserDetails implements UserDetails {
         this.role = profile.getRole();
         this.authorities = List.of(new SimpleGrantedAuthority(profile.getRole().name()));
         this.departmentId = profile.getDepartmentId();
+        this.buildingId = profile.getBuildingId();
         this.visible = profile.getVisible();
     }
     @Override

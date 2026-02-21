@@ -1,17 +1,17 @@
-package api.v1.KPI.Management.System.category.service.owner;
+package api.v1.KPI.Management.System.category.service.manager;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.util.AppResponseUtil;
-import api.v1.KPI.Management.System.building.dto.core.BuildingResponseDTO;
-import api.v1.KPI.Management.System.building.entity.BuildingEntity;
 import api.v1.KPI.Management.System.category.dto.core.CategoryResponseDTO;
 import api.v1.KPI.Management.System.category.dto.manager.CategoryManagerCreateDTO;
+import api.v1.KPI.Management.System.category.dto.manager.CategoryManagerUpdateDTO;
 import api.v1.KPI.Management.System.category.dto.owner.CategoryCreateDTO;
 import api.v1.KPI.Management.System.category.dto.owner.CategoryUpdateDTO;
 import api.v1.KPI.Management.System.category.entity.CategoryEntity;
 import api.v1.KPI.Management.System.category.mapper.CategoryMapper;
 import api.v1.KPI.Management.System.category.service.CategoryService;
+import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -22,17 +22,18 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class CategoryOwnerService extends CategoryService {
+public class CategoryManagerService extends CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
-    public CategoryResponseDTO ownerCreate(CategoryCreateDTO dto, AppLanguage lang){
-        CategoryEntity entity = categoryMapper.toOwnerCreatedEntity(dto);
+    public CategoryResponseDTO managerCreate(CategoryManagerCreateDTO dto, AppLanguage lang){
+        CategoryEntity entity = categoryMapper.toManagerCreatedEntity(dto);
+        entity.setDepartmentId(SpringSecurityUtil.getCurrentUserDepartmentId());
         return categoryMapper.toResponseDTO(create(entity));
     }
 
-    public AppResponse<String> ownerUpdate(CategoryUpdateDTO dto, AppLanguage lang){
-        CategoryEntity entity = categoryMapper.toOwnerUpdatedEntity(dto);
+    public AppResponse<String> managerUpdate(CategoryManagerUpdateDTO dto, AppLanguage lang){
+        CategoryEntity entity = categoryMapper.toManagerUpdatedEntity(dto);
         return AppResponseUtil.chek(update(entity, lang));
     }
 
@@ -40,7 +41,7 @@ public class CategoryOwnerService extends CategoryService {
         Pageable pageable = PageRequest.of(page, size);
 
         // Bazadan sahifa bo‘yicha ma'lumotlarni olish
-        Page<CategoryEntity> entitiesPage = findAllPage(pageable);
+        Page<CategoryEntity> entitiesPage = findAllPageByDepartmentID(SpringSecurityUtil.getCurrentUserDepartmentId(), pageable);
 
         // Entity → DTO map qilish
         List<CategoryResponseDTO> dtoList = entitiesPage.getContent().stream()
@@ -49,6 +50,5 @@ public class CategoryOwnerService extends CategoryService {
         // PageImpl orqali sahifa va pagination ma’lumotlarini saqlab DTO qaytarish
         return new PageImpl<>(dtoList, pageable, entitiesPage.getTotalElements());
     }
-
 
 }

@@ -1,4 +1,4 @@
-package api.v1.KPI.Management.System.employee.service.core;
+package api.v1.KPI.Management.System.employee.service.manager;
 
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.employee.dto.EmployeeResponseDTO;
@@ -15,13 +15,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EmployeeCoreService extends EmployeeService {
+public class EmployeeManagerService extends EmployeeService {
     @Autowired
     private EmployeeMapper employeeMapper;
-
-    public EmployeeResponseDTO getById(String id, AppLanguage lang){
-        return employeeMapper.toResponseDTO(findById(id, lang));
-    }
 
     public Page<EmployeeResponseDTO> findByDepartmentId(String id, Integer page, Integer size, AppLanguage lang) {
         Pageable pageable = PageRequest.of(page, size);
@@ -36,21 +32,4 @@ public class EmployeeCoreService extends EmployeeService {
         // PageImpl orqali sahifa va pagination ma’lumotlarini saqlab DTO qaytarish
         return new PageImpl<>(dtoList, pageable, entitiesPage.getTotalElements());
     }
-
-
-    public Page<EmployeeResponseDTO> findByBuildingId(String id, int page, Integer size, AppLanguage lang) {
-        Pageable pageable = PageRequest.of(page, size);
-
-        // Bazadan sahifa bo‘yicha ma'lumotlarni olish
-        Page<ProfileEntity> entitiesPage = findAllPageByBuildingIdAndVisibleTrue(id, pageable);
-
-        // Entity → DTO map qilish
-        List<EmployeeResponseDTO> dtoList = entitiesPage.getContent().stream()
-                .map(entity -> {return employeeMapper.toResponseDTO(entity);}).toList();
-
-        // PageImpl orqali sahifa va pagination ma’lumotlarini saqlab DTO qaytarish
-        return new PageImpl<>(dtoList, pageable, entitiesPage.getTotalElements());
-    }
-
-
 }
