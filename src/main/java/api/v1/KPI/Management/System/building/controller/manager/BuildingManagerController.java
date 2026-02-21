@@ -5,8 +5,6 @@ import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.building.dto.core.BuildingResponseDTO;
 import api.v1.KPI.Management.System.building.dto.manager.BuildingManagerCreateDTO;
 import api.v1.KPI.Management.System.building.dto.manager.BuildingManagerUpdateDTO;
-import api.v1.KPI.Management.System.building.dto.owner.BuildingOwnerCreateDTO;
-import api.v1.KPI.Management.System.building.dto.owner.BuildingOwnerUpdateDTO;
 import api.v1.KPI.Management.System.building.service.manager.BuildingManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

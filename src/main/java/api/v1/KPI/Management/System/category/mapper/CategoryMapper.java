@@ -10,14 +10,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CategoryMapper {
-    public CategoryEntity toOwnerCreatedEntity(CategoryCreateDTO dto){
-        CategoryEntity entity = new CategoryEntity();
-        entity.setTitle(dto.getTitle());
-        entity.setDescription(dto.getDescription());
-        entity.setDepartmentId(dto.getDepartmentId());
-        entity.setBuildingId(dto.getBuildingId());
-        return entity;
-    }
 
     public CategoryResponseDTO toResponseDTO(CategoryEntity entity){
         CategoryResponseDTO dto = new CategoryResponseDTO();
@@ -32,30 +24,4 @@ public class CategoryMapper {
         return dto;
     }
 
-    public CategoryEntity toOwnerUpdatedEntity(CategoryUpdateDTO dto) {
-        CategoryEntity entity = new CategoryEntity();
-        entity.setId(dto.getId());
-        entity.setTitle(dto.getTitle());
-        entity.setDescription(dto.getDescription());
-        entity.setDepartmentId(dto.getDepartmentId());
-        entity.setBuildingId(dto.getBuildingId());
-        return entity;
-    }
-
-    public CategoryEntity toManagerCreatedEntity(CategoryManagerCreateDTO dto) {
-        CategoryEntity entity = new CategoryEntity();
-        entity.setTitle(dto.getTitle());
-        entity.setDescription(dto.getDescription());
-        entity.setBuildingId(dto.getBuildingId());
-        return entity;
-    }
-
-    public CategoryEntity toManagerUpdatedEntity(CategoryManagerUpdateDTO dto) {
-        CategoryEntity entity = new CategoryEntity();
-        entity.setId(dto.getId());
-        entity.setTitle(dto.getTitle());
-        entity.setDescription(dto.getDescription());
-        entity.setBuildingId(dto.getBuildingId());
-        return entity;
-    }
 }

@@ -21,12 +21,6 @@ public class CategoryCoreController {
         return ResponseEntity.ok().body(categoryCoreService.getById(id, lang));
     }
 
-    @GetMapping("/by-title/{title}")
-    public ResponseEntity<CategoryResponseDTO> findByTitle(@PathVariable String title,
-                                                           @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
-        return ResponseEntity.ok().body(categoryCoreService.getByTitle(title, lang));
-    }
-
     @GetMapping("/by-department-id/{id}")
     public ResponseEntity<Page<CategoryResponseDTO>> findByDepartmentId(@PathVariable String id,
                                                                         @RequestParam(value = "page", defaultValue = "1") int page,

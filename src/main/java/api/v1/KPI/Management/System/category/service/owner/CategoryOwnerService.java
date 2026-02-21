@@ -11,6 +11,7 @@ import api.v1.KPI.Management.System.category.dto.owner.CategoryCreateDTO;
 import api.v1.KPI.Management.System.category.dto.owner.CategoryUpdateDTO;
 import api.v1.KPI.Management.System.category.entity.CategoryEntity;
 import api.v1.KPI.Management.System.category.mapper.CategoryMapper;
+import api.v1.KPI.Management.System.category.mapper.CategoryOwnerMapper;
 import api.v1.KPI.Management.System.category.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,14 +26,16 @@ import java.util.List;
 public class CategoryOwnerService extends CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
+    @Autowired
+    private CategoryOwnerMapper categoryOwnerMapper;
 
     public CategoryResponseDTO ownerCreate(CategoryCreateDTO dto, AppLanguage lang){
-        CategoryEntity entity = categoryMapper.toOwnerCreatedEntity(dto);
+        CategoryEntity entity = categoryOwnerMapper.toCreatedEntity(dto);
         return categoryMapper.toResponseDTO(create(entity));
     }
 
     public AppResponse<String> ownerUpdate(CategoryUpdateDTO dto, AppLanguage lang){
-        CategoryEntity entity = categoryMapper.toOwnerUpdatedEntity(dto);
+        CategoryEntity entity = categoryOwnerMapper.toUpdatedEntity(dto);
         return AppResponseUtil.chek(update(entity, lang));
     }
 

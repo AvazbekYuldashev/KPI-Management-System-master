@@ -10,14 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class BuildingMapper {
-    public BuildingEntity toCreatedOwnerEntity(BuildingOwnerCreateDTO dto){
-        BuildingEntity entity = new BuildingEntity();
-        entity.setTitle(dto.getTitle());
-        entity.setDescription(dto.getDescription());
-        entity.setDepartmentId(dto.getDepartmentId());
-        entity.setChiefId(dto.getChiefId());
-        return entity;
-    }
+
     public BuildingResponseDTO toResponseDTO(BuildingEntity entity){
         BuildingResponseDTO dto = new BuildingResponseDTO();
         dto.setId(entity.getId());
@@ -29,32 +22,5 @@ public class BuildingMapper {
         dto.setUpdatedDate(entity.getUpdatedDate());
         dto.setVisible(entity.getVisible());
         return dto;
-    }
-
-    public BuildingEntity toUpdatedOwnerEntity(BuildingOwnerUpdateDTO dto) {
-        BuildingEntity entity = new BuildingEntity();
-        entity.setId(dto.getId());
-        entity.setTitle(dto.getTitle());
-        entity.setDescription(dto.getDescription());
-        entity.setDepartmentId(dto.getDepartmentId());
-        entity.setChiefId(dto.getChiefId());
-        return entity;
-    }
-
-    public BuildingEntity toUpdatedManagerEntity(BuildingManagerUpdateDTO dto) {
-        BuildingEntity entity = new BuildingEntity();
-        entity.setId(dto.getId());
-        entity.setTitle(dto.getTitle());
-        entity.setDescription(dto.getDescription());
-        entity.setChiefId(dto.getChiefId());
-        return entity;
-    }
-
-    public BuildingEntity toCreatedManagerEntity(BuildingManagerCreateDTO dto) {
-        BuildingEntity entity = new BuildingEntity();
-        entity.setTitle(dto.getTitle());
-        entity.setDescription(dto.getDescription());
-        entity.setChiefId(dto.getChiefId());
-        return entity;
     }
 }

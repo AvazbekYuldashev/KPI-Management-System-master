@@ -28,7 +28,6 @@ public class BuildingCoreService extends BuildingService {
 
     }
 
-
     public BuildingResponseDTO getByTitle(String title, AppLanguage lang) {
         BuildingEntity entity = findByTitle(title);
         if (entity != null) return buildingMapper.toResponseDTO(entity);

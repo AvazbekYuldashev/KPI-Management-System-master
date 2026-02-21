@@ -20,9 +20,6 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, String
     @Query("SELECT c FROM CategoryEntity c WHERE c.id = :id AND c.visible = true")
     Optional<CategoryEntity> findByIdAndVisibleTrue(String id);
 
-    // Title bo‘yicha va visible = true
-    @Query("SELECT c FROM CategoryEntity c WHERE c.title = :title AND c.visible = true")
-    Optional<CategoryEntity> findByTitleAndVisibleTrue(String title);
 
     // Update qilish (null qiymatlarni saqlash)
     @Modifying(clearAutomatically = true, flushAutomatically = true)
@@ -41,15 +38,15 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, String
 
     // Department bo‘yicha pagination
     @Query("SELECT c FROM CategoryEntity c WHERE c.department.id = :departmentId AND c.visible = true")
-    Page<CategoryEntity> findAllByDepartmentId(@Param("departmentId") String departmentId, Pageable pageable);
+    Page<CategoryEntity> findByDepartmentIdPage(@Param("departmentId") String departmentId, Pageable pageable);
 
     // Building bo‘yicha pagination
     @Query("SELECT c FROM CategoryEntity c WHERE c.building.id = :buildingId AND c.visible = true")
-    Page<CategoryEntity> findAllByBuildingId(@Param("buildingId") String buildingId, Pageable pageable);
+    Page<CategoryEntity> findByBuildingIdPage(@Param("buildingId") String buildingId, Pageable pageable);
 
     @Query("SELECT c FROM CategoryEntity c ORDER BY c.createdDate DESC ")
     Page<CategoryEntity> findAllPage(Pageable pageable);
 
     @Query("SELECT c FROM CategoryEntity c WHERE c.departmentId = :id ORDER BY c.createdDate DESC ")
-    Page<CategoryEntity> findAllPageByDepartmentID(@Param("id") String id, Pageable pageable);
+    Page<CategoryEntity> findAllByDepartmentIdPage(@Param("id") String id, Pageable pageable);
 }

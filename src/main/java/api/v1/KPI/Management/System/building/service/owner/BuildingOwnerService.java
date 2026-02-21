@@ -8,6 +8,7 @@ import api.v1.KPI.Management.System.building.dto.core.BuildingResponseDTO;
 import api.v1.KPI.Management.System.building.dto.owner.BuildingOwnerUpdateDTO;
 import api.v1.KPI.Management.System.building.entity.BuildingEntity;
 import api.v1.KPI.Management.System.building.mapper.BuildingMapper;
+import api.v1.KPI.Management.System.building.mapper.BuildingOwnerMapper;
 import api.v1.KPI.Management.System.building.service.BuildingService;
 import api.v1.KPI.Management.System.profile.service.owner.ProfileOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,12 @@ public class BuildingOwnerService extends BuildingService {
     @Autowired
     private BuildingMapper buildingMapper;
     @Autowired
+    private BuildingOwnerMapper buildingOwnerMapper;
+    @Autowired
     private ProfileOwnerService profileService;
 
     public BuildingResponseDTO ownerCreate(BuildingOwnerCreateDTO dto, AppLanguage lang){
-        BuildingEntity entity = buildingMapper.toCreatedOwnerEntity(dto);
+        BuildingEntity entity = buildingOwnerMapper.toCreatedEntity(dto);
         if (dto.getChiefId() != null) {
             entity.setChiefId(dto.getChiefId());
             profileService.updateEmployee(dto.getChiefId(), entity.getDepartmentId(), lang);
@@ -36,7 +39,7 @@ public class BuildingOwnerService extends BuildingService {
     }
 
     public AppResponse<String> ownerUpdate(BuildingOwnerUpdateDTO dto, AppLanguage lang){
-        BuildingEntity entity = buildingMapper.toUpdatedOwnerEntity(dto);
+        BuildingEntity entity = buildingOwnerMapper.toUpdatedEntity(dto);
         if (dto.getChiefId() != null) {
             entity.setChiefId(dto.getChiefId());
             profileService.updateEmployee(dto.getChiefId(), findById(dto.getId()).getDepartmentId(), lang);

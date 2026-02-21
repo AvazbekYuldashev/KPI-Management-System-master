@@ -8,6 +8,9 @@ import api.v1.KPI.Management.System.category.service.CategoryService;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,18 +24,13 @@ public class CategoryCoreService extends CategoryService {
         throw new ResourceNotFoundException("Category Not Found");
     }
 
-    public CategoryResponseDTO getByTitle(String title, AppLanguage lang) {
-        CategoryEntity entity = findByTitle(title);
-        if (entity != null) return categoryMapper.toResponseDTO(entity);
-        throw new ResourceNotFoundException("Category Not Found");
-    }
-
     public Page<CategoryResponseDTO> getByDepartmentId(String id, int page, int size, AppLanguage lang) {
-        return findByDepartmentId(page, size, id).map(entity -> categoryMapper.toResponseDTO(entity));
-
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        return findByDepartmentIdPage(id, pageable).map(entity -> categoryMapper.toResponseDTO(entity));
     }
 
     public Page<CategoryResponseDTO> getByBuildingId(String id, int page, int size, AppLanguage lang) {
-        return findByBuildingId(page, size, id).map(entity -> categoryMapper.toResponseDTO(entity));
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        return findByBuildingIdPage(pageable, id).map(entity -> categoryMapper.toResponseDTO(entity));
     }
 }

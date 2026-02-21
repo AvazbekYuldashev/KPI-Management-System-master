@@ -9,6 +9,7 @@ import api.v1.KPI.Management.System.category.dto.manager.CategoryManagerUpdateDT
 import api.v1.KPI.Management.System.category.dto.owner.CategoryCreateDTO;
 import api.v1.KPI.Management.System.category.dto.owner.CategoryUpdateDTO;
 import api.v1.KPI.Management.System.category.entity.CategoryEntity;
+import api.v1.KPI.Management.System.category.mapper.CategoryManagerMapper;
 import api.v1.KPI.Management.System.category.mapper.CategoryMapper;
 import api.v1.KPI.Management.System.category.service.CategoryService;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
@@ -17,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,15 +27,21 @@ import java.util.List;
 public class CategoryManagerService extends CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
+    @Autowired
+    private CategoryManagerMapper categoryManagerMapper;
 
     public CategoryResponseDTO managerCreate(CategoryManagerCreateDTO dto, AppLanguage lang){
-        CategoryEntity entity = categoryMapper.toManagerCreatedEntity(dto);
+        CategoryEntity entity = categoryManagerMapper.toCreatedEntity(dto);
         entity.setDepartmentId(SpringSecurityUtil.getCurrentUserDepartmentId());
         return categoryMapper.toResponseDTO(create(entity));
     }
 
     public AppResponse<String> managerUpdate(CategoryManagerUpdateDTO dto, AppLanguage lang){
-        CategoryEntity entity = categoryMapper.toManagerUpdatedEntity(dto);
+        CategoryEntity category = findById(dto.getId());
+        if(!category.getDepartmentId().equals(SpringSecurityUtil.getCurrentUserDepartmentId())) {
+            throw new AuthorizationDeniedException("You are not authorized to perform this operation");
+        }
+        CategoryEntity entity = categoryManagerMapper.toUpdatedEntity(dto);
         return AppResponseUtil.chek(update(entity, lang));
     }
 
@@ -41,7 +49,7 @@ public class CategoryManagerService extends CategoryService {
         Pageable pageable = PageRequest.of(page, size);
 
         // Bazadan sahifa bo‘yicha ma'lumotlarni olish
-        Page<CategoryEntity> entitiesPage = findAllPageByDepartmentID(SpringSecurityUtil.getCurrentUserDepartmentId(), pageable);
+        Page<CategoryEntity> entitiesPage = findAllByDepartmentIdPage(SpringSecurityUtil.getCurrentUserDepartmentId(), pageable);
 
         // Entity → DTO map qilish
         List<CategoryResponseDTO> dtoList = entitiesPage.getContent().stream()
