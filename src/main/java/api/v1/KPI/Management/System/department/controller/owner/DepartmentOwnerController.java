@@ -2,9 +2,8 @@ package api.v1.KPI.Management.System.department.controller.owner;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
-import api.v1.KPI.Management.System.building.dto.core.BuildingResponseDTO;
-import api.v1.KPI.Management.System.department.dto.core.DepartmentCreateDTO;
-import api.v1.KPI.Management.System.department.dto.core.DepartmentUpdateDTO;
+import api.v1.KPI.Management.System.department.dto.owner.DepartmentOwnerCreateDTO;
+import api.v1.KPI.Management.System.department.dto.owner.DepartmentOwnerUpdateDTO;
 import api.v1.KPI.Management.System.department.dto.core.DepartmentResponseDTO;
 import api.v1.KPI.Management.System.department.service.owner.DepartmentOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,12 @@ public class DepartmentOwnerController {
     @Autowired
     private DepartmentOwnerService departmentOwnerService;
 
+    @PostMapping("/create")
+    public ResponseEntity<DepartmentResponseDTO> create(@RequestBody DepartmentOwnerCreateDTO dto,
+                                                        @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
+        return ResponseEntity.ok().body(departmentOwnerService.ownerCreate(dto,lang));
+    }
+
     @GetMapping("/all")
     public ResponseEntity<Page<DepartmentResponseDTO>> findAll(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                                              @RequestParam(value = "size", defaultValue = "10") Integer size,
@@ -25,13 +30,8 @@ public class DepartmentOwnerController {
         return ResponseEntity.ok().body(departmentOwnerService.getAllPage(getCurrentPage(page), size, lang));
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<DepartmentResponseDTO> create(@RequestBody DepartmentCreateDTO dto,
-                                                        @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
-        return ResponseEntity.ok().body(departmentOwnerService.ownerCreate(dto,lang));
-    }
     @PutMapping("/update/{id}")
-    public ResponseEntity<AppResponse<String>> update(@RequestBody DepartmentUpdateDTO dto,
+    public ResponseEntity<AppResponse<String>> update(@RequestBody DepartmentOwnerUpdateDTO dto,
                                                       @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(departmentOwnerService.ownerUpdate(dto, lang));
     }

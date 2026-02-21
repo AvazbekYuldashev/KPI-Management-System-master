@@ -19,21 +19,19 @@ public class DepartmentService {
     public DepartmentEntity create(DepartmentEntity entity){
         return departmentRepository.save(entity);
     }
-    public DepartmentEntity findById(String id){
-        Optional<DepartmentEntity> optional = departmentRepository.findByIdAndVisibleTrue(id);
-        return optional.get();
+
+    public DepartmentEntity findById(String id){return departmentRepository.findByIdAndVisibleTrue(id).get();}
+
+    public DepartmentEntity findByTitle(String title){return departmentRepository.findByTitleAndVisibleTrue(title).get();}
+
+    public Page<DepartmentEntity> findAllPage(Pageable pageable) {
+        return departmentRepository.findAllPage(pageable);
     }
-    public DepartmentEntity findByTitle(String title){
-        Optional<DepartmentEntity> optional = departmentRepository.findByTitleAndVisibleTrue(title);
-        return optional.get();
-    }
+
     public Boolean update(DepartmentEntity entity, AppLanguage lang){
         DepartmentEntity department = findById(entity.getId());
         if (department == null) throw new ResourceNotFoundException("Department Not Found");
         return departmentRepository.update(entity) > 0;
     }
 
-    public Page<DepartmentEntity> findAllPage(Pageable pageable) {
-        return departmentRepository.findAllPage(pageable);
-    }
 }

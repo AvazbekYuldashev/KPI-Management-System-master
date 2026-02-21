@@ -3,13 +3,13 @@ package api.v1.KPI.Management.System.department.service.owner;
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.util.AppResponseUtil;
-import api.v1.KPI.Management.System.department.dto.core.DepartmentCreateDTO;
-import api.v1.KPI.Management.System.department.dto.core.DepartmentUpdateDTO;
+import api.v1.KPI.Management.System.department.dto.owner.DepartmentOwnerCreateDTO;
+import api.v1.KPI.Management.System.department.dto.owner.DepartmentOwnerUpdateDTO;
 import api.v1.KPI.Management.System.department.dto.core.DepartmentResponseDTO;
 import api.v1.KPI.Management.System.department.entity.DepartmentEntity;
 import api.v1.KPI.Management.System.department.mapper.DepartmentMapper;
+import api.v1.KPI.Management.System.department.mapper.DepartmentOwnerMapper;
 import api.v1.KPI.Management.System.department.service.DepartmentService;
-import api.v1.KPI.Management.System.profile.service.core.ProfileService;
 import api.v1.KPI.Management.System.profile.service.owner.ProfileOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,12 +23,14 @@ import java.util.List;
 @Service
 public class DepartmentOwnerService extends DepartmentService {
     @Autowired
+    private DepartmentOwnerMapper departmentOwnerMapper;
+    @Autowired
     private DepartmentMapper departmentMapper;
     @Autowired
     private ProfileOwnerService profileService;
 
-    public DepartmentResponseDTO ownerCreate(DepartmentCreateDTO dto, AppLanguage lang){
-        DepartmentEntity entity = departmentMapper.toCreatedEntity(dto);
+    public DepartmentResponseDTO ownerCreate(DepartmentOwnerCreateDTO dto, AppLanguage lang){
+        DepartmentEntity entity = departmentOwnerMapper.toCreatedEntity(dto);
         DepartmentEntity save = create(entity);
         if (dto.getChiefId() != null) {
             profileService.updateDepartment(dto.getChiefId(), entity.getId(), lang);
@@ -36,9 +38,8 @@ public class DepartmentOwnerService extends DepartmentService {
         return departmentMapper.toResponseDTO(save);
     }
 
-    public AppResponse<String> ownerUpdate(DepartmentUpdateDTO dto, AppLanguage lang){
-        DepartmentEntity entity = departmentMapper.toUpdatedEntity(dto);
-
+    public AppResponse<String> ownerUpdate(DepartmentOwnerUpdateDTO dto, AppLanguage lang){
+        DepartmentEntity entity = departmentOwnerMapper.toUpdatedEntity(dto);
         if (dto.getChiefId() != null) {
             profileService.updateEmployee(dto.getChiefId(), dto.getId(), lang);
         }

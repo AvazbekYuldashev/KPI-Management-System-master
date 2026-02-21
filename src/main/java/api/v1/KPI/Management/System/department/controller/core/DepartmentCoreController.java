@@ -20,7 +20,7 @@ public class DepartmentCoreController {
     }
     @GetMapping("/by-title/{title}")
     public ResponseEntity<DepartmentResponseDTO> findByTitle(@PathVariable String title,
-                                                          @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
+                                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(departmentCoreService.getByTitle(title, lang));
     }
 

@@ -21,8 +21,8 @@ public class DepartmentManagerController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<AppResponse<String>> myDepartment(@RequestBody DepartmentManagerUpdateDTO dto,
-                                                            @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
+    public ResponseEntity<AppResponse<String>> update(@RequestBody DepartmentManagerUpdateDTO dto,
+                                                      @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
         return ResponseEntity.ok().body(departmentManagerService.changeDetail(dto, lang));
     }
 

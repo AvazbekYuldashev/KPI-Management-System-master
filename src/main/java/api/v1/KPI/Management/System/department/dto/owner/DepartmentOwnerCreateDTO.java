@@ -1,12 +1,11 @@
-package api.v1.KPI.Management.System.department.dto.core;
+package api.v1.KPI.Management.System.department.dto.owner;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class DepartmentUpdateDTO {
-    private String id;
+public class DepartmentOwnerCreateDTO {
     /**
      * Name/title of the department
      */
@@ -21,4 +20,5 @@ public class DepartmentUpdateDTO {
      * ID of the department head (chief)
      */
     private String chiefId;
+
 }
