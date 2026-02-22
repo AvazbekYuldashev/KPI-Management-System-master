@@ -29,7 +29,7 @@ public interface OfferingRepository extends JpaRepository<OfferingEntity, String
     Page<OfferingEntity> finAllByBuildingIdPage(String id, Pageable pageable);
 
     @Query("SELECT o FROM OfferingEntity o WHERE o.categoryId = :id AND o.visible = TRUE ORDER BY o.createdDate DESC ")
-    Page<OfferingEntity> findAllPageByCategoryId(@Param("id") String id, Pageable pageable);
+    Page<OfferingEntity> findAllPageByCategoryIdPage(@Param("id") String id, Pageable pageable);
 
 
     @Modifying(clearAutomatically = true, flushAutomatically = true)

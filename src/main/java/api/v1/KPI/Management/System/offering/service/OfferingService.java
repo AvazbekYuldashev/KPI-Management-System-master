@@ -21,12 +21,11 @@ public class OfferingService {
 
     public OfferingEntity create(OfferingEntity entity){return offeringRepository.save(entity);}
     public OfferingEntity findByIdAndVisibleTrue(String id){return offeringRepository.findByIdAndVisibleTrue(id).get();}
-    public Page<OfferingEntity> findAllPage(Pageable pageable) {
-        return offeringRepository.findAllPage(pageable);
-    }
+    public Page<OfferingEntity> findAllPage(Pageable pageable) {return offeringRepository.findAllPage(pageable);}
     public Page<OfferingEntity> findAllByDepartmentIdAndVisibleTruePage(String departmentId, Pageable pageable) {return offeringRepository.findAllByDepartmentIdAndVisibleTruePage(departmentId, pageable);}
     public Page<OfferingEntity> finAllByBuildingIdPage(String id, Pageable pageable) {return offeringRepository.finAllByBuildingIdPage(id, pageable);}
-    public Page<OfferingEntity> findAllPageByCategoryId(String id, Pageable pageable) {return offeringRepository.findAllPageByCategoryId(id, pageable);}
+    public Page<OfferingEntity> findAllPageByCategoryIdPage(String id, Pageable pageable) {return offeringRepository.findAllPageByCategoryIdPage(id, pageable);}
+
     public Boolean update(OfferingEntity entity, AppLanguage lang){
         OfferingEntity offering = findByIdAndVisibleTrue(entity.getId());
         if (offering == null) throw new ResourceNotFoundException("Offering Not Found");

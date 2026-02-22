@@ -13,6 +13,7 @@ import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -45,5 +46,10 @@ public class ApplicationService {
         findById(dto.getId());
         int effectedRow = applicationRepository.changeStatus(dto);
         return AppResponseUtil.chek(effectedRow > 0);
+    }
+
+
+    public Page<ApplicationEntity> findAllByMyIdAndVisibleTruePage(String userId, Pageable pageable) {
+        return applicationRepository.findAllByMyIdAndVisibleTruePage(userId, pageable);
     }
 }

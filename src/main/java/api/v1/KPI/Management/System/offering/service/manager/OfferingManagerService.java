@@ -7,6 +7,7 @@ import api.v1.KPI.Management.System.offering.dto.core.OfferingResponseDTO;
 import api.v1.KPI.Management.System.offering.dto.manager.OfferingManagerCreateDTO;
 import api.v1.KPI.Management.System.offering.dto.manager.OfferingManagerUpdateDTO;
 import api.v1.KPI.Management.System.offering.entity.OfferingEntity;
+import api.v1.KPI.Management.System.offering.mapper.OfferingManagerMapper;
 import api.v1.KPI.Management.System.offering.mapper.OfferingMapper;
 import api.v1.KPI.Management.System.offering.service.OfferingService;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
@@ -24,9 +25,11 @@ import java.util.List;
 public class OfferingManagerService extends OfferingService {
     @Autowired
     private OfferingMapper offeringMapper;
+    @Autowired
+    private OfferingManagerMapper offeringManagerMapper;
 
     public OfferingResponseDTO managerCreate(OfferingManagerCreateDTO dto, AppLanguage lang) {
-        OfferingEntity entity = offeringMapper.toManagerCreatedEntity(dto);
+        OfferingEntity entity = offeringManagerMapper.toCreatedEntity(dto);
         entity.setDepartmentId(SpringSecurityUtil.getCurrentUserDepartmentId());
         return offeringMapper.toResponseDTO(create(entity));
     }
@@ -36,7 +39,7 @@ public class OfferingManagerService extends OfferingService {
         if (!offering.getDepartmentId().equals(SpringSecurityUtil.getCurrentUserDepartmentId())){
             throw new AuthorizationDeniedException("ruxsat yoq");
         }
-        OfferingEntity entity = offeringMapper.toManagerUpdatedEntity(dto);
+        OfferingEntity entity = offeringManagerMapper.toUpdatedEntity(dto);
         return AppResponseUtil.chek(update(entity, lang));
     }
 

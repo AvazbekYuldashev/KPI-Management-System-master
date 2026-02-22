@@ -1,5 +1,6 @@
 package api.v1.KPI.Management.System.application.service.core;
 
+import aj.org.objectweb.asm.commons.Remapper;
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.util.AppResponseUtil;
@@ -13,6 +14,9 @@ import api.v1.KPI.Management.System.offering.entity.OfferingEntity;
 import api.v1.KPI.Management.System.offering.service.OfferingService;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,6 +43,10 @@ public class ApplicationCoreService extends ApplicationService {
     }
 
 
+    public Page<ApplicationResponseDTO> findAllByMyId(Integer page, Integer size, AppLanguage lang) {
+        Pageable pageable = PageRequest.of(page, size);
+        return findAllByMyIdAndVisibleTruePage(SpringSecurityUtil.getCurrentUserDepartmentId(), pageable).map(entity -> applicationMapper.toResponseDTO(entity));
+    }
 }
 
 

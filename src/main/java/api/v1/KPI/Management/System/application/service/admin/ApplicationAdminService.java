@@ -18,21 +18,25 @@ import org.springframework.stereotype.Service;
 public class ApplicationAdminService extends ApplicationService {
 
     public AppResponse<String> updateStatus(ApplicationStatusDTO dto, AppLanguage lang) {
-        ApplicationEntity entity = findById(dto.getId());
-
-        if (!entity.getDepartment().equals(SpringSecurityUtil.getCurrentUserDepartmentId())
-                || !entity.getBuilding().equals(SpringSecurityUtil.getCurrentUserBuildingId())) {
-            throw new AuthorizationDeniedException(
-//                    messageSource.getMessage("auth.denied", null, lang)
-                      "You are not authorized to perform this operation"
-            );
-        }
-
         if (!dto.getStatus().equals(ApplicationStatus.APPROVED)
                 && !dto.getStatus().equals(ApplicationStatus.REJECTED)) {
             throw new AppBadException(
                     //messageSource.getMessage("status.invalid", null, lang)
                     "Status notogri"
+            );
+        }
+
+        ApplicationEntity entity = findById(dto.getId());
+        if (!entity.getDepartment().equals(SpringSecurityUtil.getCurrentUserDepartmentId())){
+            throw new AuthorizationDeniedException(
+//                    messageSource.getMessage("auth.denied", null, lang)
+                    "You are not authorized to perform this operation"
+            );
+        }
+        if (!entity.getBuilding().equals(SpringSecurityUtil.getCurrentUserBuildingId())){
+            throw new AuthorizationDeniedException(
+//                    messageSource.getMessage("auth.denied", null, lang)
+                    "You are not authorized to perform this operation"
             );
         }
         return changeStatus(dto, lang);

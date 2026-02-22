@@ -41,7 +41,7 @@ public class OfferingCoreService extends OfferingService {
 
     public Page<OfferingResponseDTO> getAllPageByCategoryId(String id, int page, Integer size, AppLanguage lang) {
         Pageable pageable = PageRequest.of(page, size);
-        return findAllPageByCategoryId(id, pageable).map(entity -> offeringMapper.toResponseDTO(entity));
+        return findAllPageByCategoryIdPage(id, pageable).map(entity -> offeringMapper.toResponseDTO(entity));
 
 
     }

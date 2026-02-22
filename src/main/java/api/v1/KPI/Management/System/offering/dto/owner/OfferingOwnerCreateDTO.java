@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class OfferingCreateDTO {
+public class OfferingOwnerCreateDTO {
     private String title;
     private String description;
     private Float kpiBall;
