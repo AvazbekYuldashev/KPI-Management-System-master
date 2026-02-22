@@ -49,16 +49,7 @@ public class DepartmentOwnerService extends DepartmentService {
 
     public Page<DepartmentResponseDTO> getAllPage(int page, Integer size, AppLanguage lang) {
         Pageable pageable = PageRequest.of(page, size);
-
-        // Bazadan sahifa bo‘yicha ma'lumotlarni olish
-        Page<DepartmentEntity> entitiesPage = findAllPage(pageable);
-
-        // Entity → DTO map qilish
-        List<DepartmentResponseDTO> dtoList = entitiesPage.getContent().stream()
-                .map(entity -> {return departmentMapper.toResponseDTO(entity);}).toList();
-
-        // PageImpl orqali sahifa va pagination ma’lumotlarini saqlab DTO qaytarish
-        return new PageImpl<>(dtoList, pageable, entitiesPage.getTotalElements());
+        return findAllPage(pageable).map(entity -> departmentMapper.toResponseDTO(entity));
     }
 
 

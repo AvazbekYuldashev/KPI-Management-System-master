@@ -37,7 +37,7 @@ public class CategoryManagerService extends CategoryService {
     }
 
     public AppResponse<String> managerUpdate(CategoryManagerUpdateDTO dto, AppLanguage lang){
-        CategoryEntity category = findById(dto.getId());
+        CategoryEntity category = findByIdAndVisibleTrue(dto.getId());
         if(!category.getDepartmentId().equals(SpringSecurityUtil.getCurrentUserDepartmentId())) {
             throw new AuthorizationDeniedException("You are not authorized to perform this operation");
         }
@@ -47,16 +47,8 @@ public class CategoryManagerService extends CategoryService {
 
     public Page<CategoryResponseDTO> getAllPage(int page, Integer size, AppLanguage lang) {
         Pageable pageable = PageRequest.of(page, size);
-
-        // Bazadan sahifa bo‘yicha ma'lumotlarni olish
-        Page<CategoryEntity> entitiesPage = findAllByDepartmentIdPage(SpringSecurityUtil.getCurrentUserDepartmentId(), pageable);
-
-        // Entity → DTO map qilish
-        List<CategoryResponseDTO> dtoList = entitiesPage.getContent().stream()
-                .map(entity -> {return categoryMapper.toResponseDTO(entity);}).toList();
-
-        // PageImpl orqali sahifa va pagination ma’lumotlarini saqlab DTO qaytarish
-        return new PageImpl<>(dtoList, pageable, entitiesPage.getTotalElements());
+        return findAllByDepartmentIdAndVisibleTruePage(SpringSecurityUtil.getCurrentUserDepartmentId(), pageable)
+                .map(entity -> categoryMapper.toResponseDTO(entity));
     }
 
 }

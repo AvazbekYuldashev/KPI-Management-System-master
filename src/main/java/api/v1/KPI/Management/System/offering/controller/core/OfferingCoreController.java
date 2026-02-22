@@ -21,25 +21,28 @@ public class OfferingCoreController {
         return ResponseEntity.ok().body(offeringCoreService.getById(id, lang));
     }
 
-    @GetMapping("/by-title/{title}")
-    public ResponseEntity<OfferingResponseDTO> findByTitle(@PathVariable String title,
-                                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
-        return ResponseEntity.ok().body(offeringCoreService.getByTitle(title, lang));
+    @GetMapping("/by-department/{id}")
+    public ResponseEntity<Page<OfferingResponseDTO>> getAllByDepartmentIdPage(@PathVariable String id,
+                                                                             @RequestParam(value = "page", defaultValue = "1") Integer page,
+                                                                             @RequestParam(value = "size", defaultValue = "10") Integer size,
+                                                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
+        return ResponseEntity.ok().body(offeringCoreService.getAllByDepartmentIdPage(id, getCurrentPage(page), size, lang));
     }
 
-    @GetMapping("/by-category-id/{id}")
-    public ResponseEntity<Page<OfferingResponseDTO>> findAllPageByCategoryId(@PathVariable String id,
+    @GetMapping("/by-building/{id}")
+    public ResponseEntity<Page<OfferingResponseDTO>> getAllByBuildingIdPage(@PathVariable String id,
+                                                                             @RequestParam(value = "page", defaultValue = "1") Integer page,
+                                                                             @RequestParam(value = "size", defaultValue = "10") Integer size,
+                                                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
+        return ResponseEntity.ok().body(offeringCoreService.getAllByBuildingIdPage(id, getCurrentPage(page), size, lang));
+    }
+
+    @GetMapping("/by-category/{id}")
+    public ResponseEntity<Page<OfferingResponseDTO>> getAllPageByCategoryId(@PathVariable String id,
                                                                       @RequestParam(value = "page", defaultValue = "1") Integer page,
                                                                       @RequestParam(value = "size", defaultValue = "10") Integer size,
                                                                       @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
         return ResponseEntity.ok().body(offeringCoreService.getAllPageByCategoryId(id, getCurrentPage(page), size, lang));
-    }
-
-    @GetMapping("/all")
-    public ResponseEntity<Page<OfferingResponseDTO>> findAll(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                                                             @RequestParam(value = "size", defaultValue = "10") Integer size,
-                                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
-        return ResponseEntity.ok().body(offeringCoreService.getAllPage(getCurrentPage(page), size, lang));
     }
 
     public static int getCurrentPage(Integer page) {

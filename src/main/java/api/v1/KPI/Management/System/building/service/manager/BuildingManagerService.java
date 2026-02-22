@@ -35,7 +35,7 @@ public class BuildingManagerService extends BuildingService {
         Pageable pageable = PageRequest.of(page, size);
 
         // Bazadan sahifa bo‘yicha ma'lumotlarni olish
-        Page<BuildingEntity> entitiesPage = findAllPageByDepartmentId(SpringSecurityUtil.getCurrentUserDepartmentId(), pageable);
+        Page<BuildingEntity> entitiesPage = findAllByDepartmentIdAndVisibleTruePage(SpringSecurityUtil.getCurrentUserDepartmentId(), pageable);
 
         // Entity → DTO map qilish
         List<BuildingResponseDTO> dtoList = entitiesPage.getContent().stream()

@@ -38,16 +38,7 @@ public class OfferingOwnerService extends OfferingService {
 
     public Page<OfferingResponseDTO> getAllPage(int page, Integer size, AppLanguage lang) {
         Pageable pageable = PageRequest.of(page, size);
-
-        // Bazadan sahifa bo‘yicha ma'lumotlarni olish
-        Page<OfferingEntity> entitiesPage = findAllPage(pageable);
-
-        // Entity → DTO map qilish
-        List<OfferingResponseDTO> dtoList = entitiesPage.getContent().stream()
-                .map(entity -> {return offeringMapper.toResponseDTO(entity);}).toList();
-
-        // PageImpl orqali sahifa va pagination ma’lumotlarini saqlab DTO qaytarish
-        return new PageImpl<>(dtoList, pageable, entitiesPage.getTotalElements());
+        return findAllPage(pageable).map(entity -> offeringMapper.toResponseDTO(entity));
     }
 
 

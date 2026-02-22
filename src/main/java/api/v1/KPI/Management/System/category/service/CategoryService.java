@@ -18,18 +18,16 @@ public class CategoryService {
 
     public CategoryEntity create(CategoryEntity entity){return categoryRepository.save(entity);}
 
-    public CategoryEntity findById(String id){return categoryRepository.findByIdAndVisibleTrue(id).get();}
+    public CategoryEntity findByIdAndVisibleTrue(String id){return categoryRepository.findByIdAndVisibleTrue(id).get();}
 
-    public Page<CategoryEntity> findAllPage(Pageable pageable) {return categoryRepository.findAllPage(pageable);}
+    public Page<CategoryEntity> findAllByVisibleTruePage(Pageable pageable) {return categoryRepository.findAllByVisibleTruePage(pageable);}
 
-    public Page<CategoryEntity> findAllByDepartmentIdPage(String id, Pageable pageable) {return categoryRepository.findAllByDepartmentIdPage(id, pageable);}
+    public Page<CategoryEntity> findAllByDepartmentIdAndVisibleTruePage(String id, Pageable pageable) {return categoryRepository.findAllByDepartmentIdAndVisibleTruePage(id, pageable);}
 
-    public Page<CategoryEntity> findByDepartmentIdPage(String departmentId, Pageable pageable) {return categoryRepository.findByDepartmentIdPage(departmentId, pageable);}
-
-    public Page<CategoryEntity> findByBuildingIdPage(Pageable pageable, String buildingId) {return categoryRepository.findByBuildingIdPage(buildingId, pageable);}
+    public Page<CategoryEntity> findByBuildingIdAndVisibleTruePage(Pageable pageable, String buildingId) {return categoryRepository.findByBuildingIdPage(buildingId, pageable);}
 
     public Boolean update(CategoryEntity entity, AppLanguage lang){
-        CategoryEntity category = findById(entity.getId());
+        CategoryEntity category = findByIdAndVisibleTrue(entity.getId());
         if (category == null) throw new ResourceNotFoundException("Category Not Found");
         return categoryRepository.update(entity) > 0;
     }

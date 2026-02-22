@@ -1,10 +1,6 @@
 package api.v1.KPI.Management.System.building.mapper;
 
-import api.v1.KPI.Management.System.building.dto.manager.BuildingManagerCreateDTO;
-import api.v1.KPI.Management.System.building.dto.manager.BuildingManagerUpdateDTO;
-import api.v1.KPI.Management.System.building.dto.owner.BuildingOwnerCreateDTO;
 import api.v1.KPI.Management.System.building.dto.core.BuildingResponseDTO;
-import api.v1.KPI.Management.System.building.dto.owner.BuildingOwnerUpdateDTO;
 import api.v1.KPI.Management.System.building.entity.BuildingEntity;
 import org.springframework.stereotype.Component;
 

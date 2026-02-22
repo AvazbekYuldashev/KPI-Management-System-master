@@ -19,18 +19,18 @@ public class CategoryCoreService extends CategoryService {
     private CategoryMapper categoryMapper;
 
     public CategoryResponseDTO getById(String id, AppLanguage lang){
-        CategoryEntity entity = findById(id);
+        CategoryEntity entity = findByIdAndVisibleTrue(id);
         if (entity != null) return categoryMapper.toResponseDTO(entity);
         throw new ResourceNotFoundException("Category Not Found");
     }
 
     public Page<CategoryResponseDTO> getByDepartmentId(String id, int page, int size, AppLanguage lang) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
-        return findByDepartmentIdPage(id, pageable).map(entity -> categoryMapper.toResponseDTO(entity));
+        return findAllByDepartmentIdAndVisibleTruePage(id, pageable).map(entity -> categoryMapper.toResponseDTO(entity));
     }
 
     public Page<CategoryResponseDTO> getByBuildingId(String id, int page, int size, AppLanguage lang) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
-        return findByBuildingIdPage(pageable, id).map(entity -> categoryMapper.toResponseDTO(entity));
+        return findByBuildingIdAndVisibleTruePage(pageable, id).map(entity -> categoryMapper.toResponseDTO(entity));
     }
 }

@@ -19,11 +19,6 @@ public class BuildingCoreController {
                                                         @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(buildingCoreService.getById(id, lang));
     }
-    @GetMapping("/by-title/{title}")
-    public ResponseEntity<BuildingResponseDTO> findByTitle(@PathVariable String title,
-                                                           @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
-        return ResponseEntity.ok().body(buildingCoreService.getByTitle(title, lang));
-    }
 
     @GetMapping("/all")
     public ResponseEntity<Page<BuildingResponseDTO>> findAll(@RequestParam(value = "page", defaultValue = "1") Integer page,

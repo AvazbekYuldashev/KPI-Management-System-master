@@ -1,5 +1,6 @@
 package api.v1.KPI.Management.System.offering.repository;
 
+import api.v1.KPI.Management.System.offering.dto.core.OfferingResponseDTO;
 import api.v1.KPI.Management.System.offering.entity.OfferingEntity;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
@@ -18,8 +19,18 @@ public interface OfferingRepository extends JpaRepository<OfferingEntity, String
     @Query("SELECT o FROM OfferingEntity o WHERE o.id =:id AND o.visible = TRUE ")
     Optional<OfferingEntity> findByIdAndVisibleTrue(@Param("id") String id);
 
-    @Query("SELECT o FROM OfferingEntity o WHERE o.title =:title AND o.visible = TRUE ")
-    Optional<OfferingEntity> findByTitleAndVisibleTrue(@Param("title") String title);
+    @Query("SELECT o FROM OfferingEntity o ORDER BY o.createdDate DESC ")
+    Page<OfferingEntity> findAllPage(Pageable pageable);
+
+    @Query("SELECT o FROM OfferingEntity o WHERE o.departmentId = :id AND o.visible = TRUE ORDER BY o.createdDate DESC ")
+    Page<OfferingEntity> findAllByDepartmentIdAndVisibleTruePage(@Param("id") String departmentId, Pageable pageable);
+
+    @Query("SELECT o FROM OfferingEntity o WHERE o.buildingId = :id AND o.visible = TRUE ORDER BY o.createdDate DESC ")
+    Page<OfferingEntity> finAllByBuildingIdPage(String id, Pageable pageable);
+
+    @Query("SELECT o FROM OfferingEntity o WHERE o.categoryId = :id AND o.visible = TRUE ORDER BY o.createdDate DESC ")
+    Page<OfferingEntity> findAllPageByCategoryId(@Param("id") String id, Pageable pageable);
+
 
     @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Transactional
@@ -37,15 +48,4 @@ public interface OfferingRepository extends JpaRepository<OfferingEntity, String
     """)
     int update(@Param("entity") OfferingEntity entity);
 
-    @Query("SELECT o FROM OfferingEntity o WHERE o.visible = TRUE ")
-    Page<OfferingEntity> findAllPageAndVisibleTrue(Pageable pageable);
-
-    @Query("SELECT o FROM OfferingEntity o WHERE o.categoryId = :id AND o.visible = TRUE ORDER BY o.createdDate DESC ")
-    Page<OfferingEntity> findAllPageByCategoryId(@Param("id") String id, Pageable pageable);
-
-    @Query("SELECT o FROM OfferingEntity o ORDER BY o.createdDate DESC ")
-    Page<OfferingEntity> findAllPage(Pageable pageable);
-
-    @Query("SELECT o FROM OfferingEntity o WHERE o.departmentId = :id AND o.visible = TRUE ORDER BY o.createdDate DESC ")
-    Page<OfferingEntity> findAllPageByDepartmentIdAndVisibleTrue(@Param("id") String departmentId, Pageable pageable);
 }

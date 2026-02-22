@@ -28,24 +28,9 @@ public class BuildingCoreService extends BuildingService {
 
     }
 
-    public BuildingResponseDTO getByTitle(String title, AppLanguage lang) {
-        BuildingEntity entity = findByTitle(title);
-        if (entity != null) return buildingMapper.toResponseDTO(entity);
-        throw new ResourceNotFoundException("Building Not Found");
-    }
-
     public Page<BuildingResponseDTO> getAllPage(int page, Integer size, AppLanguage lang) {
         Pageable pageable = PageRequest.of(page, size);
-
-        // Bazadan sahifa bo‘yicha ma'lumotlarni olish
-        Page<BuildingEntity> entitiesPage = findAllPageAndVisibleTrue(pageable);
-
-        // Entity → DTO map qilish
-        List<BuildingResponseDTO> dtoList = entitiesPage.getContent().stream()
-                .map(entity -> {return buildingMapper.toResponseDTO(entity);}).toList();
-
-        // PageImpl orqali sahifa va pagination ma’lumotlarini saqlab DTO qaytarish
-        return new PageImpl<>(dtoList, pageable, entitiesPage.getTotalElements());
+        return findAllPageAndVisibleTrue(pageable).map(entity -> buildingMapper.toResponseDTO(entity));
     }
 
 }

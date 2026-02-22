@@ -23,30 +23,20 @@ public class BuildingService {
         return buildingRepository.save(entity);
     }
 
-    public BuildingEntity findById(String id){
-        Optional<BuildingEntity> optional = buildingRepository.findByIdAndVisibleTrue(id);
-        return optional.get();
-    }
-    public BuildingEntity findByTitle(String title){
-        Optional<BuildingEntity> optional = buildingRepository.findByTitleAndVisibleTrue(title);
-        return optional.get();
-    }
-    public Boolean update(BuildingEntity entity, AppLanguage lang){
-        BuildingEntity department = findById(entity.getId());
-        if (department == null) throw new ResourceNotFoundException("Department Not Found");
-        int effectedRow = buildingRepository.update(entity);
-        return effectedRow > 0;
-    }
+    public BuildingEntity findById(String id){return buildingRepository.findByIdAndVisibleTrue(id).get();}
 
-    public Page<BuildingEntity> findAllPageAndVisibleTrue(Pageable pageable) {
-        return buildingRepository.findAllPageAndVisibleTrue(pageable);
-    }
+    public Page<BuildingEntity> findAllPageAndVisibleTrue(Pageable pageable) {return buildingRepository.findAllPageAndVisibleTrue(pageable);}
 
     public Page<BuildingEntity> findAllPage(Pageable pageable) {
         return buildingRepository.findAllPage(pageable);
     }
 
-    public Page<BuildingEntity> findAllPageByDepartmentId(String id, Pageable pageable) {
-        return buildingRepository.findAllPageByDepartmentId(id, pageable);
+    public Page<BuildingEntity> findAllByDepartmentIdAndVisibleTruePage(String id, Pageable pageable) {return buildingRepository.findAllByDepartmentIdAndVisibleTruePage(id, pageable);}
+
+    public Boolean update(BuildingEntity entity, AppLanguage lang){
+        BuildingEntity department = findById(entity.getId());
+        if (department == null) throw new ResourceNotFoundException("Department Not Found");
+        int effectedRow = buildingRepository.update(entity);
+        return effectedRow > 0;
     }
 }

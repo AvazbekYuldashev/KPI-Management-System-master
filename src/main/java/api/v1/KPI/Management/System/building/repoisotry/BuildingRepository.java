@@ -17,8 +17,14 @@ public interface BuildingRepository extends JpaRepository<BuildingEntity, String
     @Query("SELECT b FROM BuildingEntity b WHERE b.id = :id AND b.visible =TRUE")
     Optional<BuildingEntity> findByIdAndVisibleTrue(@Param("id") String id);
 
-    @Query("SELECT b FROM BuildingEntity b WHERE b.title = :title AND b.visible = TRUE")
-    Optional<BuildingEntity> findByTitleAndVisibleTrue(@Param("title") String title);
+    @Query("SELECT b FROM BuildingEntity b WHERE b.visible = TRUE ORDER BY  b.createdDate DESC")
+    Page<BuildingEntity> findAllPageAndVisibleTrue(Pageable pageable);
+
+    @Query("SELECT b FROM BuildingEntity b ORDER BY b.createdDate DESC ")
+    Page<BuildingEntity> findAllPage(Pageable pageable);
+
+    @Query("SELECT b FROM BuildingEntity b WHERE b.departmentId =:id AND b.visible = TRUE ORDER BY b.createdDate DESC ")
+    Page<BuildingEntity> findAllByDepartmentIdAndVisibleTruePage(@Param("id") String id, Pageable pageable);
 
     @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Transactional
@@ -33,13 +39,4 @@ public interface BuildingRepository extends JpaRepository<BuildingEntity, String
     """)
     int update(@Param("entity") BuildingEntity entity);
 
-
-    @Query("SELECT b FROM BuildingEntity b WHERE b.visible = TRUE ORDER BY  b.createdDate DESC")
-    Page<BuildingEntity> findAllPageAndVisibleTrue(Pageable pageable);
-
-    @Query("SELECT b FROM BuildingEntity b ORDER BY b.createdDate DESC ")
-    Page<BuildingEntity> findAllPage(Pageable pageable);
-
-    @Query("SELECT b FROM BuildingEntity b WHERE b.departmentId =:id AND b.visible = TRUE ORDER BY b.createdDate DESC ")
-    Page<BuildingEntity> findAllPageByDepartmentId(@Param("id") String id, Pageable pageable);
 }

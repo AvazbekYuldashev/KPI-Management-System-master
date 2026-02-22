@@ -25,7 +25,7 @@ public class ApplicationCoreService extends ApplicationService {
 
     public ApplicationResponseDTO create(ApplicationCreateDTO dto, AppLanguage lang) {
         ApplicationEntity entity = applicationMapper.toCreatedEntity(dto);
-        OfferingEntity offering = offeringService.findById(dto.getOfferingId());
+        OfferingEntity offering = offeringService.findByIdAndVisibleTrue(dto.getOfferingId());
         if (offering == null) {
             throw new ResourceNotFoundException("Offering not found");
         }

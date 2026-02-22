@@ -32,7 +32,7 @@ public class OfferingManagerService extends OfferingService {
     }
 
     public AppResponse<String> managerUpdate(OfferingManagerUpdateDTO dto, AppLanguage lang){
-        OfferingEntity offering = findById(dto.getId());
+        OfferingEntity offering = findByIdAndVisibleTrue(dto.getId());
         if (!offering.getDepartmentId().equals(SpringSecurityUtil.getCurrentUserDepartmentId())){
             throw new AuthorizationDeniedException("ruxsat yoq");
         }
@@ -42,16 +42,7 @@ public class OfferingManagerService extends OfferingService {
 
     public Page<OfferingResponseDTO> getAllPage(int page, Integer size, AppLanguage lang) {
         Pageable pageable = PageRequest.of(page, size);
-
-        // Bazadan sahifa bo‘yicha ma'lumotlarni olish
-        Page<OfferingEntity> entitiesPage = findAllPageByDepartmentIdAndVisibleTrue(SpringSecurityUtil.getCurrentUserDepartmentId(), pageable);
-
-        // Entity → DTO map qilish
-        List<OfferingResponseDTO> dtoList = entitiesPage.getContent().stream()
-                .map(entity -> {return offeringMapper.toResponseDTO(entity);}).toList();
-
-        // PageImpl orqali sahifa va pagination ma’lumotlarini saqlab DTO qaytarish
-        return new PageImpl<>(dtoList, pageable, entitiesPage.getTotalElements());
+        return findAllByDepartmentIdAndVisibleTruePage(SpringSecurityUtil.getCurrentUserDepartmentId(), pageable).map(entity -> offeringMapper.toResponseDTO(entity));
     }
 
 }

@@ -41,16 +41,7 @@ public class CategoryOwnerService extends CategoryService {
 
     public Page<CategoryResponseDTO> getAllPage(int page, Integer size, AppLanguage lang) {
         Pageable pageable = PageRequest.of(page, size);
-
-        // Bazadan sahifa bo‘yicha ma'lumotlarni olish
-        Page<CategoryEntity> entitiesPage = findAllPage(pageable);
-
-        // Entity → DTO map qilish
-        List<CategoryResponseDTO> dtoList = entitiesPage.getContent().stream()
-                .map(entity -> {return categoryMapper.toResponseDTO(entity);}).toList();
-
-        // PageImpl orqali sahifa va pagination ma’lumotlarini saqlab DTO qaytarish
-        return new PageImpl<>(dtoList, pageable, entitiesPage.getTotalElements());
+        return findAllByVisibleTruePage(pageable).map(entity -> categoryMapper.toResponseDTO(entity));
     }
 
 

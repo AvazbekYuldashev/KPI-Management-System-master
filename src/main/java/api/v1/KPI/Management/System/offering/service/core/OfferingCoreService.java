@@ -3,6 +3,7 @@ package api.v1.KPI.Management.System.offering.service.core;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.building.dto.core.BuildingResponseDTO;
 import api.v1.KPI.Management.System.building.entity.BuildingEntity;
+import api.v1.KPI.Management.System.building.mapper.BuildingMapper;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
 import api.v1.KPI.Management.System.offering.dto.core.OfferingResponseDTO;
 import api.v1.KPI.Management.System.offering.entity.OfferingEntity;
@@ -21,48 +22,28 @@ import java.util.List;
 public class OfferingCoreService extends OfferingService {
     @Autowired
     private OfferingMapper offeringMapper;
+
     public OfferingResponseDTO getById(String id, AppLanguage lang){
-        OfferingEntity entity = findById(id);
+        OfferingEntity entity = findByIdAndVisibleTrue(id);
         if (entity != null) return offeringMapper.toResponseDTO(entity);
         throw new ResourceNotFoundException("Offering Not Found");
     }
 
-    public OfferingResponseDTO getByTitle(String title, AppLanguage lang) {
-        OfferingEntity entity = findByTitle(title);
-        if (entity != null) return offeringMapper.toResponseDTO(entity);
-        throw new ResourceNotFoundException("Offering Not Found");
-    }
-
-
-    public Page<OfferingResponseDTO> getAllPage(int page, Integer size, AppLanguage lang) {
+    public Page<OfferingResponseDTO> getAllByDepartmentIdPage(String id, int page, Integer size, AppLanguage lang) {
         Pageable pageable = PageRequest.of(page, size);
-
-        // Bazadan sahifa bo‘yicha ma'lumotlarni olish
-        Page<OfferingEntity> entitiesPage = findAllPageAndVisibleTrue(pageable);
-
-        // Entity → DTO map qilish
-        List<OfferingResponseDTO> dtoList = entitiesPage.getContent().stream()
-                .map(entity -> {return offeringMapper.toResponseDTO(entity);}).toList();
-
-        // PageImpl orqali sahifa va pagination ma’lumotlarini saqlab DTO qaytarish
-        return new PageImpl<>(dtoList, pageable, entitiesPage.getTotalElements());
+        return findAllByDepartmentIdAndVisibleTruePage(id, pageable).map(entity -> offeringMapper.toResponseDTO(entity));
     }
 
+    public Page<OfferingResponseDTO> getAllByBuildingIdPage(String id, int page, Integer size, AppLanguage lang) {
+        Pageable pageable = PageRequest.of(page, size);
+        return finAllByBuildingIdPage(id, pageable).map(entity -> offeringMapper.toResponseDTO(entity));
+    }
 
     public Page<OfferingResponseDTO> getAllPageByCategoryId(String id, int page, Integer size, AppLanguage lang) {
         Pageable pageable = PageRequest.of(page, size);
+        return findAllPageByCategoryId(id, pageable).map(entity -> offeringMapper.toResponseDTO(entity));
 
-        // Bazadan sahifa bo‘yicha ma'lumotlarni olish
-        Page<OfferingEntity> entitiesPage = findAllPageByCategoryId(id, pageable);
-
-        // Entity → DTO map qilish
-        List<OfferingResponseDTO> dtoList = entitiesPage.getContent().stream()
-                .map(entity -> {return offeringMapper.toResponseDTO(entity);}).toList();
-
-        // PageImpl orqali sahifa va pagination ma’lumotlarini saqlab DTO qaytarish
-        return new PageImpl<>(dtoList, pageable, entitiesPage.getTotalElements());
 
     }
-
 
 }
