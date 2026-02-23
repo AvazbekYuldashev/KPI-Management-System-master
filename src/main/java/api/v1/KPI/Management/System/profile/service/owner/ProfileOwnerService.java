@@ -5,6 +5,8 @@ import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.dto.FilterResultDTO;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.service.ResourceBoundleService;
+import api.v1.KPI.Management.System.building.entity.BuildingEntity;
+import api.v1.KPI.Management.System.building.service.manager.BuildingManagerService;
 import api.v1.KPI.Management.System.department.entity.DepartmentEntity;
 import api.v1.KPI.Management.System.department.service.DepartmentService;
 import api.v1.KPI.Management.System.department.service.manager.DepartmentManagerService;
@@ -43,6 +45,8 @@ public class ProfileOwnerService extends ProfileService {
     private ProfileMapper profileMapper;
     @Autowired
     private DepartmentManagerService departmentManagerService;
+    @Autowired
+    private BuildingManagerService buildingManagerService;
 
 
     public ProfileResponseDTO add(ProfileOwnerCreateDTO dto, AppLanguage lang) {
@@ -85,9 +89,9 @@ public class ProfileOwnerService extends ProfileService {
     }
 
     // update qlish kerak
-    public void updateEmployee(String id, String departmentId, AppLanguage lang) {
+    public void updateEmployee(String id, String departmentId, String buildingId, AppLanguage lang) {
         findById(id, AppLanguage.UZ);
-        employeeUpdate(id, departmentId,   Boolean.TRUE);
+        employeeUpdate(id, departmentId, buildingId,  Boolean.TRUE);
     }
 
     public AppResponse<String> updateDepartment(String id, String departmentId, AppLanguage lang) {
@@ -98,6 +102,12 @@ public class ProfileOwnerService extends ProfileService {
 
     public AppResponse<String> updatePhoto(ProfilePhotoUpdate dto, AppLanguage lang) {
         return changePhoto(dto.getId(), dto.getPhotoId(), lang);
+    }
+
+    public AppResponse<String> updateBuilding(String id, String buildingId, AppLanguage lang) {
+        ProfileEntity profile = findById(id, lang);
+        BuildingEntity building = buildingManagerService.findById(buildingId);
+        return changeBuilding(id, buildingId, lang);
     }
 
 }

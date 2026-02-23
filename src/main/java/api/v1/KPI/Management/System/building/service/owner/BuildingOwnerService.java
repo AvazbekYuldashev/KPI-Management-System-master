@@ -33,16 +33,19 @@ public class BuildingOwnerService extends BuildingService {
         BuildingEntity entity = buildingOwnerMapper.toCreatedEntity(dto);
         if (dto.getChiefId() != null) {
             entity.setChiefId(dto.getChiefId());
-            profileService.updateEmployee(dto.getChiefId(), entity.getDepartmentId(), lang);
+            profileService.updateEmployee(dto.getChiefId(), entity.getDepartmentId(), entity.getId(), lang);
         }
         return buildingMapper.toResponseDTO(create(entity));
     }
 
     public AppResponse<String> ownerUpdate(BuildingOwnerUpdateDTO dto, AppLanguage lang){
+        BuildingEntity building = findById(dto.getId());
         BuildingEntity entity = buildingOwnerMapper.toUpdatedEntity(dto);
+
         if (dto.getChiefId() != null) {
             entity.setChiefId(dto.getChiefId());
-            profileService.updateEmployee(dto.getChiefId(), findById(dto.getId()).getDepartmentId(), lang);
+
+            profileService.updateEmployee(dto.getChiefId(), building.getDepartmentId(), building.getId(), lang);
         }
         return AppResponseUtil.chek(update(entity, lang));
     }

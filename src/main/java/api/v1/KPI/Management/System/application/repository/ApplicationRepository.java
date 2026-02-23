@@ -19,6 +19,6 @@ public interface ApplicationRepository extends JpaRepository<ApplicationEntity, 
     @Query("UPDATE ApplicationEntity a SET a.status = :#{#dto.status} WHERE a.id = :#{#dto.id}")
     int changeStatus(ApplicationStatusDTO dto);
 
-    @Query("SELECT a FROM ApplicationEntity a WHERE a.sendProfileId = :id AND a.visible = TRUE ORDER BY a.createdDate DESC ")
+    @Query("SELECT a FROM ApplicationEntity a WHERE a.sendProfileId = :userId AND a.visible = TRUE ORDER BY a.createdDate DESC ")
     Page<ApplicationEntity> findAllByMyIdAndVisibleTruePage(String userId, Pageable pageable);
 }

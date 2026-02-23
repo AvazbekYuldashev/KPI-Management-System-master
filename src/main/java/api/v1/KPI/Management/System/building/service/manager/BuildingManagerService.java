@@ -14,13 +14,11 @@ import api.v1.KPI.Management.System.profile.service.core.ProfileService;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class BuildingManagerService extends BuildingService {
@@ -37,11 +35,12 @@ public class BuildingManagerService extends BuildingService {
     }
 
     public BuildingResponseDTO managerCreate(BuildingManagerCreateDTO dto, AppLanguage lang) {
+        BuildingEntity building = findById(dto.getChiefId());
         BuildingEntity entity = buildingManagerMapper.toCreatedEntity(dto);
         entity.setDepartmentId(SpringSecurityUtil.getCurrentUserDepartmentId());
         if (dto.getChiefId() != null) {
             entity.setChiefId(dto.getChiefId());
-            profileService.employeeUpdate(dto.getChiefId(), findById(dto.getChiefId()).getDepartmentId(), true);
+            profileService.employeeUpdate(dto.getChiefId(), building.getDepartmentId(), building.getId(), true);
         }
         return buildingMapper.toResponseDTO(create(entity));
     }
@@ -55,7 +54,7 @@ public class BuildingManagerService extends BuildingService {
         entity.setDepartmentId(SpringSecurityUtil.getCurrentUserDepartmentId());
         if (dto.getChiefId() != null) {
             entity.setChiefId(dto.getChiefId());
-            profileService.employeeUpdate(dto.getChiefId(), findById(dto.getId()).getDepartmentId(), true);
+            profileService.employeeUpdate(dto.getChiefId(), building.getDepartmentId(), building.getId(), true);
         }
         return AppResponseUtil.chek(update(entity, lang));
     }

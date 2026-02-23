@@ -22,6 +22,8 @@ public class ProfileMapper {
         dto.setSurname(entity.getSurname());
         dto.setUsername(entity.getUsername());
         dto.setPhoto(attachService.getDTOById(entity.getPhotoId()));
+        dto.setDepartmentId(entity.getDepartmentId());
+        dto.setBuildingId(entity.getBuildingId());
         dto.setCreatedDate(entity.getCreatedDate());
         dto.setStatus(entity.getStatus());
         dto.setRole(entity.getRole());
@@ -56,6 +58,8 @@ public class ProfileMapper {
         entity.setPhotoId(dto.getPhotoId());
         entity.setStatus(dto.getStatus());
         entity.setRole(dto.getRole());
+        entity.setDepartmentId(entity.getDepartmentId());
+        entity.setBuildingId(entity.getBuildingId());
         return entity;
     }
 

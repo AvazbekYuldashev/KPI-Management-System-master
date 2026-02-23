@@ -30,11 +30,11 @@ public class ApplicationCoreService extends ApplicationService {
     public ApplicationResponseDTO create(ApplicationCreateDTO dto, AppLanguage lang) {
         ApplicationEntity entity = applicationMapper.toCreatedEntity(dto);
         OfferingEntity offering = offeringService.findByIdAndVisibleTrue(dto.getOfferingId());
-        if (offering == null) {
-            throw new ResourceNotFoundException("Offering not found");
-        }
+        if (offering == null) {throw new ResourceNotFoundException("Offering not found");}
+
         entity.setSendProfileId(SpringSecurityUtil.getCurrentUserId());
         entity.setKpiBallLimit(offering.getKpiBall());
+        entity.setDeadline(offering.getDeadline());
         return applicationMapper.toResponseDTO(save(entity));
     }
 
@@ -45,7 +45,7 @@ public class ApplicationCoreService extends ApplicationService {
 
     public Page<ApplicationResponseDTO> findAllByMyId(Integer page, Integer size, AppLanguage lang) {
         Pageable pageable = PageRequest.of(page, size);
-        return findAllByMyIdAndVisibleTruePage(SpringSecurityUtil.getCurrentUserDepartmentId(), pageable).map(entity -> applicationMapper.toResponseDTO(entity));
+        return findAllByMyIdAndVisibleTruePage(SpringSecurityUtil.getCurrentUserId(), pageable).map(entity -> applicationMapper.toResponseDTO(entity));
     }
 }
 

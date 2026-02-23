@@ -44,6 +44,12 @@ public class ProfileOwnerController {
         return ResponseEntity.ok().body(profileOwnerService.updateDepartment(dto.getId(), dto.getDepartmentId(), lang));
     }
 
+    @PatchMapping("/building")
+    public ResponseEntity<AppResponse<String>> updateBuilding(@Valid @RequestBody ProfileOwnerChangeBuildingDTO dto,
+                                                                @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
+        return ResponseEntity.ok().body(profileOwnerService.updateBuilding(dto.getId(), dto.getBuildingId(), lang));
+    }
+
     @PutMapping("/photo")
     public ResponseEntity<AppResponse<String>> updatePhoto(@Valid @RequestBody ProfilePhotoUpdate dto,
                                                            @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){

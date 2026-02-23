@@ -13,6 +13,7 @@ public class ApplicationMapper {
         entity.setDescription(dto.getDescription());
         entity.setDepartmentId(dto.getDepartmentId());
         entity.setBuildingId(dto.getBuildingId());
+        entity.setCategoryId(dto.getCategoryId());
         entity.setOfferingId(dto.getOfferingId());
         return entity;
     }
@@ -32,6 +33,7 @@ public class ApplicationMapper {
         dto.setAcceptorProfileId(entity.getAcceptorProfileId());
         dto.setBuildingId(entity.getBuildingId());
         dto.setOfferingId(entity.getOfferingId());
+        dto.setCategoryId(entity.getCategoryId());
 
         dto.setCreatedDate(entity.getCreatedDate());
         dto.setAdminCheckedDate(entity.getAdminCheckedDate());

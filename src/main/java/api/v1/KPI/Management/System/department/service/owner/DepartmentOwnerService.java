@@ -41,7 +41,7 @@ public class DepartmentOwnerService extends DepartmentService {
     public AppResponse<String> ownerUpdate(DepartmentOwnerUpdateDTO dto, AppLanguage lang){
         DepartmentEntity entity = departmentOwnerMapper.toUpdatedEntity(dto);
         if (dto.getChiefId() != null) {
-            profileService.updateEmployee(dto.getChiefId(), dto.getId(), lang);
+            profileService.updateEmployee(dto.getChiefId(), dto.getId(), null, lang);
         }
         return AppResponseUtil.chek(update(entity, lang));
     }

@@ -33,5 +33,9 @@ public class BuildingCoreService extends BuildingService {
         return findAllPageAndVisibleTrue(pageable).map(entity -> buildingMapper.toResponseDTO(entity));
     }
 
+    public Page<BuildingResponseDTO> getByDepartmentId(String id, Integer page, Integer size, AppLanguage lang) {
+        Pageable pageable = PageRequest.of(page, size);
+        return findAllByDepartmentIdAndVisibleTruePage(id, pageable).map(entity -> buildingMapper.toResponseDTO(entity));
+    }
 }
 

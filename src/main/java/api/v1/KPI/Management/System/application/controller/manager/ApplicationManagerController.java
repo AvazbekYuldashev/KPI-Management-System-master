@@ -30,6 +30,7 @@ public class ApplicationManagerController {
                                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
         return ResponseEntity.ok().body(applicationManagerService.updateStatus(dto, lang));
     }
+
     public static int getCurrentPage(Integer page) {
         return (page != null && page > 0) ? page - 1 : 0;
     }

@@ -73,7 +73,12 @@ public class ProfileService {
         return optional.get();
     }
     public AppResponse<String> changeDepartment(String id, String departmentID, AppLanguage lang) {
-        profileRepository.changeDepartment(id, departmentID);
+        profileRepository.changeDepartment(id, departmentID, null);
+        return new AppResponse<>(boundleService.getMessage("update.successfully.completed",lang));
+    }
+
+    public AppResponse<String> changeBuilding(String id, String buildingId, AppLanguage lang) {
+        profileRepository.changeBuilding(id, buildingId);
         return new AppResponse<>(boundleService.getMessage("update.successfully.completed",lang));
     }
 
@@ -98,8 +103,8 @@ public class ProfileService {
         return profileRepository.save(entity);
     }
 
-    public int employeeUpdate(String id, String departmentId, Boolean b) {
-        return profileRepository.changeDepartment(id, departmentId);
+    public int employeeUpdate(String id, String departmentId, String buildingId, Boolean b) {
+        return profileRepository.changeDepartment(id, departmentId, buildingId);
     }
 
 }

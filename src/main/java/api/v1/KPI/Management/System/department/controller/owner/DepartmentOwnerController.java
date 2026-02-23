@@ -30,7 +30,7 @@ public class DepartmentOwnerController {
         return ResponseEntity.ok().body(departmentOwnerService.getAllPage(getCurrentPage(page), size, lang));
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/update")
     public ResponseEntity<AppResponse<String>> update(@RequestBody DepartmentOwnerUpdateDTO dto,
                                                       @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(departmentOwnerService.ownerUpdate(dto, lang));

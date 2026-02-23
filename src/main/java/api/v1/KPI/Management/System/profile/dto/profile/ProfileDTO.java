@@ -20,6 +20,9 @@ public class ProfileDTO {
     private AttachDTO photo;
     private GeneralStatus status;
 
+    private String departmentId;
+    private String buildingId;
+
     private ProfileRole role;
     private String jwt;
     private LocalDateTime createdDate;

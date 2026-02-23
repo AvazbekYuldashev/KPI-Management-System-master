@@ -1,10 +1,6 @@
 package api.v1.KPI.Management.System.category.mapper;
 
 import api.v1.KPI.Management.System.category.dto.core.CategoryResponseDTO;
-import api.v1.KPI.Management.System.category.dto.manager.CategoryManagerCreateDTO;
-import api.v1.KPI.Management.System.category.dto.manager.CategoryManagerUpdateDTO;
-import api.v1.KPI.Management.System.category.dto.owner.CategoryCreateDTO;
-import api.v1.KPI.Management.System.category.dto.owner.CategoryUpdateDTO;
 import api.v1.KPI.Management.System.category.entity.CategoryEntity;
 import org.springframework.stereotype.Component;
 

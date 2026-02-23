@@ -48,7 +48,8 @@ public class ApplicationEntity {
     private String buildingId;               // yuborilgan bino manzil id
     @Column(name = "offering_id")
     private String offeringId;               // yuborilgan xizmat Id
-
+    @Column(name = "categoryId")
+    private String categoryId;               // xizmat turi
 
 
     @Column(name = "created_date")

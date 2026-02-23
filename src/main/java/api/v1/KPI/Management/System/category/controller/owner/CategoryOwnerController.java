@@ -2,10 +2,9 @@ package api.v1.KPI.Management.System.category.controller.owner;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
-import api.v1.KPI.Management.System.building.dto.core.BuildingResponseDTO;
 import api.v1.KPI.Management.System.category.dto.core.CategoryResponseDTO;
-import api.v1.KPI.Management.System.category.dto.owner.CategoryCreateDTO;
-import api.v1.KPI.Management.System.category.dto.owner.CategoryUpdateDTO;
+import api.v1.KPI.Management.System.category.dto.owner.CategoryOwnerCreateDTO;
+import api.v1.KPI.Management.System.category.dto.owner.CategoryOwnerUpdateDTO;
 import api.v1.KPI.Management.System.category.service.owner.CategoryOwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,12 +18,12 @@ public class CategoryOwnerController {
     private CategoryOwnerService categoryOwnerService;
 
     @PostMapping("/create")
-    public ResponseEntity<CategoryResponseDTO> create(@RequestBody CategoryCreateDTO dto,
+    public ResponseEntity<CategoryResponseDTO> create(@RequestBody CategoryOwnerCreateDTO dto,
                                                       @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(categoryOwnerService.ownerCreate(dto,lang));
     }
     @PutMapping("/update")
-    public ResponseEntity<AppResponse<String>> update(@RequestBody CategoryUpdateDTO dto,
+    public ResponseEntity<AppResponse<String>> update(@RequestBody CategoryOwnerUpdateDTO dto,
                                                       @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(categoryOwnerService.ownerUpdate(dto, lang));
     }
