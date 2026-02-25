@@ -1,0 +1,21 @@
+package api.v1.KPI.Management.System.profile.dto.owner;
+
+import api.v1.KPI.Management.System.profile.enums.ProfileRole;
+import api.v1.KPI.Management.System.security.enums.GeneralStatus;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class ProfileOwnerCreateDTO {
+    private String name;
+    private String surname;
+    private String username;
+    private String photoId;
+    private GeneralStatus status;
+    private String password;
+
+    private ProfileRole role;
+    private String departmentId;
+    private String buildingId;
+}
