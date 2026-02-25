@@ -1,6 +1,5 @@
 package api.v1.KPI.Management.System.application.repository;
 
-import api.v1.KPI.Management.System.application.dto.core.ApplicationResponseDTO;
 import api.v1.KPI.Management.System.application.dto.core.ApplicationStatusDTO;
 import api.v1.KPI.Management.System.application.entity.ApplicationEntity;
 import jakarta.transaction.Transactional;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ApplicationRepository extends JpaRepository<ApplicationEntity, String> {
-
     @Modifying
     @Transactional
     @Query("UPDATE ApplicationEntity a SET a.status = :#{#dto.status} WHERE a.id = :#{#dto.id}")

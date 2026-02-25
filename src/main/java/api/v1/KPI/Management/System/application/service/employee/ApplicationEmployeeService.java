@@ -1,4 +1,4 @@
-package api.v1.KPI.Management.System.application.service.admin;
+package api.v1.KPI.Management.System.application.service.employee;
 
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
@@ -15,11 +15,18 @@ import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ApplicationAdminService extends ApplicationService {
+public class ApplicationEmployeeService extends ApplicationService {
+
+    public Page<ApplicationResponseDTO> searchApplications(ApplicationFilterDTO dto, int page, Integer size, AppLanguage lang) {
+        dto.setDepartmentId(SpringSecurityUtil.getCurrentUserDepartmentId());
+        dto.setBuildingId(SpringSecurityUtil.getCurrentUserBuildingId());
+        return ownerFilter(dto, page, size, lang);
+    }
 
     public AppResponse<String> updateStatus(ApplicationStatusDTO dto, AppLanguage lang) {
-        if (!dto.getStatus().equals(ApplicationStatus.APPROVED)
-                && !dto.getStatus().equals(ApplicationStatus.REJECTED)) {
+        if (!dto.getStatus().equals(ApplicationStatus.IN_PROGRESS)
+                && !dto.getStatus().equals(ApplicationStatus.REVIEW)
+        && !dto.getStatus().equals(ApplicationStatus.DENIED)) {
             throw new AppBadException(
                     //messageSource.getMessage("status.invalid", null, lang)
                     "Status notogri"
@@ -35,11 +42,5 @@ public class ApplicationAdminService extends ApplicationService {
             );
         }
         return changeStatus(dto, lang);
-    }
-
-    public Page<ApplicationResponseDTO> searchApplications(ApplicationFilterDTO dto, int page, Integer size, AppLanguage lang) {
-        dto.setDepartmentId(SpringSecurityUtil.getCurrentUserDepartmentId());
-        dto.setBuildingId(SpringSecurityUtil.getCurrentUserBuildingId());
-        return ownerFilter(dto, page, size, lang);
     }
 }
