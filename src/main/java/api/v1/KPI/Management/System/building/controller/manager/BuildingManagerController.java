@@ -29,12 +29,6 @@ public class BuildingManagerController {
                                                       @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(buildingManagerService.managerUpdate(dto, lang));
     }
-    @GetMapping("/all")
-    public ResponseEntity<Page<BuildingResponseDTO>> findAll(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                                                             @RequestParam(value = "size", defaultValue = "10") Integer size,
-                                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
-        return ResponseEntity.ok().body(buildingManagerService.getAllPage(getCurrentPage(page), size, lang));
-    }
 
 
     public static int getCurrentPage(Integer page) {
