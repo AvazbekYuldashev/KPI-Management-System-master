@@ -23,6 +23,10 @@ public class DepartmentCoreController {
                                                              @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(departmentCoreService.getByTitle(title, lang));
     }
+    @GetMapping("/by-my")
+    public ResponseEntity<DepartmentResponseDTO> getByMyId(@RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
+        return ResponseEntity.ok().body(departmentCoreService.getByMyId(lang));
+    }
 
     public static int getCurrentPage(Integer page) {
         return (page != null && page > 0) ? page - 1 : 0;
