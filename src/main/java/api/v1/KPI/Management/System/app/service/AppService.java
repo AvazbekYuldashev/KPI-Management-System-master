@@ -51,7 +51,7 @@ public class AppService {
         entity.setName("Avazbek");
         entity.setSurname("Yuldashev");
         entity.setUsername("telegram.vzlom@gmail.com");
-        entity.setPassword(bc.encode("12345"));
+        entity.setPassword(bc.encode("12345678A"));
         entity.setLanguage(AppLanguage.UZ);
         entity.setVisible(true);
         entity.setRole(ProfileRole.ROLE_OWNER);

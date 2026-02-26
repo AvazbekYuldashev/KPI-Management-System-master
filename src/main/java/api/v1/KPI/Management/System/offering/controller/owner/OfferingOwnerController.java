@@ -27,6 +27,7 @@ public class OfferingOwnerController {
                                                       @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(offeringOwnerService.ownerUpdate(dto, lang));
     }
+    
 
     @GetMapping("/all")
     public ResponseEntity<Page<OfferingResponseDTO>> findAll(@RequestParam(value = "page", defaultValue = "1") Integer page,
