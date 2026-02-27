@@ -22,11 +22,11 @@ public interface ProfileHelperRepository extends JpaRepository<ProfileEntity, St
     @Query("""
        UPDATE ProfileEntity p
        SET p.isEmployee = :aTrue,
-           p.departmentId = COALESCE(:departmentId, p.departmentId),
+           p.departmentId = :departmentId,
            p.updatedDate = :now
-       WHERE p.id = :chiefId
+       WHERE p.id = :userId
        """)
-    void changeDepartmentId(@Param("chiefId") String chiefId, @Param("departmentId") String departmentId, @Param("aTrue") Boolean aTrue, @Param("now") LocalDateTime now);
+    void changeDepartmentId(@Param("userId") String userId, @Param("departmentId") String departmentId, @Param("aTrue") Boolean aTrue, @Param("now") LocalDateTime now);
 
     @Modifying
     @Transactional

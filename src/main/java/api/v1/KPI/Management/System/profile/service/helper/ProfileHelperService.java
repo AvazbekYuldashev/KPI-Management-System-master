@@ -33,8 +33,8 @@ public class ProfileHelperService {
         return new AppResponse<>(boundleService.getMessage("update.successfully.completed",lang));
     }
 
-    public AppResponse<String> changeDepartmentId(String departmentId, String chiefId, AppLanguage lang) {
-        profileHelperRepository.changeDepartmentId(chiefId, departmentId, Boolean.TRUE, LocalDateTime.now());
+    public AppResponse<String> changeDepartmentId(String departmentId, String userId, AppLanguage lang) {
+        profileHelperRepository.changeDepartmentId(userId, departmentId, Boolean.TRUE, LocalDateTime.now());
         return new AppResponse<>(boundleService.getMessage("update.successfully.completed",lang));
     }
 

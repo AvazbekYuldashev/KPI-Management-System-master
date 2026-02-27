@@ -41,7 +41,7 @@ public class ProfileOwnerController {
     @PatchMapping("/department")
     public ResponseEntity<AppResponse<String>> updateDepartment(@Valid @RequestBody ProfileOwnerChangeDepartmentDTO dto,
                                                                 @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
-        return ResponseEntity.ok().body(profileOwnerService.updateDepartment(dto.getId(), dto.getDepartmentId(), lang));
+        return ResponseEntity.ok().body(profileOwnerService.updateDepartment(dto, lang));
     }
 
     @PatchMapping("/building")

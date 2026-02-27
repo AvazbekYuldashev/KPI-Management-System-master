@@ -95,10 +95,10 @@ public class ProfileOwnerService extends ProfileService {
         return deleteById(id, lang);
     }
 
-    public AppResponse<String> updateDepartment(String id, String departmentId, AppLanguage lang) {
-        ProfileEntity profile = findById(id, lang);
-        DepartmentEntity department = departmentHelperService.findById(departmentId);
-        return profileHelperService.changeDepartmentId(id, department.getId(), lang);
+    public AppResponse<String> updateDepartment(ProfileOwnerChangeDepartmentDTO dto, AppLanguage lang) {
+        ProfileEntity profile = findById(dto.getId(), lang);
+        DepartmentEntity department = departmentHelperService.findById(dto.getDepartmentId());
+        return profileHelperService.changeDepartmentId(dto.getDepartmentId(), dto.getId(), lang);
     }
 
 
