@@ -3,6 +3,7 @@ package api.v1.KPI.Management.System.application.service;
 import api.v1.KPI.Management.System.app.dto.AppResponse;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.util.AppResponseUtil;
+import api.v1.KPI.Management.System.application.dto.core.ApplicationGetterDTO;
 import api.v1.KPI.Management.System.application.dto.core.ApplicationStatusDTO;
 import api.v1.KPI.Management.System.application.dto.core.ApplicationResponseDTO;
 import api.v1.KPI.Management.System.application.dto.manager.ApplicationFilterDTO;
@@ -10,6 +11,7 @@ import api.v1.KPI.Management.System.application.entity.ApplicationEntity;
 import api.v1.KPI.Management.System.application.repository.ApplicationCustomRepository;
 import api.v1.KPI.Management.System.application.repository.ApplicationRepository;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
+import api.v1.KPI.Management.System.kpi.dto.core.KpiResponseDTO;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -51,5 +53,10 @@ public class  ApplicationService {
 
     public Page<ApplicationEntity> findAllByMyIdAndVisibleTruePage(String userId, Pageable pageable) {
         return applicationRepository.findAllByMyIdAndVisibleTruePage(userId, pageable);
+    }
+
+    public Page<KpiResponseDTO> getEmployeeKpi(String id, Pageable pageable) {
+        ApplicationGetterDTO dto = ApplicationGetterDTO.builder().acceptorProfileId(id).build();
+        return applicationRepository.getEmployeeKpi(dto, pageable);
     }
 }

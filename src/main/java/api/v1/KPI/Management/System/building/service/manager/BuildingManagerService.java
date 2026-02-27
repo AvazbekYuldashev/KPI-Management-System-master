@@ -29,11 +29,6 @@ public class BuildingManagerService extends BuildingService {
     @Autowired
     private BuildingManagerMapper buildingManagerMapper;
 
-    public Page<BuildingResponseDTO> getAllPage(int page, Integer size, AppLanguage lang) {
-        Pageable pageable = PageRequest.of(page, size);
-        return findAllByDepartmentIdAndVisibleTruePage(SpringSecurityUtil.getCurrentUserDepartmentId(), pageable).map(entity -> buildingMapper.toResponseDTO(entity));
-    }
-
     public BuildingResponseDTO managerCreate(BuildingManagerCreateDTO dto, AppLanguage lang) {
         BuildingEntity building = findById(dto.getChiefId());
         BuildingEntity entity = buildingManagerMapper.toCreatedEntity(dto);
