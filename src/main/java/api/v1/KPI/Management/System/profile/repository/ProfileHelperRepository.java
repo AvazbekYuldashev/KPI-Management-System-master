@@ -9,13 +9,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Repository
 public interface ProfileHelperRepository extends JpaRepository<ProfileEntity, String> {
-
-    @Query("SELECT p FROM ProfileEntity p WHERE p.id = :id AND p.visible = TRUE ")
-    Optional<ProfileEntity> findByIdAndVisibleTrue(@Param("id") String id);
 
     @Modifying
     @Transactional

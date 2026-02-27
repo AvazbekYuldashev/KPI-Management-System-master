@@ -47,7 +47,7 @@ public class ProfileOwnerController {
     @PatchMapping("/building")
     public ResponseEntity<AppResponse<String>> updateBuilding(@Valid @RequestBody ProfileOwnerChangeBuildingDTO dto,
                                                                 @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
-        return ResponseEntity.ok().body(profileOwnerService.updateBuilding(dto.getId(), dto.getBuildingId(), lang));
+        return ResponseEntity.ok().body(profileOwnerService.updateBuilding(dto, lang));
     }
 
     @PutMapping("/photo")

@@ -106,10 +106,10 @@ public class ProfileOwnerService extends ProfileService {
         return changePhoto(dto.getId(), dto.getPhotoId(), lang);
     }
 
-    public AppResponse<String> updateBuilding(String id, String buildingId, AppLanguage lang) {
-        ProfileEntity profile = findById(id, lang);
-        BuildingEntity building = buildingHelperService.findById(buildingId);
-        return profileHelperService.changeBuilding(profile.getId(), building.getDepartmentId(), profile.getBuildingId(), lang);
+    public AppResponse<String> updateBuilding(ProfileOwnerChangeBuildingDTO dto, AppLanguage lang) {
+        ProfileEntity profile = findById(dto.getId(), lang);
+        BuildingEntity building = buildingHelperService.findById(dto.getBuildingId());
+        return profileHelperService.changeBuilding(profile.getId(), building.getDepartmentId(), dto.getBuildingId(), lang);
     }
 
 }
