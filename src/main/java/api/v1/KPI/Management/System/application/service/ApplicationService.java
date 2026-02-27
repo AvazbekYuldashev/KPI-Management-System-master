@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class ApplicationService {
+public class  ApplicationService {
     @Autowired
     private ApplicationRepository applicationRepository;
     @Autowired
