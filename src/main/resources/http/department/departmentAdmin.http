@@ -8,6 +8,10 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHcmVlZCIsInJvbGUiOiJST0xFX
   "description": "Raqamli Talim Texnalogialar Markazi"
 }
 
+### Get
+GET http://localhost:8080/api/v1/building-core/department/73239ddb-5a38-457b-ba8d-5b4567bca449
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJGYXJob2RiZWtAZ21haWwuY29tIiwicm9sZSI6IlJPTEVfTUFOQUdFUiIsImlkIjoiNjkzNGY0OWEtNGNkNi00NmU1LWIxODMtZTgxNDVjODg4ZTY2IiwiaWF0IjoxNzcyMTk0NjUyLCJleHAiOjE3NzIyODEwNTJ9.iKPbUSDnxXTRP4L4rwRHjW3oZywqv4KWJvZrTC4mP9ynPOmujMIF9Tq3e6v-n0exxT-Pz7pGh4dpshQ4aB68WA
 
 ### Get All
 GET http://localhost:8080/admin/department/all

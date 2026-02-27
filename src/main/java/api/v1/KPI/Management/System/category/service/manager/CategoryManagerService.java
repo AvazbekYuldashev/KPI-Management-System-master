@@ -40,10 +40,5 @@ public class CategoryManagerService extends CategoryService {
         return AppResponseUtil.chek(update(entity, lang));
     }
 
-    public Page<CategoryResponseDTO> getAllPage(int page, Integer size, AppLanguage lang) {
-        Pageable pageable = PageRequest.of(page, size);
-        return findAllByDepartmentIdAndVisibleTruePage(SpringSecurityUtil.getCurrentUserDepartmentId(), pageable)
-                .map(entity -> categoryMapper.toResponseDTO(entity));
-    }
 
 }

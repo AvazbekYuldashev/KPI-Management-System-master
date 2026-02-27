@@ -27,12 +27,6 @@ public class CategoryManagerController {
                                                       @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang){
         return ResponseEntity.ok().body(categoryManagerService.managerUpdate(dto, lang));
     }
-    @GetMapping("/all")
-    public ResponseEntity<Page<CategoryResponseDTO>> findAll(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                                                             @RequestParam(value = "size", defaultValue = "10") Integer size,
-                                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
-        return ResponseEntity.ok().body(categoryManagerService.getAllPage(getCurrentPage(page), size, lang));
-    }
     public static int getCurrentPage(Integer page) {
         return (page != null && page > 0) ? page - 1 : 0;
     }

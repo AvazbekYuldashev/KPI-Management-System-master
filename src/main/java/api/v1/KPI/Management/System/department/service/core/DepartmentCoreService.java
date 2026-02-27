@@ -8,6 +8,9 @@ import api.v1.KPI.Management.System.department.service.DepartmentService;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,4 +35,10 @@ public class DepartmentCoreService extends DepartmentService {
         if (entity != null) return departmentMapper.toResponseDTO(entity);
         throw new ResourceNotFoundException("Your Department Not Found");
     }
+
+    public Page<DepartmentResponseDTO> getAllPage(int page, Integer size, AppLanguage lang) {
+        Pageable pageable = PageRequest.of(page, size);
+        return findAllPage(pageable).map(entity -> departmentMapper.toResponseDTO(entity));
+    }
+
 }

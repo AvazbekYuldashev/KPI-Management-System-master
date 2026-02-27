@@ -14,8 +14,8 @@ POST http://localhost:8080/api/v1/auth/login
 Content-Type: application/json
 
 {
-  "username": "telegram.vzlom@gmail.com",
-  "password": "12345"
+  "username": "Farhodbek@gmail.com",
+  "password": "12345678A"
 }
 
 ### resend email

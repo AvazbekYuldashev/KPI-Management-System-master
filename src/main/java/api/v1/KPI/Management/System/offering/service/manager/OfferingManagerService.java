@@ -43,9 +43,5 @@ public class OfferingManagerService extends OfferingService {
         return AppResponseUtil.chek(update(entity, lang));
     }
 
-    public Page<OfferingResponseDTO> getAllPage(int page, Integer size, AppLanguage lang) {
-        Pageable pageable = PageRequest.of(page, size);
-        return findAllByDepartmentIdAndVisibleTruePage(SpringSecurityUtil.getCurrentUserDepartmentId(), pageable).map(entity -> offeringMapper.toResponseDTO(entity));
-    }
 
 }
