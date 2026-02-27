@@ -14,5 +14,5 @@ public class KpiResponseDTO {
     private Long acceptedTaskCount;
     private Long rejectedTaskCount;
     private Long completedTaskCount;
-    private Float totalScore;
+    private Double totalScore;
 }
