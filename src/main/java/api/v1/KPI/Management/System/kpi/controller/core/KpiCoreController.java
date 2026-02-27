@@ -15,8 +15,8 @@ public class KpiCoreController {
     @Autowired
     private KpiCoreService kpiCoreService;
 
-    @GetMapping("/by-employee")
-    public ResponseEntity<Page<KpiResponseDTO>> getEmployeeKpi(@PathVariable String id,
+    @GetMapping("/by-employee/{id}")
+    public ResponseEntity<Page<KpiResponseDTO>> getEmployeeKpi(@PathVariable("id") String id,
                                                                @RequestParam(value = "page", defaultValue = "1") Integer page,
                                                                @RequestParam(value = "size", defaultValue = "10") Integer size,
                                                                @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {

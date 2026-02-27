@@ -15,7 +15,7 @@ public class DepartmentManagerController {
     @Autowired
     private DepartmentManagerService departmentManagerService;
 
-    @GetMapping("/all")
+    @GetMapping("/my")
     public ResponseEntity<DepartmentResponseDTO> myDepartment(@RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
         return ResponseEntity.ok().body(departmentManagerService.getMyDepartment(lang));
     }

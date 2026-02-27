@@ -20,12 +20,6 @@ public class BuildingCoreController {
         return ResponseEntity.ok().body(buildingCoreService.getById(id, lang));
     }
 
-    @GetMapping("/all")
-    public ResponseEntity<Page<BuildingResponseDTO>> findAll(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                                                             @RequestParam(value = "size", defaultValue = "10") Integer size,
-                                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
-        return ResponseEntity.ok().body(buildingCoreService.getAllPage(getCurrentPage(page), size, lang));
-    }
 
     @GetMapping("/department/{id}")
     public ResponseEntity<Page<BuildingResponseDTO>> findByDepartmentId(@PathVariable String id,

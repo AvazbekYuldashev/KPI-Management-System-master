@@ -69,11 +69,12 @@ public class SpringConfig {
 //                "http://202.181.188.35:5173"
 //        ));
         configuration.setAllowedOriginPatterns(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList(
                 "Authorization",
                 "Content-Type",
-                "Accept"
+                "Accept",
+                "Accept-Language"
         ));
         configuration.setAllowCredentials(false); // cookie yoki token yuborishga ruxsat
         //configuration.setAllowCredentials(true); // cookie yoki token yuborishga ruxsat

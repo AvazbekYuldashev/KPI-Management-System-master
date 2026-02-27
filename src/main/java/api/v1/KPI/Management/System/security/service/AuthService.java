@@ -110,6 +110,8 @@ public class AuthService {
         response.setStatus(profile.getStatus());
         response.setPhoto(attachService.getDTOById(profile.getPhotoId()));
         response.setRole(profile.getRole());
+        response.setDepartmentId(profile.getDepartmentId());
+        response.setBuildingId(profile.getBuildingId());
         response.setJwt(JwtUtil.encode(profile.getUsername(), profile.getId(), response.getRole())); // retnrn jwt
         return response;
     }

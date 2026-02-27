@@ -9,6 +9,7 @@ import api.v1.KPI.Management.System.profile.dto.profile.*;
 import api.v1.KPI.Management.System.profile.entity.ProfileEntity;
 import api.v1.KPI.Management.System.profile.enums.ProfileRole;
 import api.v1.KPI.Management.System.profile.mapper.ProfileMapper;
+import api.v1.KPI.Management.System.profile.repository.ProfileHelperRepository;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
 import api.v1.KPI.Management.System.security.enums.GeneralStatus;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
@@ -72,15 +73,7 @@ public class ProfileService {
         }
         return optional.get();
     }
-    public AppResponse<String> changeDepartment(String id, String departmentID, AppLanguage lang) {
-        profileRepository.changeDepartment(id, departmentID, null);
-        return new AppResponse<>(boundleService.getMessage("update.successfully.completed",lang));
-    }
 
-    public AppResponse<String> changeBuilding(String id, String buildingId, AppLanguage lang) {
-        profileRepository.changeBuilding(id, buildingId);
-        return new AppResponse<>(boundleService.getMessage("update.successfully.completed",lang));
-    }
 
     public PageImpl<ProfileResponseDTO> getAll(int page, int size) {
         Sort sort = Sort.by("createdDate").descending();
@@ -103,8 +96,5 @@ public class ProfileService {
         return profileRepository.save(entity);
     }
 
-    public int employeeUpdate(String id, String departmentId, String buildingId, Boolean b) {
-        return profileRepository.changeDepartment(id, departmentId, buildingId);
-    }
 
 }

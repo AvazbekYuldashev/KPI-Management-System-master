@@ -6,10 +6,13 @@ import api.v1.KPI.Management.System.app.dto.FilterResultDTO;
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
 import api.v1.KPI.Management.System.app.service.ResourceBoundleService;
 import api.v1.KPI.Management.System.building.entity.BuildingEntity;
+import api.v1.KPI.Management.System.building.service.helper.BuildingHelperService;
 import api.v1.KPI.Management.System.building.service.manager.BuildingManagerService;
 import api.v1.KPI.Management.System.department.entity.DepartmentEntity;
 import api.v1.KPI.Management.System.department.service.DepartmentService;
+import api.v1.KPI.Management.System.department.service.helper.DepartmentHelperService;
 import api.v1.KPI.Management.System.department.service.manager.DepartmentManagerService;
+import api.v1.KPI.Management.System.department.service.owner.DepartmentOwnerService;
 import api.v1.KPI.Management.System.exception.exps.ProfileStatusException;
 import api.v1.KPI.Management.System.profile.dto.profile.ProfilePhotoUpdate;
 import api.v1.KPI.Management.System.profile.dto.profile.ProfileResponseDTO;
@@ -21,6 +24,7 @@ import api.v1.KPI.Management.System.profile.repository.CustomProfileRepository;
 import api.v1.KPI.Management.System.profile.repository.ProfileRepository;
 import api.v1.KPI.Management.System.profile.service.accaunt.AccauntService;
 import api.v1.KPI.Management.System.profile.service.core.ProfileService;
+import api.v1.KPI.Management.System.profile.service.helper.ProfileHelperService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,10 +47,13 @@ public class ProfileOwnerService extends ProfileService {
     private CustomProfileRepository customProfileRepository;
     @Autowired
     private ProfileMapper profileMapper;
+
     @Autowired
-    private DepartmentManagerService departmentManagerService;
+    private ProfileHelperService  profileHelperService;
     @Autowired
-    private BuildingManagerService buildingManagerService;
+    private DepartmentHelperService departmentHelperService;
+    @Autowired
+    private BuildingHelperService buildingHelperService;
 
 
     public ProfileResponseDTO add(ProfileOwnerCreateDTO dto, AppLanguage lang) {
@@ -88,17 +95,12 @@ public class ProfileOwnerService extends ProfileService {
         return deleteById(id, lang);
     }
 
-    // update qlish kerak
-    public void updateEmployee(String id, String departmentId, String buildingId, AppLanguage lang) {
-        findById(id, AppLanguage.UZ);
-        employeeUpdate(id, departmentId, buildingId,  Boolean.TRUE);
-    }
-
     public AppResponse<String> updateDepartment(String id, String departmentId, AppLanguage lang) {
         ProfileEntity profile = findById(id, lang);
-        DepartmentEntity department = departmentManagerService.findById(departmentId);
-        return changeDepartment(id, departmentId, lang);
+        DepartmentEntity department = departmentHelperService.findById(departmentId);
+        return profileHelperService.changeDepartmentId(id, department.getId(), lang);
     }
+
 
     public AppResponse<String> updatePhoto(ProfilePhotoUpdate dto, AppLanguage lang) {
         return changePhoto(dto.getId(), dto.getPhotoId(), lang);
@@ -106,8 +108,8 @@ public class ProfileOwnerService extends ProfileService {
 
     public AppResponse<String> updateBuilding(String id, String buildingId, AppLanguage lang) {
         ProfileEntity profile = findById(id, lang);
-        BuildingEntity building = buildingManagerService.findById(buildingId);
-        return changeBuilding(id, buildingId, lang);
+        BuildingEntity building = buildingHelperService.findById(buildingId);
+        return profileHelperService.changeBuilding(profile.getId(), building.getDepartmentId(), profile.getBuildingId(), lang);
     }
 
 }

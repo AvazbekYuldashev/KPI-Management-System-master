@@ -38,7 +38,7 @@ public interface ApplicationRepository extends JpaRepository<ApplicationEntity, 
         JOIN a.acceptorProfile p 
         WHERE (:#{#dto.acceptorProfileId} IS NULL OR a.acceptorProfileId = :#{#dto.acceptorProfileId}) 
         AND a.visible = true 
-        GROUP BY a.acceptorProfileId, p.name 
+        GROUP BY a.acceptorProfileId, p.name, p.surname
         ORDER BY MAX(a.createdDate) DESC 
         """)
     Page<KpiResponseDTO> getEmployeeKpi(@Param("dto") ApplicationGetterDTO dto, Pageable pageable);

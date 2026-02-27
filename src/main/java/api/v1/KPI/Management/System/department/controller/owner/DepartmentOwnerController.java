@@ -9,8 +9,10 @@ import api.v1.KPI.Management.System.department.service.owner.DepartmentOwnerServ
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+@PreAuthorize("hasRole('OWNER')")
 @RestController
 @RequestMapping("/api/v1/department-owner")
 public class DepartmentOwnerController {

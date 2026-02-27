@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class KpiCoreService extends KpiService {
 
-
     public Page<KpiResponseDTO> getEmployeeKpi(String id, int page, Integer size, AppLanguage lang) {
         Pageable pageable = PageRequest.of(page, size);
         return findEmployeeKpi(id, pageable);

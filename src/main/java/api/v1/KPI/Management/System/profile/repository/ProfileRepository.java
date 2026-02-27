@@ -88,22 +88,8 @@ public interface ProfileRepository extends JpaRepository<ProfileEntity,String> {
     @Query("UPDATE ProfileEntity SET isEmployee = :b WHERE id = :id ")
     int changeEmployee(@Param("id") String id, @Param("b") Boolean b);
 
-    @Modifying
-    @Transactional
-    @Query("""
-       UPDATE ProfileEntity p
-       SET p.isEmployee = TRUE,
-           p.departmentId = COALESCE(:departmentId, p.departmentId),
-           p.buildingId = COALESCE(:buildingId, p.buildingId)
-       WHERE p.id = :id
-       """)
-    int changeDepartment(@Param("id") String id, @Param("departmentId") String departmentId, @Param("buildingId") String buildingId );
 
     @Query("SELECT p FROM ProfileEntity p WHERE p.buildingId =:id AND p.visible = TRUE order by p.createdDate DESC ")
     Page<ProfileEntity> findAllPageByBuildingIdAndVisibleTrue(String id, Pageable pageable);
 
-    @Modifying
-    @Transactional
-    @Query("UPDATE ProfileEntity SET isEmployee = TRUE, buildingId = :buildingId WHERE id = :id")
-    void changeBuilding(@Param("id") String id, @Param("buildingId") String buildingId);
 }

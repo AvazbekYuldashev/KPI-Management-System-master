@@ -11,6 +11,7 @@ import api.v1.KPI.Management.System.building.mapper.BuildingManagerMapper;
 import api.v1.KPI.Management.System.building.mapper.BuildingMapper;
 import api.v1.KPI.Management.System.building.service.BuildingService;
 import api.v1.KPI.Management.System.profile.service.core.ProfileService;
+import api.v1.KPI.Management.System.profile.service.helper.ProfileHelperService;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,9 +26,9 @@ public class BuildingManagerService extends BuildingService {
     @Autowired
     private BuildingMapper buildingMapper;
     @Autowired
-    private ProfileService profileService;
-    @Autowired
     private BuildingManagerMapper buildingManagerMapper;
+    @Autowired
+    private ProfileHelperService profileHelperService;
 
     public BuildingResponseDTO managerCreate(BuildingManagerCreateDTO dto, AppLanguage lang) {
         BuildingEntity building = findById(dto.getChiefId());
@@ -35,7 +36,7 @@ public class BuildingManagerService extends BuildingService {
         entity.setDepartmentId(SpringSecurityUtil.getCurrentUserDepartmentId());
         if (dto.getChiefId() != null) {
             entity.setChiefId(dto.getChiefId());
-            profileService.employeeUpdate(dto.getChiefId(), building.getDepartmentId(), building.getId(), true);
+            profileHelperService.changeBuilding(dto.getChiefId(), building.getDepartmentId(), building.getId(), lang);
         }
         return buildingMapper.toResponseDTO(create(entity));
     }
@@ -49,7 +50,7 @@ public class BuildingManagerService extends BuildingService {
         entity.setDepartmentId(SpringSecurityUtil.getCurrentUserDepartmentId());
         if (dto.getChiefId() != null) {
             entity.setChiefId(dto.getChiefId());
-            profileService.employeeUpdate(dto.getChiefId(), building.getDepartmentId(), building.getId(), true);
+            profileHelperService.changeBuilding(dto.getChiefId(), building.getDepartmentId(), building.getId(), lang);
         }
         return AppResponseUtil.chek(update(entity, lang));
     }
