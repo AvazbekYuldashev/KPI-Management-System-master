@@ -20,6 +20,9 @@ public class ApplicationEmployeeService extends ApplicationService {
     public Page<ApplicationResponseDTO> searchApplications(ApplicationFilterDTO dto, int page, Integer size, AppLanguage lang) {
         dto.setDepartmentId(SpringSecurityUtil.getCurrentUserDepartmentId());
         dto.setBuildingId(SpringSecurityUtil.getCurrentUserBuildingId());
+        if (dto.getAcceptorProfileId() != null){
+            dto.setAcceptorProfileId(SpringSecurityUtil.getCurrentUserId());
+        }
         return ownerFilter(dto, page, size, lang);
     }
 
@@ -41,6 +44,6 @@ public class ApplicationEmployeeService extends ApplicationService {
                     "You are not authorized to perform this operation"
             );
         }
-        return changeStatus(dto, lang);
+        return changeEmployeeStatus(dto, lang);
     }
 }

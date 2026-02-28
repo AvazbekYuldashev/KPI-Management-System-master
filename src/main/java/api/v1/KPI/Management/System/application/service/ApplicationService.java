@@ -8,6 +8,7 @@ import api.v1.KPI.Management.System.application.dto.core.ApplicationStatusDTO;
 import api.v1.KPI.Management.System.application.dto.core.ApplicationResponseDTO;
 import api.v1.KPI.Management.System.application.dto.manager.ApplicationFilterDTO;
 import api.v1.KPI.Management.System.application.entity.ApplicationEntity;
+import api.v1.KPI.Management.System.application.enums.ApplicationStatus;
 import api.v1.KPI.Management.System.application.repository.ApplicationCustomRepository;
 import api.v1.KPI.Management.System.application.repository.ApplicationRepository;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
@@ -18,6 +19,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -44,12 +46,31 @@ public class  ApplicationService {
         return applicationCustomRepository.filter(dto, page,size);
     }
 
+
     public AppResponse<String> changeStatus(ApplicationStatusDTO dto, AppLanguage lang) {
-        findById(dto.getId());
-        int effectedRow = applicationRepository.changeStatus(dto);
+        int effectedRow = applicationRepository.changeAdminStatus(dto, LocalDateTime.now());
         return AppResponseUtil.chek(effectedRow > 0);
     }
 
+    public AppResponse<String> changeAdminStatus(ApplicationStatusDTO dto, AppLanguage lang) {
+        findById(dto.getId());
+        int effectedRow = applicationRepository.changeAdminStatus(dto, LocalDateTime.now());
+        return AppResponseUtil.chek(effectedRow > 0);
+    }
+    public AppResponse<String> changeEmployeeStatus(ApplicationStatusDTO dto, AppLanguage lang) {
+        findById(dto.getId());
+        int effectedRow =0;
+        if (dto.getStatus().equals(ApplicationStatus.IN_PROGRESS)){
+            effectedRow = applicationRepository.changeEmployeeStatusInProgress(dto, LocalDateTime.now(), SpringSecurityUtil.getCurrentUserId());
+        }
+        if (dto.getStatus().equals(ApplicationStatus.REVIEW)){
+            effectedRow = applicationRepository.changeEmployeeStatusReview(dto, LocalDateTime.now());
+        }
+        if (dto.getStatus().equals(ApplicationStatus.DENIED)){
+            effectedRow = applicationRepository.changeEmployeeStatusDenied(dto, LocalDateTime.now());
+        }
+        return AppResponseUtil.chek(effectedRow > 0);
+    }
 
     public Page<ApplicationEntity> findAllByMyIdAndVisibleTruePage(String userId, Pageable pageable) {
         return applicationRepository.findAllByMyIdAndVisibleTruePage(userId, pageable);

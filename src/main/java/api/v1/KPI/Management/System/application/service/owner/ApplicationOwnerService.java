@@ -21,4 +21,5 @@ public class ApplicationOwnerService extends ApplicationService {
         ApplicationEntity entity = findById(dto.getId());
         return changeStatus(dto, lang);
     }
+
 }

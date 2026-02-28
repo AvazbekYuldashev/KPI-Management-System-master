@@ -25,6 +25,8 @@ public class ApplicationEntity {
     private String title;                    // ariza nomi
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;              // xat mazmuni
+    @Column(name = "comments")
+    private String comments;
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private ApplicationStatus status;        // ariza statusi

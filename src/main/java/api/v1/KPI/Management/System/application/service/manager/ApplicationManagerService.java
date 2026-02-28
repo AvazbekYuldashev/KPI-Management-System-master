@@ -27,25 +27,6 @@ public class ApplicationManagerService extends ApplicationService {
         return ownerFilter(dto, page, size, lang);
     }
 
-    public AppResponse<String> updateStatus(ApplicationStatusDTO dto, AppLanguage lang) {
-        ApplicationEntity entity = findById(dto.getId());
-
-        if (!entity.getDepartment().equals(SpringSecurityUtil.getCurrentUserDepartmentId())) {
-            throw new AuthorizationDeniedException(
-//                    messageSource.getMessage("auth.denied", null, lang)
-                    "You are not authorized to perform this operation"
-            );
-        }
-
-        if (!dto.getStatus().equals(ApplicationStatus.APPROVED)
-                && !dto.getStatus().equals(ApplicationStatus.REJECTED)) {
-            throw new AppBadException(
-                    //messageSource.getMessage("status.invalid", null, lang)
-                    "Status notogri"
-            );
-        }
-        return changeStatus(dto, lang);
-    }
 
 
 

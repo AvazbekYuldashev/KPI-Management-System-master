@@ -14,12 +14,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
+
 @Repository
 public interface ApplicationRepository extends JpaRepository<ApplicationEntity, String> {
-    @Modifying
-    @Transactional
-    @Query("UPDATE ApplicationEntity a SET a.status = :#{#dto.status} WHERE a.id = :#{#dto.id}")
-    int changeStatus(ApplicationStatusDTO dto);
+
 
     @Query("SELECT a FROM ApplicationEntity a WHERE a.sendProfileId = :userId AND a.visible = TRUE ORDER BY a.createdDate DESC ")
     Page<ApplicationEntity> findAllByMyIdAndVisibleTruePage(String userId, Pageable pageable);
@@ -46,4 +45,29 @@ public interface ApplicationRepository extends JpaRepository<ApplicationEntity, 
 
     @Query("SELECT a FROM ApplicationEntity a WHERE a.buildingId = :id AND a.visible = TRUE ")
     Page<ApplicationEntity> findAllByBuildingIdAndVisibleTruePage(String id, Pageable pageable);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ApplicationEntity a SET a.status = :#{#dto.status} WHERE a.id = :#{#dto.id}")
+    int changeStatus(ApplicationStatusDTO dto);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ApplicationEntity a SET a.status = :#{#dto.status}, a.adminCheckedDate = :now, a.updatedDate = :now WHERE a.id = :#{#dto.id}")
+    int changeAdminStatus(ApplicationStatusDTO dto, LocalDateTime now);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ApplicationEntity a SET a.status = :#{#dto.status}, a.acceptorProfileId = :acceptorProfileId, a.employeeApprovedDate = :now, a.updatedDate = :now WHERE a.id = :#{#dto.id}")
+    int changeEmployeeStatusInProgress(ApplicationStatusDTO dto, @Param("now") LocalDateTime now, @Param("acceptorProfileId") String acceptorProfileId);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ApplicationEntity a SET a.status = :#{#dto.status}, a.employeeEndDate = :now, a.updatedDate = :now WHERE a.id = :#{#dto.id}")
+    int changeEmployeeStatusReview(ApplicationStatusDTO dto, LocalDateTime now);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ApplicationEntity a SET a.status = :#{#dto.status}, a.employeeEndDate = :now, a.updatedDate = :now WHERE a.id = :#{#dto.id}")
+    int changeEmployeeStatusDenied(ApplicationStatusDTO dto, LocalDateTime now);
 }

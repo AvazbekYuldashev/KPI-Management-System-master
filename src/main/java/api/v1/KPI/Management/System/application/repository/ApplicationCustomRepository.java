@@ -98,7 +98,7 @@ public class ApplicationCustomRepository {
 
         // --- Select DTO ---
         String selectQuery = "SELECT new api.v1.KPI.Management.System.application.dto.core.ApplicationResponseDTO(" +
-                "a.id, a.title, a.description, a.status, a.kpiBall, a.kpiBallLimit, a.deadline, a.visible," +
+                "a.id, a.title, a.description, a.comments, a.status, a.kpiBall, a.kpiBallLimit, a.deadline, a.visible," +
                 "sp.id, CONCAT(sp.name,' ',sp.surname)," +
                 "ap.id, CONCAT(ap.name,' ',ap.surname)," +
                 "d.id, d.title," +

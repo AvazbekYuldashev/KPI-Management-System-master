@@ -47,7 +47,7 @@ public class ApplicationAdminService extends ApplicationService {
                     "You are not authorized to perform this operation"
             );
         }
-        return changeStatus(dto, lang);
+        return changeAdminStatus(dto, lang);
     }
 
     public Page<ApplicationResponseDTO> searchApplications(ApplicationFilterDTO dto, int page, Integer size, AppLanguage lang) {

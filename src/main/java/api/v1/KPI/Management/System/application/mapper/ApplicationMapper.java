@@ -11,6 +11,7 @@ public class ApplicationMapper {
         ApplicationEntity entity = new ApplicationEntity();
         entity.setTitle(dto.getTitle());
         entity.setDescription(dto.getDescription());
+        entity.setComments(dto.getComments());
         entity.setDepartmentId(dto.getDepartmentId());
         entity.setBuildingId(dto.getBuildingId());
         entity.setCategoryId(dto.getCategoryId());
@@ -34,6 +35,7 @@ public class ApplicationMapper {
         dto.setBuildingId(entity.getBuildingId());
         dto.setOfferingId(entity.getOfferingId());
         dto.setCategoryId(entity.getCategoryId());
+        dto.setComments(entity.getComments());
 
         dto.setCreatedDate(entity.getCreatedDate());
         dto.setAdminCheckedDate(entity.getAdminCheckedDate());
