@@ -32,6 +32,14 @@ public class ApplicationAdminController {
         return ResponseEntity.ok().body(applicationAdminService.updateStatus(dto, lang));
     }
 
+    @GetMapping("/by-building/{id}")
+    public ResponseEntity<Page<ApplicationResponseDTO>> getAllByBuildingId(@PathVariable String id,
+                                                                           @RequestParam(value = "page", defaultValue = "1") Integer page,
+                                                                           @RequestParam(value = "size", defaultValue = "10") Integer size,
+                                                                           @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
+        return ResponseEntity.ok().body(applicationAdminService.getAllByBuildingId(id, getCurrentPage(page),size,lang));
+    }
+
     public static int getCurrentPage(Integer page) {
         return (page != null && page > 0) ? page - 1 : 0;
     }

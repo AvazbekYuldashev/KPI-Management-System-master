@@ -47,6 +47,8 @@ public class ApplicationCoreService extends ApplicationService {
         Pageable pageable = PageRequest.of(page, size);
         return findAllByMyIdAndVisibleTruePage(SpringSecurityUtil.getCurrentUserId(), pageable).map(entity -> applicationMapper.toResponseDTO(entity));
     }
+
+
 }
 
 

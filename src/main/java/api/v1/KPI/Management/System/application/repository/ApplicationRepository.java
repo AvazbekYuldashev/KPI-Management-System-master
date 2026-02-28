@@ -1,6 +1,7 @@
 package api.v1.KPI.Management.System.application.repository;
 
 import api.v1.KPI.Management.System.application.dto.core.ApplicationGetterDTO;
+import api.v1.KPI.Management.System.application.dto.core.ApplicationResponseDTO;
 import api.v1.KPI.Management.System.application.dto.core.ApplicationStatusDTO;
 import api.v1.KPI.Management.System.application.entity.ApplicationEntity;
 import api.v1.KPI.Management.System.kpi.dto.core.KpiResponseDTO;
@@ -43,4 +44,6 @@ public interface ApplicationRepository extends JpaRepository<ApplicationEntity, 
         """)
     Page<KpiResponseDTO> getEmployeeKpi(@Param("dto") ApplicationGetterDTO dto, Pageable pageable);
 
+    @Query("SELECT a FROM ApplicationEntity a WHERE a.buildingId = :id AND a.visible = TRUE ")
+    Page<ApplicationEntity> findAllByBuildingIdAndVisibleTruePage(String id, Pageable pageable);
 }

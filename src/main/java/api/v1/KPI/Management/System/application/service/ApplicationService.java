@@ -59,4 +59,9 @@ public class  ApplicationService {
         ApplicationGetterDTO dto = ApplicationGetterDTO.builder().acceptorProfileId(id).build();
         return applicationRepository.getEmployeeKpi(dto, pageable);
     }
+
+
+    public Page<ApplicationEntity> findAllByBuildingId(String id, Pageable pageable, AppLanguage lang) {
+        return applicationRepository.findAllByBuildingIdAndVisibleTruePage(id, pageable);
+    }
 }
