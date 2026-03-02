@@ -19,5 +19,5 @@ public class ApplicationGetterDTO {
     private ApplicationStatus rejected = ApplicationStatus.DENIED;
 
     @Builder.Default
-    private ApplicationStatus completed = ApplicationStatus.COMPLETED;
+    private ApplicationStatus completed = ApplicationStatus.REVIEW;
 }

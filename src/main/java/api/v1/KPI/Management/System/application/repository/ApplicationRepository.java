@@ -4,6 +4,7 @@ import api.v1.KPI.Management.System.application.dto.core.ApplicationGetterDTO;
 import api.v1.KPI.Management.System.application.dto.core.ApplicationResponseDTO;
 import api.v1.KPI.Management.System.application.dto.core.ApplicationStatusDTO;
 import api.v1.KPI.Management.System.application.entity.ApplicationEntity;
+import api.v1.KPI.Management.System.application.enums.ApplicationStatus;
 import api.v1.KPI.Management.System.kpi.dto.core.KpiResponseDTO;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
@@ -15,6 +16,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ApplicationRepository extends JpaRepository<ApplicationEntity, String> {
@@ -27,6 +30,7 @@ public interface ApplicationRepository extends JpaRepository<ApplicationEntity, 
             a.acceptorProfileId,
             p.name,
             p.surname,
+            SUM(CASE WHEN a.acceptorProfileId = :#{#dto.acceptorProfileId} THEN 1 ELSE 0 END),
             SUM(CASE WHEN a.status = :#{#dto.accepted} THEN 1 ELSE 0 END), 
             SUM(CASE WHEN a.status = :#{#dto.rejected} THEN 1 ELSE 0 END), 
             SUM(CASE WHEN a.status = :#{#dto.completed} THEN 1 ELSE 0 END), 
@@ -70,4 +74,10 @@ public interface ApplicationRepository extends JpaRepository<ApplicationEntity, 
     @Transactional
     @Query("UPDATE ApplicationEntity a SET a.status = :#{#dto.status}, a.employeeEndDate = :now, a.updatedDate = :now WHERE a.id = :#{#dto.id}")
     int changeEmployeeStatusDenied(ApplicationStatusDTO dto, LocalDateTime now);
+
+    @Query("SELECT a FROM ApplicationEntity a WHERE a.buildingId = :id AND a.status = :status")
+    Page<ApplicationEntity> findAllByStatusAcceptPage(Pageable pageable, @Param("id") String id, @Param("status") ApplicationStatus status);
+
+    @Query("SELECT a FROM ApplicationEntity a WHERE a.acceptorProfileId = :id AND a.buildingId = :currentBuildingId AND a.visible = true")
+    Page<ApplicationEntity> findAllByMyIdPage(Pageable pageable, @Param("id") String id,@Param("currentBuildingId") String currentBuildingId);
 }

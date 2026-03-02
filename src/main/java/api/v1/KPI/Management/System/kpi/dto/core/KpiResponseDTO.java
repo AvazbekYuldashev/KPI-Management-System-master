@@ -11,8 +11,11 @@ public class KpiResponseDTO {
     private String employeeId;
     private String employeeName;
     private String employeeSurname;
+
+    private Long totalCount;
     private Long acceptedTaskCount;
     private Long rejectedTaskCount;
     private Long completedTaskCount;
+
     private Double totalScore;
 }

@@ -58,16 +58,20 @@ public class  ApplicationService {
         return AppResponseUtil.chek(effectedRow > 0);
     }
     public AppResponse<String> changeEmployeeStatus(ApplicationStatusDTO dto, AppLanguage lang) {
-        findById(dto.getId());
+        ApplicationEntity entity = findById(dto.getId());
         int effectedRow =0;
-        if (dto.getStatus().equals(ApplicationStatus.IN_PROGRESS)){
-            effectedRow = applicationRepository.changeEmployeeStatusInProgress(dto, LocalDateTime.now(), SpringSecurityUtil.getCurrentUserId());
+        if (entity.getStatus().equals(ApplicationStatus.APPROVED)){
+            if (dto.getStatus().equals(ApplicationStatus.IN_PROGRESS)){
+                effectedRow = applicationRepository.changeEmployeeStatusInProgress(dto, LocalDateTime.now(), SpringSecurityUtil.getCurrentUserId());
+            }
         }
-        if (dto.getStatus().equals(ApplicationStatus.REVIEW)){
-            effectedRow = applicationRepository.changeEmployeeStatusReview(dto, LocalDateTime.now());
-        }
-        if (dto.getStatus().equals(ApplicationStatus.DENIED)){
-            effectedRow = applicationRepository.changeEmployeeStatusDenied(dto, LocalDateTime.now());
+        if (entity.getStatus().equals(ApplicationStatus.IN_PROGRESS)){
+            if (dto.getStatus().equals(ApplicationStatus.REVIEW)){
+                effectedRow = applicationRepository.changeEmployeeStatusReview(dto, LocalDateTime.now());
+            }
+            if (dto.getStatus().equals(ApplicationStatus.DENIED)){
+                effectedRow = applicationRepository.changeEmployeeStatusDenied(dto, LocalDateTime.now());
+            }
         }
         return AppResponseUtil.chek(effectedRow > 0);
     }
@@ -84,5 +88,13 @@ public class  ApplicationService {
 
     public Page<ApplicationEntity> findAllByBuildingId(String id, Pageable pageable, AppLanguage lang) {
         return applicationRepository.findAllByBuildingIdAndVisibleTruePage(id, pageable);
+    }
+
+
+    public Page<ApplicationEntity> findAllByStatusAcceptPage(Pageable pageable, String id) {
+        return applicationRepository.findAllByStatusAcceptPage(pageable, id, ApplicationStatus.APPROVED);
+    }
+    public Page<ApplicationEntity> findAllByMyIdPage(Pageable pageable, String id, String currentBuildingId) {
+        return applicationRepository.findAllByMyIdPage(pageable, id, currentBuildingId);
     }
 }

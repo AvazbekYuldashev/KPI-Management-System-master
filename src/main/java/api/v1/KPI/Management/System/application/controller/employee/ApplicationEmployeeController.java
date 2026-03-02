@@ -26,6 +26,20 @@ public class ApplicationEmployeeController {
         return ResponseEntity.ok().body(applicationEmployeeService.searchApplications(dto, getCurrentPage(page), size, lang));
     }
 
+    @GetMapping("/status-accept")
+    public ResponseEntity<Page<ApplicationResponseDTO>> getAllByStatusAcceptPage(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                                                             @RequestParam(value = "size", defaultValue = "10") Integer size,
+                                                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
+        return ResponseEntity.ok().body(applicationEmployeeService.getAllByStatusAcceptPage(getCurrentPage(page), size, lang));
+    }
+
+    @GetMapping("/by-mee")
+    public ResponseEntity<Page<ApplicationResponseDTO>> getAllByMyIdPage(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                                                             @RequestParam(value = "size", defaultValue = "10") Integer size,
+                                                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
+        return ResponseEntity.ok().body(applicationEmployeeService.getAllByMyIdPage(getCurrentPage(page), size, lang));
+    }
+
     @PatchMapping("/status")
     public ResponseEntity<AppResponse<String>> updateStatus(@RequestBody ApplicationStatusDTO dto,
                                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {

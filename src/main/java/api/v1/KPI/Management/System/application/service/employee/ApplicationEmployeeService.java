@@ -7,15 +7,27 @@ import api.v1.KPI.Management.System.application.dto.core.ApplicationStatusDTO;
 import api.v1.KPI.Management.System.application.dto.manager.ApplicationFilterDTO;
 import api.v1.KPI.Management.System.application.entity.ApplicationEntity;
 import api.v1.KPI.Management.System.application.enums.ApplicationStatus;
+import api.v1.KPI.Management.System.application.mapper.ApplicationMapper;
 import api.v1.KPI.Management.System.application.service.ApplicationService;
 import api.v1.KPI.Management.System.exception.exps.AppBadException;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ApplicationEmployeeService extends ApplicationService {
+
+    private final ApplicationMapper applicationMapper;
+
+    public ApplicationEmployeeService(ApplicationMapper applicationMapper) {
+        super();
+        this.applicationMapper = applicationMapper;
+    }
 
     public Page<ApplicationResponseDTO> searchApplications(ApplicationFilterDTO dto, int page, Integer size, AppLanguage lang) {
         dto.setDepartmentId(SpringSecurityUtil.getCurrentUserDepartmentId());
@@ -46,4 +58,17 @@ public class ApplicationEmployeeService extends ApplicationService {
         }
         return changeEmployeeStatus(dto, lang);
     }
+
+    public Page<ApplicationResponseDTO> getAllByStatusAcceptPage(int page, Integer size, AppLanguage lang) {
+        Pageable pageable = PageRequest.of(page, size);
+        return findAllByStatusAcceptPage(pageable, SpringSecurityUtil.getCurrentUserBuildingId()).map(entity -> applicationMapper.toResponseDTO(entity));
+    }
+
+    public Page<ApplicationResponseDTO> getAllByMyIdPage(int page, Integer size, AppLanguage lang) {
+        Pageable pageable = PageRequest.of(page, size);
+        String id = SpringSecurityUtil.getCurrentUserId();
+        return findAllByMyIdPage(pageable, id, SpringSecurityUtil.getCurrentUserBuildingId()).map(entity -> applicationMapper.toResponseDTO(entity));
+    }
+
+
 }
