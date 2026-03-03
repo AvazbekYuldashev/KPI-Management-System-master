@@ -29,6 +29,7 @@ public class ApplicationMapper {
         dto.setKpiBallLimit(entity.getKpiBallLimit());
         dto.setDepartmentId(entity.getDepartmentId());
         dto.setVisible(entity.getVisible());
+        dto.setDeadline(entity.getDeadline());
 
         dto.setSendProfileId(entity.getSendProfileId());
         dto.setAcceptorProfileId(entity.getAcceptorProfileId());
