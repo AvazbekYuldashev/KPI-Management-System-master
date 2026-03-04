@@ -3,9 +3,11 @@ package api.v1.KPI.Management.System.employee.controller.manager;
 
 import api.v1.KPI.Management.System.employee.service.core.EmployeeCoreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@PreAuthorize("hasRole('MANAGER')")
 @RequestMapping("/api/v1/employee-manager")
 public class EmployeeManagerController {
     @Autowired

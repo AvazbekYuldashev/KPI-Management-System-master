@@ -7,9 +7,11 @@ import api.v1.KPI.Management.System.department.dto.manager.DepartmentManagerUpda
 import api.v1.KPI.Management.System.department.service.manager.DepartmentManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@PreAuthorize("hasRole('MANAGER')")
 @RequestMapping("/api/v1/department-manager")
 public class DepartmentManagerController {
     @Autowired

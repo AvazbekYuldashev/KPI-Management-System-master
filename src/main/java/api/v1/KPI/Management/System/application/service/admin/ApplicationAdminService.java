@@ -12,6 +12,7 @@ import api.v1.KPI.Management.System.application.service.ApplicationService;
 import api.v1.KPI.Management.System.building.service.helper.BuildingHelperService;
 import api.v1.KPI.Management.System.exception.exps.AppBadException;
 import api.v1.KPI.Management.System.security.util.SpringSecurityUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,25 +22,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class ApplicationAdminService extends ApplicationService {
 
-    private final BuildingHelperService buildingHelperService;
-    private final ApplicationMapper applicationMapper;
+    @Autowired
+    private BuildingHelperService buildingHelperService;
+    @Autowired
+    private  ApplicationMapper applicationMapper;
 
-    public ApplicationAdminService(BuildingHelperService buildingHelperService, ApplicationMapper applicationMapper) {
-        super();
-        this.buildingHelperService = buildingHelperService;
-        this.applicationMapper = applicationMapper;
-    }
 
     public AppResponse<String> updateStatus(ApplicationStatusDTO dto, AppLanguage lang) {
-        if (!dto.getStatus().equals(ApplicationStatus.APPROVED)
-                && !dto.getStatus().equals(ApplicationStatus.REJECTED)) {
+        if (!dto.getStatus().isAdminActionAllowed()) {
+            throw new AppBadException("Invalid status transition");
+        }
+
+        ApplicationEntity entity = findById(dto.getId());
+        if (!entity.getStatus().equals(ApplicationStatus.SENT)){
             throw new AppBadException(
                     //messageSource.getMessage("status.invalid", null, lang)
                     "Status notogri"
             );
         }
-
-        ApplicationEntity entity = findById(dto.getId());
         if (!entity.getDepartmentId().equals(SpringSecurityUtil.getCurrentUserDepartmentId())
                 || !entity.getBuildingId().equals(SpringSecurityUtil.getCurrentUserBuildingId())) {
 

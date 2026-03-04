@@ -6,9 +6,11 @@ import api.v1.KPI.Management.System.building.service.core.BuildingCoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@PreAuthorize("hasAnyRole('OWNER', 'MANAGER', 'ADMIN', 'EMPLOYEE', 'USER')")
 @RequestMapping("/api/v1/building-core")
 public class BuildingCoreController {
     @Autowired

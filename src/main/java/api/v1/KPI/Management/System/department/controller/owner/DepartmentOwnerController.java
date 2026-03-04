@@ -12,8 +12,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-@PreAuthorize("hasRole('OWNER')")
 @RestController
+@PreAuthorize("hasRole('OWNER')")
 @RequestMapping("/api/v1/department-owner")
 public class DepartmentOwnerController {
     @Autowired
@@ -27,8 +27,8 @@ public class DepartmentOwnerController {
 
     @GetMapping("/all")
     public ResponseEntity<Page<DepartmentResponseDTO>> findAll(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                                                             @RequestParam(value = "size", defaultValue = "10") Integer size,
-                                                             @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
+                                                               @RequestParam(value = "size", defaultValue = "10") Integer size,
+                                                               @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
         return ResponseEntity.ok().body(departmentOwnerService.getAllPage(getCurrentPage(page), size, lang));
     }
 
@@ -43,3 +43,4 @@ public class DepartmentOwnerController {
     }
 
 }
+

@@ -9,9 +9,11 @@ import api.v1.KPI.Management.System.category.service.manager.CategoryManagerServ
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@PreAuthorize("hasRole('MANAGER')")
 @RequestMapping("/api/v1/category-manager")
 public class CategoryManagerController {
     @Autowired
