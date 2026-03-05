@@ -1,6 +1,7 @@
 package api.v1.KPI.Management.System.offering.service.core;
 
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
+import api.v1.KPI.Management.System.app.service.ResourceBoundleService;
 import api.v1.KPI.Management.System.building.dto.core.BuildingResponseDTO;
 import api.v1.KPI.Management.System.building.entity.BuildingEntity;
 import api.v1.KPI.Management.System.building.mapper.BuildingMapper;
@@ -22,11 +23,13 @@ import java.util.List;
 public class OfferingCoreService extends OfferingService {
     @Autowired
     private OfferingMapper offeringMapper;
+    @Autowired
+    private ResourceBoundleService boundleService;
 
     public OfferingResponseDTO getById(String id, AppLanguage lang){
         OfferingEntity entity = findByIdAndVisibleTrue(id);
         if (entity != null) return offeringMapper.toResponseDTO(entity);
-        throw new ResourceNotFoundException("Offering Not Found");
+        throw new ResourceNotFoundException(boundleService.getMessage("offering.not.found", lang));
     }
 
     public Page<OfferingResponseDTO> getAllByDepartmentIdPage(String id, int page, Integer size, AppLanguage lang) {

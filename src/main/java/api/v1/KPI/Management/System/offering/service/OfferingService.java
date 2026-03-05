@@ -1,6 +1,7 @@
 package api.v1.KPI.Management.System.offering.service;
 
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
+import api.v1.KPI.Management.System.app.service.ResourceBoundleService;
 import api.v1.KPI.Management.System.building.entity.BuildingEntity;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
 import api.v1.KPI.Management.System.offering.dto.core.OfferingResponseDTO;
@@ -17,6 +18,8 @@ import java.util.Optional;
 public class OfferingService {
     @Autowired
     private OfferingRepository offeringRepository;
+    @Autowired
+    private ResourceBoundleService boundleService;
 
 
     public OfferingEntity create(OfferingEntity entity){return offeringRepository.save(entity);}
@@ -28,7 +31,7 @@ public class OfferingService {
 
     public Boolean update(OfferingEntity entity, AppLanguage lang){
         OfferingEntity offering = findByIdAndVisibleTrue(entity.getId());
-        if (offering == null) throw new ResourceNotFoundException("Offering Not Found");
+        if (offering == null) throw new ResourceNotFoundException(boundleService.getMessage("offering.not.found", lang));
         return offeringRepository.update(entity) > 0;
     }
 
