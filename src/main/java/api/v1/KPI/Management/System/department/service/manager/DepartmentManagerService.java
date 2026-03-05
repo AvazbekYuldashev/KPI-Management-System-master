@@ -30,13 +30,20 @@ public class DepartmentManagerService extends DepartmentService {
         this.boundleService = boundleService;
     }
     public AppResponse<String> changeDetail(DepartmentManagerUpdateDTO dto, AppLanguage lang) {
-        DepartmentEntity entity = findById(SpringSecurityUtil.getCurrentUserDepartmentId());
+        String currentDeptId = SpringSecurityUtil.getCurrentUserDepartmentId();
+        DepartmentEntity entity = findById(currentDeptId);
+
         if (entity == null) throw new ResourceNotFoundException(boundleService.getMessage("department.not.found", lang));
-        if (!entity.getId().equals(SpringSecurityUtil.getCurrentUserDepartmentId())) {
-            throw new AuthorizationDeniedException(boundleService.getMessage("department.update.permission.denied", lang));
+        if (!entity.getId().equals(currentDeptId)) {
+            throw new AuthorizationDeniedException(boundleService.getMessage(
+                    "department.update.permission.denied", lang
+            ));
         }
-        DepartmentEntity department = departmentManagerMapper.toUpdatedEntity(dto);
-        return AppResponseUtil.chek(update(department, lang));
+        DepartmentEntity updatedEntity = departmentManagerMapper.toUpdatedEntity(dto);
+        updatedEntity.setId(currentDeptId); // to ensure department ID is correct
+        boolean success = update(updatedEntity, lang);
+        String messageKey = success ? "department.update.completed.successfully" : "department.update.failed";
+        return new AppResponse<>(boundleService.getMessage(messageKey, lang));
     }
 
     public DepartmentResponseDTO getMyDepartment(AppLanguage lang) {

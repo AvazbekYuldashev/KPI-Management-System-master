@@ -1,6 +1,7 @@
 package api.v1.KPI.Management.System.category.service;
 
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
+import api.v1.KPI.Management.System.app.service.ResourceBoundleService;
 import api.v1.KPI.Management.System.building.entity.BuildingEntity;
 import api.v1.KPI.Management.System.category.entity.CategoryEntity;
 import api.v1.KPI.Management.System.category.repository.CategoryRepository;
@@ -15,7 +16,8 @@ import java.util.Optional;
 public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
-
+    @Autowired
+    private ResourceBoundleService boundleService;
     public CategoryEntity create(CategoryEntity entity){return categoryRepository.save(entity);}
 
     public CategoryEntity findByIdAndVisibleTrue(String id){return categoryRepository.findByIdAndVisibleTrue(id).get();}
@@ -28,7 +30,7 @@ public class CategoryService {
 
     public Boolean update(CategoryEntity entity, AppLanguage lang){
         CategoryEntity category = findByIdAndVisibleTrue(entity.getId());
-        if (category == null) throw new ResourceNotFoundException("Category Not Found");
+        if (category == null) throw new ResourceNotFoundException(boundleService.getMessage("category.not.found", lang));
         return categoryRepository.update(entity) > 0;
     }
 }
