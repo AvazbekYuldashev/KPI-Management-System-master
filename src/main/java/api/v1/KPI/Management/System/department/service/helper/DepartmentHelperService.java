@@ -22,7 +22,7 @@ public class DepartmentHelperService {
     public DepartmentEntity findById(String id,  AppLanguage lang) {
         return departmentHelperRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        boundleService.getMessage("department.not.found.with.given.id", lang)
+                        boundleService.getMessage("department.not.found", lang)
                 ));
     }
 }

@@ -58,7 +58,7 @@ public class ApplicationAdminService extends ApplicationService {
 
 
     public Page<ApplicationResponseDTO> getAllByBuildingId(String id, int page, Integer size, AppLanguage lang) {
-        buildingHelperService.findById(id);
+        buildingHelperService.findById(id,lang);
         Pageable pageable = PageRequest.of(page, size);
         return findAllByBuildingId(id, pageable, lang).map(applicationMapper::toResponseDTO);
     }

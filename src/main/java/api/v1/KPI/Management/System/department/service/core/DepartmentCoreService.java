@@ -48,7 +48,7 @@ public class DepartmentCoreService extends DepartmentService {
     private DepartmentResponseDTO mapOrThrow(DepartmentEntity entity, AppLanguage lang) {
         if (entity == null) {
             throw new ResourceNotFoundException(
-                    boundleService.getMessage("department.not.found.with.given.id", lang)
+                    boundleService.getMessage("department.not.found", lang)
             );
         }
         return departmentMapper.toResponseDTO(entity);

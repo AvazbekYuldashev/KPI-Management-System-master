@@ -31,9 +31,9 @@ public class DepartmentManagerService extends DepartmentService {
     }
     public AppResponse<String> changeDetail(DepartmentManagerUpdateDTO dto, AppLanguage lang) {
         DepartmentEntity entity = findById(SpringSecurityUtil.getCurrentUserDepartmentId());
-        if (entity == null) throw new ResourceNotFoundException(boundleService.getMessage("department.not.found.with.given.id", lang));
+        if (entity == null) throw new ResourceNotFoundException(boundleService.getMessage("department.not.found", lang));
         if (!entity.getId().equals(SpringSecurityUtil.getCurrentUserDepartmentId())) {
-            throw new AuthorizationDeniedException(boundleService.getMessage("you.do.not.have.sufficient.permissions.to.update.the.department", lang));
+            throw new AuthorizationDeniedException(boundleService.getMessage("department.update.permission.denied", lang));
         }
         DepartmentEntity department = departmentManagerMapper.toUpdatedEntity(dto);
         return AppResponseUtil.chek(update(department, lang));
@@ -41,7 +41,7 @@ public class DepartmentManagerService extends DepartmentService {
 
     public DepartmentResponseDTO getMyDepartment(AppLanguage lang) {
         DepartmentEntity entity = findById(SpringSecurityUtil.getCurrentUserDepartmentId());
-        if (entity == null) throw new ResourceNotFoundException(boundleService.getMessage("department.not.found.with.given.id", lang));
+        if (entity == null) throw new ResourceNotFoundException(boundleService.getMessage("department.not.found", lang));
         return departmentMapper.toResponseDTO(entity);
     }
 }

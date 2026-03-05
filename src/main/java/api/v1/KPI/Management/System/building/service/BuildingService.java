@@ -1,6 +1,7 @@
 package api.v1.KPI.Management.System.building.service;
 
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
+import api.v1.KPI.Management.System.app.service.ResourceBoundleService;
 import api.v1.KPI.Management.System.building.entity.BuildingEntity;
 import api.v1.KPI.Management.System.building.repoisotry.BuildingRepository;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
@@ -18,6 +19,8 @@ import java.util.Optional;
 public class BuildingService {
     @Autowired
     private BuildingRepository buildingRepository;
+    @Autowired
+    private ResourceBoundleService boundleService;
 
     public BuildingEntity create(BuildingEntity entity){
         return buildingRepository.save(entity);
@@ -35,7 +38,7 @@ public class BuildingService {
 
     public Boolean update(BuildingEntity entity, AppLanguage lang){
         BuildingEntity department = findById(entity.getId());
-        if (department == null) throw new ResourceNotFoundException("Department Not Found");
+        if (department == null) throw new ResourceNotFoundException(boundleService.getMessage("building.not.found", lang));
         int effectedRow = buildingRepository.update(entity);
         return effectedRow > 0;
     }

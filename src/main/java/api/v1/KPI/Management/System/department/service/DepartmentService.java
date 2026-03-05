@@ -33,7 +33,7 @@ public class DepartmentService {
     public Boolean update(DepartmentEntity entity, AppLanguage lang){
         DepartmentEntity department = findById(entity.getId());
 
-        if (department == null) throw new ResourceNotFoundException(boundleService.getMessage("department.not.found.with.given.id", lang));
+        if (department == null) throw new ResourceNotFoundException(boundleService.getMessage("department.not.found", lang));
         return departmentRepository.update(entity) > 0;
     }
 

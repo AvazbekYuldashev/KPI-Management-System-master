@@ -108,7 +108,7 @@ public class ProfileOwnerService extends ProfileService {
 
     public AppResponse<String> updateBuilding(ProfileOwnerChangeBuildingDTO dto, AppLanguage lang) {
         ProfileEntity profile = findById(dto.getId(), lang);
-        BuildingEntity building = buildingHelperService.findById(dto.getBuildingId());
+        BuildingEntity building = buildingHelperService.findById(dto.getBuildingId(), lang);
         return profileHelperService.changeBuilding(profile.getId(), building.getDepartmentId(), dto.getBuildingId(), lang);
     }
 
