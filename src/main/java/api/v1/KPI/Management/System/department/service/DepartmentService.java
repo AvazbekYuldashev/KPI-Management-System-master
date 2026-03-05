@@ -1,6 +1,7 @@
 package api.v1.KPI.Management.System.department.service;
 
 import api.v1.KPI.Management.System.app.enums.AppLanguage;
+import api.v1.KPI.Management.System.app.service.ResourceBoundleService;
 import api.v1.KPI.Management.System.department.entity.DepartmentEntity;
 import api.v1.KPI.Management.System.department.repository.DepartmentRepository;
 import api.v1.KPI.Management.System.exception.exps.ResourceNotFoundException;
@@ -9,12 +10,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class DepartmentService {
+
     @Autowired
     private DepartmentRepository departmentRepository;
+    @Autowired
+    private ResourceBoundleService boundleService;
 
     public DepartmentEntity create(DepartmentEntity entity){
         return departmentRepository.save(entity);
@@ -30,7 +32,8 @@ public class DepartmentService {
 
     public Boolean update(DepartmentEntity entity, AppLanguage lang){
         DepartmentEntity department = findById(entity.getId());
-        if (department == null) throw new ResourceNotFoundException("Department Not Found");
+
+        if (department == null) throw new ResourceNotFoundException(boundleService.getMessage("department.not.found.with.given.id", lang));
         return departmentRepository.update(entity) > 0;
     }
 

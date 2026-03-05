@@ -29,7 +29,7 @@ public class DepartmentOwnerController {
     public ResponseEntity<Page<DepartmentResponseDTO>> findAll(@RequestParam(value = "page", defaultValue = "1") Integer page,
                                                                @RequestParam(value = "size", defaultValue = "10") Integer size,
                                                                @RequestHeader(value = "Accept-Language", defaultValue = "UZ") AppLanguage lang) {
-        return ResponseEntity.ok().body(departmentOwnerService.getAllPage(getCurrentPage(page), size, lang));
+        return ResponseEntity.ok().body(departmentOwnerService.getAllPage(getCurrentPage(page), size));
     }
 
     @PutMapping("/update")

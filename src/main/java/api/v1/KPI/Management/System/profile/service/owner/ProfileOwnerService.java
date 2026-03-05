@@ -97,7 +97,7 @@ public class ProfileOwnerService extends ProfileService {
 
     public AppResponse<String> updateDepartment(ProfileOwnerChangeDepartmentDTO dto, AppLanguage lang) {
         ProfileEntity profile = findById(dto.getId(), lang);
-        DepartmentEntity department = departmentHelperService.findById(dto.getDepartmentId());
+        DepartmentEntity department = departmentHelperService.findById(dto.getDepartmentId(), lang);
         return profileHelperService.changeDepartmentId(dto.getDepartmentId(), dto.getId(), lang);
     }
 
